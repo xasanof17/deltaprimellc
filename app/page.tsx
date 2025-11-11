@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Globe, Cpu, Truck, ArrowRight, CheckCircle, TrendingUp, Package, Star, Shield, Clock } from "lucide-react"
+import { Globe, Cpu, Truck, ArrowRight, CheckCircle, TrendingUp, Package, Star, Shield, Clock, LocateFixedIcon, MapIcon } from "lucide-react"
 import Link from "next/link"
 import { TestimonialsCarousel } from "@/components/testimonials-carousel"
 import { ShipperQuoteModal } from "@/components/shipper-quote-modal"
@@ -71,12 +71,11 @@ export default function HomePage() {
             <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-xl">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Globe className="text-primary-foreground" size={32} />
+                  <MapIcon className="text-primary-foreground" size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">Global Network</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Nationwide Coverage</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Seamless connections across continents with strategic partnerships in over 150 countries, ensuring
-                  your cargo reaches anywhere in the world.
+                  Reliable freight delivery across the entire United States with a strong network of shippers, warehouses, and distribution centers ensuring on-time deliveries coast to coast.
                 </p>
               </CardContent>
             </Card>
@@ -85,12 +84,11 @@ export default function HomePage() {
             <Card className="border-2 hover:border-accent transition-all duration-300 hover:shadow-xl">
               <CardContent className="p-8 text-center">
                 <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Cpu className="text-accent-foreground" size={32} />
+                  <LocateFixedIcon className="text-accent-foreground" size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">Smart Logistics Technology</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Smart Dispatch & Tracking Technology</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  AI-powered route optimization, real-time tracking, and predictive analytics that keep you informed and
-                  your shipments on schedule.
+                  AI-powered dispatching, real-time GPS tracking, ELD integration, and predictive analytics that keep you updated and ensure every load stays on schedule.
                 </p>
               </CardContent>
             </Card>
@@ -101,10 +99,9 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
                   <Truck className="text-primary-foreground" size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">Dedicated Fleet & Drivers</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Dedicated Fleet & Professional Drivers</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Modern, well-maintained vehicles operated by experienced, safety-certified professionals committed to
-                  excellence in every delivery.
+                  A modern, well-maintained fleet operated by experienced, safety-certified drivers committed to delivering exceptional and damage-free service every time.
                 </p>
               </CardContent>
             </Card>
@@ -126,15 +123,15 @@ export default function HomePage() {
               <div className="text-lg text-muted-foreground">Fleet Vehicles</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-accent mb-2">2M+</div>
+              <div className="text-5xl md:text-6xl font-bold text-accent mb-2">250K+</div>
               <div className="text-lg text-muted-foreground">Shipments Delivered</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">150+</div>
-              <div className="text-lg text-muted-foreground">Countries Served</div>
+              <div className="text-5xl md:text-6xl font-bold text-primary mb-2">1.2K+</div>
+              <div className="text-lg text-muted-foreground">Clients Served</div>
             </div>
             <div className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-accent mb-2">10+</div>
+              <div className="text-5xl md:text-6xl font-bold text-accent mb-2">5+</div>
               <div className="text-lg text-muted-foreground">Years Experience</div>
             </div>
           </div>
@@ -165,12 +162,12 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {[
-              { title: "International Freight", icon: Globe, desc: "Air, sea, and land freight forwarding worldwide" },
-              { title: "Domestic Trucking", icon: Truck, desc: "Reliable nationwide transportation services" },
-              { title: "Supply Chain Automation", icon: Cpu, desc: "Smart technology for optimized operations" },
-              { title: "Customs Clearance", icon: CheckCircle, desc: "Expert handling of all documentation" },
-              { title: "Dedicated Fleet Solutions", icon: Package, desc: "Custom fleet management for your business" },
-              { title: "Real-Time Tracking", icon: TrendingUp, desc: "Monitor your shipments 24/7" },
+              { title: "Domestic Trucking", icon: Globe, desc: "Reliable nationwide dry van, reefer, and specialized freight transportation across all 48 states." },
+              { title: "Dedicated Fleet Solutions", icon: Truck, desc: "Long-term, dedicated routes and custom fleet services designed exclusively for your business needs." },
+              { title: "Real-Time Tracking", icon: Cpu, desc: "Live GPS tracking, ELD-integrated visibility, and real-time shipment status updates 24/7." },
+              { title: "Expedited & Same-Day Freight", icon: CheckCircle, desc: "Priority, time-critical deliveries with team drivers and nonstop coast-to-coast movement" },
+              { title: "Freight Management & Dispatch", icon: TrendingUp, desc: "Professional dispatch, load planning, route optimization, and customer support for seamless operations." },
+              { title: "High-Value / Secured Freight Services", icon: Package, desc: "Our operations include enhanced security protocols, locked and sealed trailers, real-time GPS tracking, controlled driver assignments, and strict chain-of-custody procedures." },
             ].map((service, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
@@ -212,7 +209,7 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Package className="text-accent" size={24} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">25+</div>
+                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">5+</div>
                 <div className="text-primary-foreground/70">Years Experience</div>
               </CardContent>
             </Card>
@@ -222,7 +219,7 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Globe className="text-accent" size={24} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">500+</div>
+                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">1.2K+</div>
                 <div className="text-primary-foreground/70">Happy Clients</div>
               </CardContent>
             </Card>
@@ -242,7 +239,7 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Shield className="text-accent" size={24} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">A+</div>
+                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">A</div>
                 <div className="text-primary-foreground/70">Safety Rating</div>
               </CardContent>
             </Card>
@@ -251,7 +248,7 @@ export default function HomePage() {
           <div className="text-center">
             <Link href="/contact">
               <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold px-8 py-6 text-lg">
-                Get Started Today <ArrowRight className="ml-2" size={20} />
+                Speak With an Expert <ArrowRight className="ml-2" size={20} />
               </Button>
             </Link>
           </div>

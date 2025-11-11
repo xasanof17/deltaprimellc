@@ -375,11 +375,11 @@ export function DriverApplicationModal() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          size="lg"
+          size="sm"
           className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
         >
           <Truck className="mr-2" size={20} />
-          Apply Now
+          Driver Application
         </Button>
       </DialogTrigger>
 

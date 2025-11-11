@@ -215,11 +215,11 @@ export default function ContactPage() {
                     Email
                   </h3>
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    General: applications@deltaprime.com
+                    Drivers: applications@deltaprimellc.com
                     <br />
-                    Sales: sales@deltaprime.com
+                    Sales: dispatch@deltaprimellc.com
                     <br />
-                    Support: support@deltaprime.com
+                    Support: claims@deltaprimellc.com
                   </p>
                 </CardContent>
               </Card>
@@ -489,18 +489,20 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Our Locations
+              Our Service Coverage
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
               With offices and facilities across North America and beyond
             </p>
           </div>
           <div className="relative h-[500px] rounded-lg overflow-hidden">
-            <img
-              src="/world-map-with-logistics-network-connections-and-p.jpg"
-              alt="Global locations map"
-              className="w-full h-full object-cover"
-            />
+            <iframe
+              className="w-full h-full"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13430915.985131523!2d-102.85514215976178!3d39.17355588631471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2s!4v1762836348173!5m2!1sen!2s"
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </section>
@@ -512,15 +514,15 @@ export default function ContactPage() {
             Need Immediate Assistance?
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed">
-            Our 24/7 support team is always ready to help with urgent logistics
-            needs
+            Our 24/7 support team is always ready to help with urgent trucking
+            and logistics needs
           </p>
           <Button
             size="lg"
             className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm sm:text-base md:text-lg px-8 py-6"
           >
             <Phone className="mr-2" size={20} />
-            Call Now: 1-800-555-DELTA
+            Call Now: +1 (708) 907-2006
           </Button>
         </div>
       </section>

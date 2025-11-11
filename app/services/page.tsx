@@ -33,51 +33,16 @@ const services = [
     image: "/card3.jpg",
   },
   {
-    icon: Globe,
-    title: "International Freight Forwarding",
-    description:
-      "Comprehensive air, sea, and land freight solutions connecting you to markets worldwide. Our global network ensures seamless cross-border shipping with competitive rates and reliable transit times.",
-    features: [
-      "Air freight express & economy",
-      "Ocean freight FCL & LCL",
-      "Multimodal transportation",
-      "Door-to-door delivery",
-    ],
-  },
-  {
-    icon: Truck,
-    title: "Domestic Trucking",
-    description:
-      "Reliable nationwide transportation services with our modern fleet of trucks. From LTL to FTL, we handle shipments of all sizes with precision and care.",
-    features: [
-      "Full truckload (FTL)",
-      "Less than truckload (LTL)",
-      "Expedited shipping",
-      "Temperature-controlled transport",
-    ],
-  },
-  {
-    icon: Cpu,
-    title: "Supply Chain Automation",
-    description:
-      "Transform your logistics operations with our AI-powered supply chain management platform. Real-time visibility, predictive analytics, and automated workflows optimize your entire supply chain.",
-    features: [
-      "Real-time tracking & visibility",
-      "Predictive analytics",
-      "Automated documentation",
-      "API integrations",
-    ],
-  },
-  {
     icon: FileCheck,
-    title: "Customs Clearance",
+    title: "Expedited & Same-Day Freight",
     description:
-      "Expert customs brokerage services ensuring smooth clearance of your international shipments. Our team handles all documentation, compliance, and regulatory requirements.",
+      "When your freight can’t wait, our expedited and same-day services provide nonstop, priority transportation. With team drivers, immediate dispatching, and 24/7 real-time tracking, we ensure time-sensitive loads arrive safely, quickly, and on schedule. ",
     features: [
-      "Import/export documentation",
-      "Duty & tax calculation",
-      "Compliance management",
-      "Regulatory consulting",
+      "Same-day & next-day delivery",
+      "Team-driver nonstop service",
+      "Priority dispatching",
+      "Fast coast-to-coast movement",
+      "24/7 real-time visibility",
     ],
   },
   {
@@ -168,16 +133,16 @@ export default function ServicesPage() {
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">Ready to Ship with Delta Prime LLC?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">How Can We Assist You Today?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed">
-            Let's discuss how our trucking services can streamline your logistics operations
+            Our team is ready to provide support, information, and guidance for your freight needs.
           </p>
           <Link href="/contact">
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6"
             >
-              Get a Quote
+              Contact us
             </Button>
           </Link>
         </div>

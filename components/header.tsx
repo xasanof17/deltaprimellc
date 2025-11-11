@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState, useEffect, useRef } from "react"
-import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { ShipperQuoteModal } from "@/components/shipper-quote-modal"
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ShipperQuoteModal } from "@/components/shipper-quote-modal";
+import { DriverApplicationModal } from "./driver-application-modal";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -14,62 +15,71 @@ const navigation = [
   { name: "Drivers", href: "/drivers" },
   { name: "Shippers", href: "/shippers" },
   { name: "Contact", href: "/contact" },
-]
+];
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const pathname = usePathname()
-  const isHomePage = pathname === "/"
-  const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  const shouldShowWhiteLogo = isHomePage && !isScrolled
-  const hasBackground = isScrolled || !isHomePage
+  const shouldShowWhiteLogo = isHomePage && !isScrolled;
+  const hasBackground = isScrolled || !isHomePage;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
-    setIsMobileMenuOpen(false)
-  }, [pathname])
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isMobileMenuOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        setIsMobileMenuOpen(false)
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
       }
-    }
+    };
 
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape" && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false)
+        setIsMobileMenuOpen(false);
       }
-    }
+    };
 
     if (isMobileMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
-      document.addEventListener("keydown", handleEscapeKey)
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscapeKey);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-      document.removeEventListener("keydown", handleEscapeKey)
-    }
-  }, [isMobileMenuOpen])
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        hasBackground ? "bg-background/95 backdrop-blur-md shadow-md" : "bg-transparent",
+        hasBackground
+          ? "bg-background/95 backdrop-blur-md shadow-md"
+          : "bg-transparent"
       )}
       ref={mobileMenuRef}
     >
+      <div className="w-full h-7 bg-red-500 flex items-center justify-center">
+        <p className="text-white">Earn a $500 driver referral bonus</p>
+      </div>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -89,7 +99,9 @@ export function Header() {
                 href={item.href}
                 className={cn(
                   "px-3 py-2 text-sm font-medium hover:scale-105 transition-all duration-300",
-                  hasBackground ? "text-foreground hover:text-primary" : "text-white hover:text-accent",
+                  hasBackground
+                    ? "text-foreground hover:text-primary"
+                    : "text-white hover:text-accent"
                 )}
               >
                 {item.name}
@@ -99,14 +111,16 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <ShipperQuoteModal />
+            <DriverApplicationModal />
           </div>
 
           {/* Mobile Menu Button */}
           <button
             className={cn(
               "lg:hidden p-2 rounded-md transition-all duration-300 hover:scale-110 active:scale-95",
-              hasBackground ? "text-foreground hover:bg-accent/10" : "text-white hover:bg-white/10",
+              hasBackground
+                ? "text-foreground hover:bg-accent/10"
+                : "text-white hover:bg-white/10"
             )}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
@@ -137,5 +151,5 @@ export function Header() {
         )}
       </nav>
     </header>
-  )
+  );
 }
