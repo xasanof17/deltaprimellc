@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ShipperQuoteModal } from "@/components/shipper-quote-modal";
 import { DriverApplicationModal } from "./driver-application-modal";
+import { motion, easeInOut } from "framer-motion";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -77,8 +78,29 @@ export function Header() {
       )}
       ref={mobileMenuRef}
     >
-      <div className="w-full h-7 bg-red-500 flex items-center justify-center">
-        <p className="text-white">Earn a $500 driver referral bonus</p>
+      <div className="w-full bg-red-500 py-1">
+        <motion.div
+          className="flex items-center justify-center"
+          animate={{ x: ["100%", "-100%"] }}
+          transition={{
+            duration: 1000, // slower scroll speed
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        >
+          {["Earn a $500.00 driver referral bonus!"]
+            .concat(Array(20).fill(["Earn a $500.00 driver referral bonus!"]))
+            .flat()
+            .map((text, index) => (
+              <span key={index} className="mx-3 text-white text-sm text-nowrap">
+                {text}
+              </span>
+            ))}
+          {/* <p className="text-md text-white text-nowrap">
+            Earn a $500.00 driver referral bonus! Refer a driver to Delta Prime
+          </p>
+          <span className="mx-3 text-white text-sm">•</span> */}
+        </motion.div>
       </div>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">

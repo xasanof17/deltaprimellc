@@ -137,8 +137,8 @@
   html {
     scroll-behavior: smooth;
   }
-  a{
-    @apply underline-offset-0
+  a {
+    @apply underline-offset-0;
   }
 
   body {
@@ -147,8 +147,8 @@
 
   /* Beautiful custom scrollbars */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
   }
 
   ::-webkit-scrollbar-track {
@@ -158,12 +158,12 @@
 
   ::-webkit-scrollbar-thumb {
     background: oklch(0.35 0.12 264);
-    border-radius: 5px;
     transition: background 0.2s;
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: oklch(0.75 0.15 65);
+    cursor: pointer;
   }
 
   .dark ::-webkit-scrollbar-track {
@@ -191,6 +191,4 @@
   /* Removed react-phone-number-input styles since we're using custom component */
 }
 
-
 /* 🧭 React Phone Input — ShadCN visual integration */
-
