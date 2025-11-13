@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import {
   Facebook,
@@ -108,31 +107,34 @@ export function Footer() {
             <h3 className="font-bold text-lg mb-4">Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-center justify-start">
-                <Link
-                  href="#"
+                <a
+                  href="https://maps.app.goo.gl/D3tTbm5wsmN3ct7k7"
+                  target="_blank"
                   className="flex items-center justify-center gap-2 text-sm opacity-90"
                 >
                   <MapPin size={16} className="shrink-0" />
                   <span>1101 31st, Downers Grove, IL, 60515</span>
-                </Link>
+                </a>
               </li>
               <li className="flex items-center justify-start">
                 <Link
                   href="tel:+17089072006"
-                  className="flex text-white hover:underline-offset-0 items-center justify-center gap-2 text-sm opacity-90"
+                  target="_blank"
+                  className="flex items-center justify-center gap-2 text-sm opacity-90"
                 >
-                  <Phone size={16} className="shrink-0" />
+                  <Phone size={16} className="text-white shrink-0" />
                   <span className="text-white">+1 (708) 907-2006</span>
                 </Link>
               </li>
               <li className="flex items-center justify-start">
-                <Link
+                <a
                   href="mailto:applications@deltaprime.com"
+                  target="_blank"
                   className="flex items-center justify-center gap-2 text-sm opacity-90"
                 >
                   <Mail size={16} className="shrink-0" />
                   <span>applications@deltaprime.com</span>
-                </Link>
+                </a>
               </li>
             </ul>
             <div className="flex gap-3 mt-4">

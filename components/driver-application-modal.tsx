@@ -74,8 +74,6 @@ interface FormErrors {
 export function DriverApplicationModal() {
   const [open, setOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [showVerification, setShowVerification] = useState(false);
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -191,12 +189,11 @@ export function DriverApplicationModal() {
   const validCount = useMemo(
     () => REQUIRED_FIELDS.filter(fieldIsValid).length,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [formData, isEmailVerified] // email verification affects final 100% state
+    [formData] // email verification affects final 100% state
   );
 
   let progress = Math.round((validCount / REQUIRED_FIELDS.length) * 100);
   // If email verified, we reward full completion feeling at step 2
-  if (isEmailVerified && progress < 100) progress = 100;
 
   const progressColor = (() => {
     if (progress >= 80) return "bg-emerald-500";
@@ -280,11 +277,6 @@ export function DriverApplicationModal() {
       return;
     }
 
-    if (!isEmailVerified) {
-      setShowVerification(true);
-      return;
-    }
-
     // All good
     console.log("[v0] Driver application submitted:", formData);
     setIsSubmitted(true);
@@ -294,8 +286,6 @@ export function DriverApplicationModal() {
   const resetAll = () => {
     setOpen(false);
     setIsSubmitted(false);
-    setShowVerification(false);
-    setIsEmailVerified(false);
     setAttemptedSubmit(false);
     setFormData({
       firstName: "",
@@ -327,9 +317,6 @@ export function DriverApplicationModal() {
   };
 
   const handleEmailVerified = async () => {
-    setIsEmailVerified(true);
-    setShowVerification(false);
-
     try {
       console.log("[v0] 📧 Sending driver application email...");
       const response = await fetch("/api/send-driver-application", {
@@ -430,14 +417,7 @@ export function DriverApplicationModal() {
           </div>
         </DialogHeader>
 
-        {showVerification ? (
-          <EmailVerification
-            email={formData.email}
-            onVerified={handleEmailVerified}
-            onCancel={() => setShowVerification(false)}
-            type="verification"
-          />
-        ) : isSubmitted ? (
+        { isSubmitted ? (
           <div className="py-8 text-center">
             <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="text-accent-foreground" size={32} />

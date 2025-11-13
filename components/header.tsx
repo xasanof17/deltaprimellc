@@ -78,29 +78,34 @@ export function Header() {
       )}
       ref={mobileMenuRef}
     >
-      <div className="w-full bg-red-500 py-1">
-        <motion.div
-          className="flex items-center justify-center"
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{
-            duration: 1000, // slower scroll speed
-            ease: "linear",
-            repeat: Infinity,
-          }}
-        >
-          {["Earn a $500.00 driver referral bonus!"]
-            .concat(Array(20).fill(["Earn a $500.00 driver referral bonus!"]))
-            .flat()
-            .map((text, index) => (
-              <span key={index} className="mx-3 text-white text-sm text-nowrap">
-                {text}
-              </span>
-            ))}
-          {/* <p className="text-md text-white text-nowrap">
-            Earn a $500.00 driver referral bonus! Refer a driver to Delta Prime
-          </p>
-          <span className="mx-3 text-white text-sm">•</span> */}
-        </motion.div>
+      <div className="w-full bg-red-500 py-1 overflow-hidden">
+        {/*
+          Seamless marquee: duplicate the content and animate from 0% -> -50%.
+          This prevents a visible jump when the animation restarts because the
+          duplicated content provides continuous material to scroll.
+        */}
+        {(() => {
+          const marqueeText = "Earn a $500.00 driver referral bonus!";
+          const items = new Array(20).fill(marqueeText);
+          const doubled = items.concat(items);
+
+          return (
+            <motion.div
+              className="w-full"
+              initial={{ x: "0%" }}
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+            >
+              <div className="flex w-max whitespace-nowrap">
+                {doubled.map((text, index) => (
+                  <span key={index} className="mx-3 text-white text-sm whitespace-nowrap">
+                    {text}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          );
+        })()}
       </div>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -166,7 +171,7 @@ export function Header() {
                 </Link>
               ))}
               <div className="px-4 pt-2">
-                <ShipperQuoteModal />
+                <DriverApplicationModal />
               </div>
             </div>
           </div>
