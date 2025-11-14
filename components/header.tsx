@@ -79,11 +79,6 @@ export function Header() {
       ref={mobileMenuRef}
     >
       <div className="w-full bg-red-500 py-1 overflow-hidden">
-        {/*
-          Seamless marquee: duplicate the content and animate from 0% -> -50%.
-          This prevents a visible jump when the animation restarts because the
-          duplicated content provides continuous material to scroll.
-        */}
         {(() => {
           const marqueeText = "Earn a $500.00 driver referral bonus!";
           const items = new Array(20).fill(marqueeText);
@@ -94,7 +89,7 @@ export function Header() {
               className="w-full"
               initial={{ x: "0%" }}
               animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+              transition={{ duration: 1, ease: "linear", repeat: Infinity }}
             >
               <div className="flex w-max whitespace-nowrap">
                 {doubled.map((text, index) => (

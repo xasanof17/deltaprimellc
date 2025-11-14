@@ -378,43 +378,6 @@ export function DriverApplicationModal() {
           <DialogDescription className="text-xs sm:text-sm md:text-base">
             Join the Delta Prime team. Fill out the form below to get started.
           </DialogDescription>
-
-          {/* Sticky Progress Bar */}
-          <div className="sticky top-0 z-50 mt-3 -mx-4 sm:-mx-6 px-4 sm:px-6 py-2 bg-background/85 backdrop-blur backdrop-filter:bg-background/60 border-b">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-medium text-muted-foreground">
-                Form completion
-              </span>
-              <span
-                className={cn(
-                  "text-xs font-semibold",
-                  progress >= 100 ? "text-emerald-600" : "text-foreground"
-                )}
-              >
-                {progressText}
-              </span>
-            </div>
-            <div
-              className={cn(
-                "h-2 w-full rounded-full bg-muted relative overflow-hidden",
-                barNudge === "warn" && "ring-2 ring-destructive/30"
-              )}
-            >
-              <div
-                className={cn(
-                  "absolute left-0 top-0 h-full rounded-full transition-[width] duration-500 ease-out",
-                  progressColor
-                )}
-                style={{ width: `${progress}%` }}
-              />
-              {/* floating label inside bar */}
-              {/* <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[10px] pb-2 font-medium text-black drop-shadow-sm">
-                  {progress}%
-                </span>
-              </div> */}
-            </div>
-          </div>
         </DialogHeader>
 
         { isSubmitted ? (
