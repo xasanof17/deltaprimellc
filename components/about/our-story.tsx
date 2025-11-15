@@ -31,19 +31,27 @@ const parent: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.12 },
+    transition: {
+      duration: 0.55,
+      ease: "easeOut",
+      staggerChildren: 0.15,
+    },
   },
 };
 
 const fadeItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+  hidden: { opacity: 0, y: 25 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" },
+  },
 };
 
 // ---------------------------------------------
 //  Typing Animation Hook
 // ---------------------------------------------
-function useTypingEffect(text: string, speed = 28) {
+function useTypingEffect(text: string, speed = 22) {
   const [displayed, setDisplayed] = useState("");
 
   useEffect(() => {
@@ -64,29 +72,34 @@ function useTypingEffect(text: string, speed = 28) {
 //  Component
 // ---------------------------------------------
 const OurStory = () => {
-  const typed = useTypingEffect(STORY_CONTENT.typingIntro, 22);
+  const typed = useTypingEffect(STORY_CONTENT.typingIntro);
 
   return (
     <section className="py-24 bg-muted relative overflow-hidden">
-      {/* subtle gradient behind */}
+      {/* subtle background */}
       <div className="absolute inset-0 pointer-events-none" />
 
       <motion.div
         variants={parent}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.35 }} // 🔥 re-animate every scroll
         className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
         {/* Title */}
-        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-center">
+        <motion.h2
+          variants={fadeItem}
+          viewport={{ once: false }}
+          className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-center"
+        >
           {STORY_CONTENT.title}
-        </h2>
+        </motion.h2>
 
-        {/* Typing Intro */}
+        {/* Typing Intro (only plays once for UX reasons) */}
         <motion.p
           variants={fadeItem}
-          className="text-lg text-foreground/90 leading-relaxed max-w-4xl mx-auto mb-10 font-medium"
+          viewport={{ once: false }}
+          className="text-lg md:text-xl text-foreground/90 leading-relaxed max-w-4xl mx-auto mb-10 font-medium"
         >
           {typed}
           <span className="ml-1 animate-pulse">|</span>
@@ -95,10 +108,15 @@ const OurStory = () => {
         {/* Paragraphs */}
         <motion.div
           variants={parent}
+          viewport={{ once: false }}
           className="space-y-6 text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto"
         >
           {STORY_CONTENT.paragraphs.map((p, idx) => (
-            <motion.p key={idx} variants={fadeItem}>
+            <motion.p
+              key={idx}
+              variants={fadeItem}
+              viewport={{ once: false }} // 🔥 each paragraph animates on enter
+            >
               {p}
             </motion.p>
           ))}

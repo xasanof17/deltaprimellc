@@ -12,20 +12,28 @@ const parent: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.15 },
+    transition: {
+      duration: 0.55,
+      ease: "easeOut",
+      staggerChildren: 0.15,
+    },
   },
 };
 
 const fadeItem: Variants = {
-  hidden: { opacity: 0, y: 25 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
 };
 
 const iconFloat: Variants = {
   initial: { y: 0 },
   animate: {
-    y: [-6, 6, -6],
-    transition: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
+    y: [-5, 5, -5],
+    transition: { duration: 3.2, repeat: Infinity, ease: "easeInOut" },
   },
 };
 
@@ -39,48 +47,50 @@ const NationalReach = () => {
         variants={parent}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.3 }} // 🔥 Re-animate up/down
         className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
         {/* Heading */}
-        <motion.div variants={fadeItem} className="text-center mb-14">
+        <motion.div variants={fadeItem} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             National Reach, Local Expertise
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Headquartered in Illinois with operations spanning all 48
             continental states.
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
+        {/* Cards */}
         <motion.div
           variants={parent}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
         >
-          {/* CARD TEMPLATE */}
           {[
             {
               icon: MapPin,
               color: "text-primary",
               title: "Midwest Strength",
-              text: "Founded in Illinois with strong, dependable operations across the entire United States.",
+              text: "Founded in Illinois with strong, dependable operations across the United States.",
             },
             {
               icon: Users,
               color: "text-accent",
               title: "Coast-to-Coast Coverage",
-              text: "From major metro hubs to remote destinations, our fleet delivers across all 48 continental states — safely and on time.",
+              text: "From metro hubs to remote destinations — our fleet covers all 48 states with reliable, on-time service.",
             },
             {
               icon: Award,
               color: "text-primary",
               title: "Industry Leaders",
-              text: "Recognized for safety, reliability, and modern fleet management — one of the fastest-growing carriers in America.",
+              text: "Known for safety, reliability, and advanced fleet systems — one of America’s fastest-growing carriers.",
             },
-          ].map((item, i) => (
-            <motion.div key={i} variants={fadeItem} className="h-full">
-              <Card className="h-full flex flex-col border bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          ].map((item, idx) => (
+            <motion.div key={idx} variants={fadeItem} className="h-full">
+              <Card
+                className="h-full flex flex-col border border-border bg-card/40 backdrop-blur-sm 
+                hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              >
                 <CardContent className="p-8 flex flex-col grow text-center">
 
                   {/* ICON */}
@@ -99,7 +109,7 @@ const NationalReach = () => {
                   </h3>
 
                   {/* TEXT */}
-                  <p className="text-muted-foreground leading-relaxed grow">
+                  <p className="text-muted-foreground leading-relaxed grow text-base sm:text-lg">
                     {item.text}
                   </p>
                 </CardContent>

@@ -4,7 +4,7 @@ import ServicesSection from "@/components/services/services-section";
 import PropositionsSection from "@/components/home/propositions-section";
 import ReliabilitySection from "@/components/home/reliability-section";
 import TestimonialsSection from "@/components/home/testimonials-section";
-import CtaSection from "@/components/home/cta-section";
+import CTASection from "@/components/home/cta-section";
 import HeroSection from "@/components/home/hero-section";
 
 export default function HomePage() {
@@ -31,7 +31,7 @@ export default function HomePage() {
       <TestimonialsSection />
 
       {/* Final CTA */}
-      <CtaSection />
+      <CTASection />
     </main>
   );
 }

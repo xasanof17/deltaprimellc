@@ -1,85 +1,98 @@
 "use client";
 
 import { ShipperQuoteModal } from "../shipper-quote-modal";
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useRef } from "react";
+import { useInView } from "framer-motion";
 
-/* Parent stagger animation */
+/* ---------------------------------------------
+   Animation Variants
+---------------------------------------------- */
 const textParent: Variants = {
-  hidden: { opacity: 0, y: 25 },
-  visible: {
+  hidden: { opacity: 0, y: 30 },
+  show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.55,
       ease: "easeOut",
-      staggerChildren: 0.12,
+      staggerChildren: 0.15,
     },
   },
 };
 
 const fadeItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
+  hidden: { opacity: 0, y: 25 },
+  show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.55, ease: "easeOut" },
   },
 };
 
 const ctaButton: Variants = {
   hidden: { opacity: 0, scale: 0.9, y: 10 },
-  visible: {
+  show: {
     opacity: 1,
-    scale: 1,
     y: 0,
-    transition: { duration: 0.45, ease: "easeOut", delay: 0.25 },
+    scale: 1,
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
-const CtaSection = () => {
+/* ---------------------------------------------
+   Component
+---------------------------------------------- */
+const CTASection = () => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { amount: 0.35, once: true });
+
+  // IMPORTANT: re-animate on scroll up/down
+  const inView = useInView(ref, {
+    amount: 0.5,
+    once: false, // re-triggers every time
+  });
 
   return (
-    <section className="py-20 bg-primary text-primary-foreground">
-      <div
+    <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+      {/* Subtle glow background */}
+      <div className="absolute inset-0 bg-linear-to-b from-primary/30 via-primary/20 to-primary/10 pointer-events-none" />
+
+      <motion.div
         ref={ref}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        variants={textParent}
+        initial="hidden"
+        animate={inView ? "show" : "hidden"}
+        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        {/* TEXT ANIMATIONS */}
-        <motion.div
-          variants={textParent}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+        {/* TITLE */}
+        <motion.h2
+          variants={fadeItem}
+          className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-balance"
         >
-          <motion.h2
-            variants={fadeItem}
-            className="text-4xl md:text-5xl font-bold mb-6 text-balance"
-          >
-            Ready to Transform Your Logistics?
-          </motion.h2>
+          Ready to Transform Your Logistics?
+        </motion.h2>
 
-          <motion.p
-            variants={fadeItem}
-            className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed"
-          >
-            Get a custom quote today and experience the Delta Prime difference
-          </motion.p>
-        </motion.div>
+        {/* PARAGRAPH */}
+        <motion.p
+          variants={fadeItem}
+          className="text-xl max-w-2xl mx-auto opacity-90 mb-10 leading-relaxed"
+        >
+          Get a custom quote today and experience the Delta Prime difference
+        </motion.p>
 
-        {/* CTA BUTTON ANIMATION */}
+        {/* CTA BUTTON */}
         <motion.div
           variants={ctaButton}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
           className="flex justify-center"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 200 }}
         >
           <ShipperQuoteModal />
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };
 
-export default CtaSection;
+export default CTASection;

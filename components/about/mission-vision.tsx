@@ -10,24 +10,24 @@ const parent: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut", staggerChildren: 0.15 },
+    transition: { duration: 0.65, ease: "easeOut", staggerChildren: 0.15 },
   },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 22 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" },
+  },
 };
 
 const iconFloat: Variants = {
   initial: { y: 0 },
   animate: {
-    y: [-4, 4, -4],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
+    y: [-5, 5, -5],
+    transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
   },
 };
 
@@ -41,33 +41,35 @@ const MissionVisionSection = () => {
         variants={parent}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.3 }} // 🔥 Re-animate on scroll up/down
         className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
           {/* Mission */}
-          <motion.div variants={item}>
-            <Card className="border border-primary/40 shadow-lg hover:shadow-2xl transition-all backdrop-blur-md bg-card/70 relative overflow-hidden">
+          <motion.div variants={item} viewport={{ once: false }}>
+            <Card
+              className="border border-primary/40 shadow-lg hover:shadow-2xl transition-all backdrop-blur-md bg-card/70 relative overflow-hidden min-h-[380px] md:min-h-[400px]"
+            >
               <div className="absolute left-0 top-0 w-1.5 sm:w-2 h-full bg-primary rounded-r-full" />
 
-              <CardContent className="p-6 sm:p-8 lg:p-10 relative z-10">
+              <CardContent className="p-6 sm:p-8 lg:p-10 relative z-10 flex flex-col">
                 <motion.div
                   variants={iconFloat}
                   initial="initial"
                   animate="animate"
-                  className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/10 border border-primary/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-5 sm:mb-6 shadow-lg"
+                  className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/10 border border-primary/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto md:mx-0"
                 >
-                  <Target className="text-primary" size={32} />
+                  <Target className="text-primary" size={34} />
                 </motion.div>
 
-                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 sm:mb-4 tracking-tight">
+                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 tracking-tight text-center md:text-left">
                   Our Mission
                 </h2>
 
-                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed text-center md:text-left">
                   To revolutionize global logistics through cutting-edge
                   technology, exceptional service, and unwavering reliability.
-                  We don{'\u2019'}t just move freight — we build trust, speed, and
+                  We don’t just move freight — we build trust, speed, and
                   efficiency into every mile.
                 </p>
               </CardContent>
@@ -75,28 +77,30 @@ const MissionVisionSection = () => {
           </motion.div>
 
           {/* Vision */}
-          <motion.div variants={item}>
-            <Card className="border border-accent/40 shadow-lg hover:shadow-2xl transition-all backdrop-blur-md bg-card/70 relative overflow-hidden">
+          <motion.div variants={item} viewport={{ once: false }}>
+            <Card
+              className="border border-accent/40 shadow-lg hover:shadow-2xl transition-all backdrop-blur-md bg-card/70 relative overflow-hidden min-h-[380px] md:min-h-[400px]"
+            >
               <div className="absolute right-0 top-0 w-1.5 sm:w-2 h-full bg-accent rounded-l-full" />
 
-              <CardContent className="p-6 sm:p-8 lg:p-10 relative z-10">
+              <CardContent className="p-6 sm:p-8 lg:p-10 relative z-10 flex flex-col">
                 <motion.div
                   variants={iconFloat}
                   initial="initial"
                   animate="animate"
-                  className="w-16 h-16 sm:w-20 sm:h-20 bg-accent/10 border border-accent/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-5 sm:mb-6 shadow-lg"
+                  className="w-16 h-16 sm:w-20 sm:h-20 bg-accent/10 border border-accent/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto md:mx-0"
                 >
-                  <Eye className="text-accent" size={32} />
+                  <Eye className="text-accent" size={34} />
                 </motion.div>
 
-                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 sm:mb-4 tracking-tight">
+                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 tracking-tight text-center md:text-left">
                   Our Vision
                 </h2>
 
-                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                  To become the world{'\u2019'}s most trusted logistics partner
-                  by setting new global standards in innovation, sustainability,
-                  and customer experience — transforming the future of freight.
+                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed text-center md:text-left">
+                  To become the world’s most trusted logistics partner by
+                  setting global standards in innovation, sustainability, and
+                  customer experience — transforming the future of freight.
                 </p>
               </CardContent>
             </Card>
