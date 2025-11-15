@@ -1,4 +1,4 @@
-import { ShipperQuoteModal } from "../modals/shipper-quote-modal";
+import { ShipperQuoteModal } from "../shipper-quote-modal";
 
 const CtaSection = () => {
   return (

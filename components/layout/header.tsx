@@ -5,10 +5,38 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { DriverApplicationModal } from "../modals/driver-application-modal";
-import { motion } from "framer-motion";
+import { DriverApplicationModal } from "../driver-application-modal";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
 import { InfiniteBanner } from "./banner";
+
+/* ─────────────────────────────── Variants (TS SAFE) ─────────────────────────────── */
+const navLoad: Variants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } }
+};
+
+const mobileMenuAnim: Variants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.25,
+      ease: "easeOut",
+      staggerChildren: 0.08
+    }
+  }
+};
+
+const mobileItem: Variants = {
+  hidden: { opacity: 0, x: -8 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.22, ease: "easeOut" }
+  }
+};
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -29,28 +57,26 @@ export function Header() {
   const shouldShowWhiteLogo = isHomePage && !isScrolled;
   const hasBackground = isScrolled || !isHomePage;
 
-  /* ─────────────────────────────── Scroll listener ─────────────────────────────── */
+  /* Scroll listener */
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* ─────────────────────────────── Close menu on route change ───────────────── */
+  /* Close menu on route change */
   useEffect(() => {
     if (isMobileMenuOpen) setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  /* ─────────────────────────────── Modal-safe outside click ─────────────────── */
+  /* Modal-safe outside click */
   useEffect(() => {
     if (!isMobileMenuOpen) return;
 
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
 
-      // If ANY Radix component (Dialog/Select/Popover) is open — don't close menu
       if (document.querySelector("[data-state='open']")) return;
-
       if (target.closest("[data-radix-portal]")) return;
       if (target.closest("[data-nav-toggle]")) return;
 
@@ -66,13 +92,15 @@ export function Header() {
 
   return (
     <>
-      {/* ─────────────────────────── Banner (Fixed + Perfect Loop) ─────────────────────────── */}
       <InfiniteBanner />
 
-      {/* ─────────────────────────── Header ─────────────────────────── */}
-      <header
+      {/* Navbar */}
+      <motion.header
+        variants={navLoad}
+        initial="hidden"
+        animate="visible"
         className={cn(
-          "fixed top-[35px] left-0 right-0 z-998 transition-all duration-300",
+          "fixed top-[35px] left-0 right-0 z-50 transition-all duration-300",
           hasBackground
             ? "bg-background/90 backdrop-blur-md shadow"
             : "bg-transparent"
@@ -82,7 +110,6 @@ export function Header() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              {/* <div className="relative h-10 w-28 sm:h-12 sm:w-40"> */}
               <Image
                 src={shouldShowWhiteLogo ? "/white-logo.svg" : "/logo.svg"}
                 alt="Delta Prime Logo"
@@ -91,7 +118,6 @@ export function Header() {
                 priority
                 className="object-cover transition-opacity duration-300"
               />
-              {/* </div> */}
             </Link>
 
             {/* Desktop Nav */}
@@ -132,32 +158,39 @@ export function Header() {
             </button>
           </div>
 
-          {/* ─────────────────────────── Mobile Menu ─────────────────────────── */}
-          {isMobileMenuOpen && (
-            <div
-              ref={mobileMenuRef}
-              className="lg:hidden py-4 border-t border-border bg-background/95 backdrop-blur-lg shadow-md"
-            >
-              <div className="flex flex-col gap-2">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-4 py-2 text-sm font-medium text-foreground hover:bg-muted rounded-md transition-all"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                ref={mobileMenuRef}
+                variants={mobileMenuAnim}
+                initial="hidden"
+                animate="visible"
+                exit={{ opacity: 0, y: -10 }}
+                className="lg:hidden py-4 border-t border-border bg-background/95 backdrop-blur-lg shadow-md"
+              >
+                <div className="flex flex-col gap-2">
+                  {navigation.map((item) => (
+                    <motion.div key={item.name} variants={mobileItem}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="px-4 py-2 text-sm font-medium text-foreground hover:bg-muted rounded-md transition-all"
+                      >
+                        {item.name}
+                      </Link>
+                    </motion.div>
+                  ))}
 
-                <div className="px-4 pt-2">
-                  <DriverApplicationModal />
+                  <motion.div variants={mobileItem} className="px-4 pt-2">
+                    <DriverApplicationModal />
+                  </motion.div>
                 </div>
-              </div>
-            </div>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </nav>
-      </header>
+      </motion.header>
     </>
   );
 }

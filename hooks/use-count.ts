@@ -1,17 +1,21 @@
+// hooks/use-count.ts
 import { useEffect, useState } from "react";
-import { animate, cubicBezier } from "framer-motion";
+import { animate, easeOut } from "framer-motion";
 
-export function useCountUp(start: number, end: number, trigger: boolean, duration = 3) {
+export function useCountUp(start: number, end: number, trigger: boolean, duration = 1.2) {
   const [value, setValue] = useState(start);
 
   useEffect(() => {
-    if (!trigger) return setValue(start);
+    if (!trigger) {
+      setValue(start);
+      return;
+    }
 
     const controls = animate(start, end, {
       duration,
-      ease: cubicBezier(0.17, 0.55, 0.55, 1),
+      ease: easeOut,
       onUpdate(latest) {
-        setValue(Math.floor(latest));
+        setValue(Math.round(latest));
       },
     });
 
