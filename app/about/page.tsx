@@ -1,4 +1,6 @@
 import AboutHeroSection from "@/components/about/about-hero";
+import MissionVisionSection from "@/components/about/mission-vision";
+import PageHero from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, MapPin, TrendingUp, Users, Award } from "lucide-react";
@@ -8,49 +10,14 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen pt-20">
       {/* Hero Section */}
-      <AboutHeroSection />
+      {/* <AboutHeroSection /> */}
+      <PageHero
+        title="About Delta Prime LLC"
+        subtitle="Leading the future of logistics with technology, precision, and performance"
+      />
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="border-2 border-primary">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6">
-                  <Target className="text-primary-foreground" size={32} />
-                </div>
-                <h2 className="text-3xl font-bold text-foreground mb-4">
-                  Our Mission
-                </h2>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  To revolutionize global logistics by combining cutting-edge
-                  technology with exceptional service, ensuring every shipment
-                  arrives on time, every time. We're committed to building
-                  lasting partnerships through reliability, innovation, and
-                  transparency.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-accent">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-6">
-                  <Eye className="text-accent-foreground" size={32} />
-                </div>
-                <h2 className="text-3xl font-bold text-foreground mb-4">
-                  Our Vision
-                </h2>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  To be the world's most trusted logistics partner, setting new
-                  standards in freight forwarding through technological
-                  innovation, sustainable practices, and a customer-first
-                  approach that transforms supply chains globally.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+      <MissionVisionSection />
 
       {/* Our Story */}
       <section className="py-20 bg-muted">
