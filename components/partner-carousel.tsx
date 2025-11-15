@@ -204,7 +204,8 @@ export function PartnerCarousel() {
             key={`${partner.name}-${index}`}
             className="group relative flex lg:h-34 h-36 w-36 lg:w-48 shrink-0 items-center justify-center shadow-2xk"
             whileHover={{ scale: 1.08 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1], repeat: Infinity}}
+            animate="animation"
           >
             <motion.img
               src={partner.logo}

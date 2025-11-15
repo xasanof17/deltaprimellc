@@ -5,9 +5,9 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ShipperQuoteModal } from "@/components/shipper-quote-modal";
 import { DriverApplicationModal } from "./driver-application-modal";
-import { motion, easeInOut } from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -28,150 +28,153 @@ export function Header() {
   const shouldShowWhiteLogo = isHomePage && !isScrolled;
   const hasBackground = isScrolled || !isHomePage;
 
+  /* ─────────────────────────────── Scroll listener ─────────────────────────────── */
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  /* ─────────────────────────────── Close menu on route change ───────────────── */
   useEffect(() => {
-    setIsMobileMenuOpen(false);
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  /* ─────────────────────────────── Modal-safe outside click ─────────────────── */
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        isMobileMenuOpen &&
-        mobileMenuRef.current &&
-        !mobileMenuRef.current.contains(event.target as Node)
-      ) {
+    if (!isMobileMenuOpen) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      // If ANY Radix component (Dialog/Select/Popover) is open — don't close menu
+      if (document.querySelector("[data-state='open']")) return;
+
+      if (target.closest("[data-radix-portal]")) return;
+      if (target.closest("[data-nav-toggle]")) return;
+
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
         setIsMobileMenuOpen(false);
       }
     };
 
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    if (isMobileMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleEscapeKey);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
+    window.addEventListener("click", handleClick, { capture: true });
+    return () =>
+      window.removeEventListener("click", handleClick, { capture: true });
   }, [isMobileMenuOpen]);
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        hasBackground
-          ? "bg-background/95 backdrop-blur-md shadow-md"
-          : "bg-transparent"
-      )}
-      ref={mobileMenuRef}
-    >
-      <div className="w-full bg-red-500 py-1 overflow-hidden">
-        {(() => {
-          const marqueeText = "Earn a $500.00 driver referral bonus!";
-          const items = new Array(20).fill(marqueeText);
-          const doubled = items.concat(items);
-
-          return (
-            <motion.div
-              className="w-full"
-              initial={{ x: "0%" }}
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 1, ease: "linear", repeat: Infinity }}
-            >
-              <div className="flex w-max whitespace-nowrap">
-                {doubled.map((text, index) => (
-                  <span key={index} className="mx-3 text-white text-sm whitespace-nowrap">
-                    {text}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          );
-        })()}
-      </div>
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <img
-              src={shouldShowWhiteLogo ? "/white-logo.svg" : "/logo.svg"}
-              alt="Delta Prime LLC"
-              className="h-12 w-auto transition-opacity duration-300"
-            />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  "px-3 py-2 text-sm font-medium hover:scale-105 transition-all duration-300",
-                  hasBackground
-                    ? "text-foreground hover:text-primary"
-                    : "text-white hover:text-accent"
-                )}
-              >
-                {item.name}
-              </Link>
+    <>
+      {/* ─────────────────────────── Banner (Fixed + Perfect Loop) ─────────────────────────── */}
+      <div className="fixed top-0 left-0 right-0 z-9999 bg-red-500 py-2 overflow-hidden">
+        <motion.div
+          className="flex whitespace-nowrap"
+          animate={{ x: ["0%", "-100%"] }}
+          transition={{
+            duration: 5,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        >
+          {Array(12)
+            .fill("Earn a $500.00 driver referral bonus!")
+            .map((text, i) => (
+              <span key={i} className="mx-6 text-white text-sm font-medium">
+                {text}
+              </span>
             ))}
-          </div>
+        </motion.div>
+      </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <DriverApplicationModal />
-          </div>
+      {/* ─────────────────────────── Header ─────────────────────────── */}
+      <header
+        className={cn(
+          "fixed top-[35px] left-0 right-0 z-998 transition-all duration-300",
+          hasBackground
+            ? "bg-background/90 backdrop-blur-md shadow"
+            : "bg-transparent"
+        )}
+      >
+        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              {/* <div className="relative h-10 w-28 sm:h-12 sm:w-40"> */}
+              <Image
+                src={shouldShowWhiteLogo ? "/white-logo.svg" : "/logo.svg"}
+                alt="Delta Prime Logo"
+                width={115}
+                height={48}
+                priority
+                className="object-cover transition-opacity duration-300"
+              />
+              {/* </div> */}
+            </Link>
 
-          {/* Mobile Menu Button */}
-          <button
-            className={cn(
-              "lg:hidden p-2 rounded-md transition-all duration-300 hover:scale-110 active:scale-95",
-              hasBackground
-                ? "text-foreground hover:bg-accent/10"
-                : "text-white hover:bg-white/10"
-            )}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border bg-background/95 backdrop-blur-md">
-            <div className="flex flex-col gap-2">
+            {/* Desktop Nav */}
+            <div className="hidden lg:flex items-center gap-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="px-4 py-2 text-sm font-medium text-foreground hover:bg-muted hover:scale-[1.02] rounded-md transition-all duration-300"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={cn(
+                    "px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105",
+                    hasBackground
+                      ? "text-foreground hover:text-primary"
+                      : "text-white hover:text-accent"
+                  )}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="px-4 pt-2">
-                <DriverApplicationModal />
+            </div>
+
+            {/* CTA Desktop */}
+            <div className="hidden lg:block">
+              <DriverApplicationModal />
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              data-nav-toggle
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={cn(
+                "lg:hidden p-2 rounded-md transition-all duration-300 hover:scale-110 active:scale-95",
+                hasBackground
+                  ? "text-foreground hover:bg-accent/10"
+                  : "text-white hover:bg-white/10"
+              )}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {/* ─────────────────────────── Mobile Menu ─────────────────────────── */}
+          {isMobileMenuOpen && (
+            <div
+              ref={mobileMenuRef}
+              className="lg:hidden py-4 border-t border-border bg-background/95 backdrop-blur-lg shadow-md"
+            >
+              <div className="flex flex-col gap-2">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-2 text-sm font-medium text-foreground hover:bg-muted rounded-md transition-all"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+
+                <div className="px-4 pt-2">
+                  <DriverApplicationModal />
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </nav>
-    </header>
+          )}
+        </nav>
+      </header>
+    </>
   );
 }

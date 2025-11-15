@@ -136,6 +136,7 @@
   /* Added smooth scroll behavior globally */
   html {
     scroll-behavior: smooth;
+    overflow: hidden;
   }
   a {
     @apply underline-offset-0;
@@ -147,6 +148,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  .react-tel-input {
+    width: 100%;
+  } 
 
   /* Beautiful custom scrollbars */
   ::-webkit-scrollbar {

@@ -178,13 +178,13 @@ export default function ContactPage() {
                   <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
                     Headquarters
                   </h3>
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  <a href="https://maps.app.goo.gl/D3tTbm5wsmN3ct7k7" target="_blank" className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     1101 31st
                     <br />
                     Downers Grove, IL 60515
                     <br />
                     United States
-                  </p>
+                  </a>
                 </CardContent>
               </Card>
 
@@ -197,11 +197,11 @@ export default function ContactPage() {
                     Phone
                   </h3>
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    Main: +1 (708) 907-2006
+                    Main: <a href="tel:+1 (708) 907-2006">+1 (708) 907-2006</a>
                     <br />
-                    Sales: +1 (708) 907-2006
+                    Sales: <a href="tel:+1 (708) 907-2006">+1 (708) 907-2006</a>
                     <br />
-                    Support: +1 (708) 907-2006
+                    Support: <a href="tel:+1 (708) 907-2006">+1 (708) 907-2006</a>
                   </p>
                 </CardContent>
               </Card>
@@ -215,11 +215,11 @@ export default function ContactPage() {
                     Email
                   </h3>
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    Drivers: applications@deltaprimellc.com
+                    Drivers: <a href="mailto:applications@deltaprimellc.com">applications@deltaprimellc.com</a>
                     <br />
-                    Sales: dispatch@deltaprimellc.com
+                    Sales: <a href="mailto:dispatch@deltaprimellc.com">dispatch@deltaprimellc.com</a>
                     <br />
-                    Support: claims@deltaprimellc.com
+                    Support: <a href="mailto:claims@deltaprimellc.com">claims@deltaprimellc.com</a>
                   </p>
                 </CardContent>
               </Card>
