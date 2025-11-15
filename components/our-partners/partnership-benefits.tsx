@@ -1,42 +1,126 @@
-import { CheckCircle } from "lucide-react";
+"use client";
 
+import { CheckCircle } from "lucide-react";
+import { motion, useInView, type Variants } from "framer-motion";
+import { useRef } from "react";
+
+/* -------------------------------
+   Animations
+-------------------------------- */
+const parent: Variants = {
+  hidden: { opacity: 0, y: 35 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut", staggerChildren: 0.12 },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: "easeOut" },
+  },
+};
+
+const iconFloat: Variants = {
+  initial: { y: 0 },
+  animate: {
+    y: [-4, 4, -4],
+    transition: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
+  },
+};
+
+const imageReveal: Variants = {
+  hidden: { opacity: 0, scale: 0.92, y: 30 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: "easeOut" },
+  },
+};
+
+/* -------------------------------
+   Component
+-------------------------------- */
 const PartnershipBenefits = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  const inView = useInView(ref, {
+    amount: 0.3,
+    once: false, // re-animate on scroll up + down
+  });
+
+  const benefits = [
+    "Access to real-time GPS tracking and shipment visibility",
+    "Dedicated account and dispatch support 24/7",
+    "Consistent freight opportunities across all 48 states",
+    "Modern, well-maintained fleet with advanced safety technology",
+    "Transparent pricing and long-term partnership agreements",
+    "Reliable, on-time delivery backed by performance analytics",
+    "Driver and equipment safety compliance built into every load",
+    "Priority access to capacity during peak seasons",
+  ];
+
   return (
     <section className="py-20 bg-muted">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-foreground mb-6">
+      <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* LEFT TEXT SIDE */}
+          <motion.div
+            variants={parent}
+            initial="hidden"
+            animate={inView ? "show" : "hidden"}
+          >
+            <motion.h2
+              variants={item}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+            >
               Partnership Benefits
-            </h2>
-            <div className="space-y-4">
-              {[
-                "Access to real-time GPS tracking and shipment visibility",
-                "Dedicated account and dispatch support 24/7",
-                "Consistent freight opportunities across all 48 states",
-                "Modern, well-maintained fleet with advanced safety technology",
-                "Transparent pricing and long-term partnership agreements",
-                "Reliable, on-time delivery backed by performance analytics",
-                "Driver and equipment safety compliance built into every load",
-                "Priority access to capacity during peak seasons",
-              ].map((benefit, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle
-                    className="text-accent shrink-0 mt-1"
-                    size={24}
-                  />
-                  <p className="text-lg text-foreground">{benefit}</p>
-                </div>
+            </motion.h2>
+
+            <motion.div variants={parent} className="space-y-4">
+              {benefits.map((benefit, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={item}
+                  className="flex items-start gap-3"
+                >
+                  <motion.div
+                    variants={iconFloat}
+                    initial="initial"
+                    animate="animate"
+                  >
+                    <CheckCircle
+                      className="text-accent shrink-0 mt-1"
+                      size={24}
+                    />
+                  </motion.div>
+
+                  <p className="text-base md:text-lg text-foreground leading-relaxed">
+                    {benefit}
+                  </p>
+                </motion.div>
               ))}
-            </div>
-          </div>
-          <div className="relative h-[500px] rounded-lg overflow-hidden">
+            </motion.div>
+          </motion.div>
+
+          {/* RIGHT IMAGE SIDE */}
+          <motion.div
+            variants={imageReveal}
+            initial="hidden"
+            animate={inView ? "show" : "hidden"}
+            className="relative h-[360px] sm:h-[440px] lg:h-[500px] rounded-xl overflow-hidden shadow-xl"
+          >
             <img
               src="/logistics-partnership-handshake-business-meeting.jpg"
               alt="Partnership"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover scale-105 hover:scale-100 transition-all duration-700"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
