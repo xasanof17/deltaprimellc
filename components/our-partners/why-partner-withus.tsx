@@ -109,7 +109,7 @@ const WhyPartnerWithUs = () => {
               className="h-full"
             >
               <Card className="h-full flex flex-col border bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-xl">
-                <CardContent className="p-8 flex flex-col grow text-center">
+                <CardContent className="p-6 flex flex-col grow text-center">
                   {/* Floating Icon */}
                   <motion.div
                     variants={floatIcon}
