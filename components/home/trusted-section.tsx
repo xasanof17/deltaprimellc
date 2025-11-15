@@ -1,4 +1,4 @@
-import { PartnerCarousel } from "./partner-carousel";
+import { PartnerCarousel } from "../animations/partner-carousel";
 
 const TrustedSection = () => {
   return (

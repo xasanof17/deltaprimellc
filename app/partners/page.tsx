@@ -9,7 +9,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { PartnerCarousel } from "@/components/partner-carousel";
+import { PartnerCarousel } from "@/components/animations/partner-carousel";
 
 export default function PartnersPage() {
   return (

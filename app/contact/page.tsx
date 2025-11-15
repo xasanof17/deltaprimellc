@@ -13,7 +13,7 @@ import {
   validateFirstName,
   validateName,
 } from "@/lib/validation";
-import { CustomPhoneInput } from "@/components/custom-phone-input";
+import { CustomPhoneInput } from "@/components/custom/custom-phone-input";
 
 interface FormData {
   firstName: string;

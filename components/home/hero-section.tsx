@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Star, Shield, Clock } from "lucide-react";
-import { ShipperQuoteModal } from "@/components/shipper-quote-modal";
+import { ShipperQuoteModal } from "@/components/modals/shipper-quote-modal";
 import Link from "next/link";
 
 const HeroSection = () => {

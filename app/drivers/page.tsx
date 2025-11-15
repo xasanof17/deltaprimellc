@@ -8,7 +8,7 @@ import {
   Users,
   CheckCircle,
 } from "lucide-react";
-import { DriverApplicationModal } from "@/components/driver-application-modal";
+import { DriverApplicationModal } from "@/components/modals/driver-application-modal";
 
 export default function DriversPage() {
   return (

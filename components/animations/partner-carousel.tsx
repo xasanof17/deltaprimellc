@@ -183,7 +183,7 @@ export function PartnerCarousel() {
         dragElastic={0.05}
         dragConstraints={{ left: -totalWidth * 2, right: 0 }}
         style={{ x }}
-        transition={{ ease: "linear", duration: 0.1 }}
+        transition={{ ease: "linear", duration: 0.1, repeat: Infinity }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onDragStart={() => {
@@ -204,8 +204,7 @@ export function PartnerCarousel() {
             key={`${partner.name}-${index}`}
             className="group relative flex lg:h-34 h-36 w-36 lg:w-48 shrink-0 items-center justify-center shadow-2xk"
             whileHover={{ scale: 1.08 }}
-            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1], repeat: Infinity}}
-            animate="animation"
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1]}}
           >
             <motion.img
               src={partner.logo}

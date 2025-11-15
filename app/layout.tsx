@@ -3,9 +3,9 @@ import type { Metadata } from "next"
 import { Geist } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { ScrollToTop } from "@/components/scroll-to-top"
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
+import { ScrollToTop } from "@/components/animations/scroll-to-top"
 
 const geist = Geist({
   subsets: ["latin"],

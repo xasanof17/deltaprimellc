@@ -20,10 +20,10 @@ import {
   validateSingleWordName,
   companyNameRegex,
 } from "@/lib/validation";
-import { AddressInput } from "@/components/address-input";
-import { CustomPhoneInput } from "@/components/custom-phone-input";
+import { AddressInput } from "@/components/custom/address-input";
+import { CustomPhoneInput } from "@/components/custom/custom-phone-input";
 import { EmailVerification } from "@/components/email-verification";
-import { RouteMap } from "@/components/route-map";
+import { RouteMap } from "@/components/animations/route-map";
 
 interface Coordinates {
   lat: number;

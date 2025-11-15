@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Package, Clock, Globe, BarChart, Shield, Headphones, CheckCircle, ArrowRight } from "lucide-react"
-import { ShipperQuoteModal } from "@/components/shipper-quote-modal"
+import { ShipperQuoteModal } from "@/components/modals/shipper-quote-modal"
 import Link from "next/link"
 
 export default function ShippersPage() {

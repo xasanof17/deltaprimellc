@@ -1,5 +1,5 @@
 import { LocateFixedIcon, MapIcon, Truck } from "lucide-react";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent } from "../ui/card";
 
 const PropositionsSection = () => {
   return (

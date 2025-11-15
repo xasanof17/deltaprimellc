@@ -35,7 +35,7 @@ import {
   CalendarIcon,
   UserRoundPenIcon,
 } from "lucide-react";
-import { CustomPhoneInput } from "@/components/custom-phone-input";
+import { CustomPhoneInput } from "@/components/custom/custom-phone-input";
 import {
   validateEmail,
   validateSingleWordName,
