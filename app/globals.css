@@ -134,8 +134,10 @@
   }
 
   /* Added smooth scroll behavior globally */
-  html {
+  html,
+  body {
     scroll-behavior: smooth;
+    overflow-x: hidden !important;
   }
   a {
     @apply underline-offset-0;
@@ -149,7 +151,7 @@
   }
   .react-tel-input {
     width: 100%;
-  } 
+  }
 
   /* Beautiful custom scrollbars */
   ::-webkit-scrollbar {

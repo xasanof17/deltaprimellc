@@ -1,9 +1,15 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
+import { useState, useEffect, useMemo, useRef } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import {
+  motion,
+  AnimatePresence,
+  useInView,
+  type Variants,
+} from "framer-motion";
 
 const testimonials = [
   {
@@ -30,71 +36,200 @@ const testimonials = [
       "Their dedicated fleet solutions have been a game-changer for our business. On-time delivery rate is consistently above 99%.",
     rating: 5,
   },
-]
+];
+
+/* Smooth, responsive card animation */
+const cardVariants: Variants = {
+  enter: (direction: number) => ({
+    opacity: 0,
+    x: direction === 1 ? 90 : -90,
+    scale: 0.95,
+  }),
+  center: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+  exit: (direction: number) => ({
+    opacity: 0,
+    x: direction === 1 ? -90 : 90,
+    scale: 0.95,
+    transition: { duration: 0.35, ease: "easeIn" },
+  }),
+};
+
+/* Star animation */
+const starVariant: Variants = {
+  hidden: { opacity: 0, scale: 0.4, rotate: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    transition: {
+      delay: 0.15 + i * 0.07,
+      duration: 0.35,
+      ease: "easeOut",
+    },
+  }),
+};
 
 export function TestimonialsCarousel() {
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<1 | -1>(1);
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(containerRef, { amount: 0.3 });
+
+  const active = useMemo(() => testimonials[current], [current]);
 
   const next = () => {
-    setCurrent((current + 1) % testimonials.length)
-  }
+    setDirection(1);
+    setCurrent((c) => (c + 1) % testimonials.length);
+  };
 
   const prev = () => {
-    setCurrent((current - 1 + testimonials.length) % testimonials.length)
-  }
+    setDirection(-1);
+    setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
+  };
 
+  /* ---------------------------------------------
+     1️⃣  KEYBOARD CONTROLS 
+     --------------------------------------------- */
   useEffect(() => {
-    const timer = setInterval(next, 5000)
-    return () => clearInterval(timer)
-  }, [current])
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
 
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [current]);
+
+  /* ---------------------------------------------
+     2️⃣  AUTO-PLAY (only visible)
+     --------------------------------------------- */
+  useEffect(() => {
+    if (!inView) return;
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [inView]);
+
+  /* ---------------------------------------------
+     3️⃣  MOUSE DRAG / SWIPE 
+     --------------------------------------------- */
+  const dragThreshold = 80;
+
+  const handleDragEnd = (_: any, info: any) => {
+    if (info.offset.x < -dragThreshold) next();
+    if (info.offset.x > dragThreshold) prev();
+  };
+
+  /* ---------------------------------------------
+     RENDER
+     --------------------------------------------- */
   return (
-    <div className="relative max-w-4xl mx-auto">
-      <Card className="border-2">
-        <CardContent className="p-8 md:p-12">
-          <div className="flex gap-1 mb-4 justify-center">
-            {Array.from({ length: testimonials[current].rating }).map((_, i) => (
-              <Star key={i} className="fill-accent text-accent" size={20} />
-            ))}
-          </div>
-          <blockquote className="text-lg md:text-xl text-foreground mb-6 text-center leading-relaxed">
-            "{testimonials[current].content}"
-          </blockquote>
-          <div className="text-center">
-            <div className="font-bold text-lg text-foreground">{testimonials[current].name}</div>
-            <div className="text-muted-foreground">{testimonials[current].role}</div>
-            <div className="text-primary font-semibold">{testimonials[current].company}</div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <div className="flex justify-center gap-4 mt-6">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={prev}
-          className="rounded-full bg-transparent hover:scale-110 hover:shadow-lg transition-all duration-200"
+    <div ref={containerRef} className="relative max-w-3xl mx-auto w-full overflow-hidden">
+      <AnimatePresence custom={direction} mode="popLayout">
+        <motion.div
+          key={current}
+          custom={direction}
+          variants={cardVariants}
+          initial="enter"
+          animate={inView ? "center" : "enter"}
+          exit="exit"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.15}
+          onDragEnd={handleDragEnd}
         >
-          <ChevronLeft size={20} />
-        </Button>
+          <Card className="border shadow-md hover:shadow-xl transition-all duration-300 w-full">
+            <CardContent
+              className="
+                p-6 sm:p-8 md:p-10 
+                flex flex-col 
+                justify-between 
+                min-h-[280px] 
+                sm:min-h-[300px] 
+                md:min-h-[320px] 
+                lg:min-h-[340px]
+              "
+            >
+              {/* Stars */}
+              <div className="flex gap-1 mb-3 justify-center">
+                {Array.from({ length: active.rating }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    variants={starVariant}
+                    initial="hidden"
+                    animate={inView ? "visible" : "hidden"}
+                    custom={i}
+                  >
+                    <Star className="fill-accent text-accent" size={22} />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Quote */}
+              <motion.blockquote
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.45 }}
+                className="text-base sm:text-lg md:text-xl text-foreground mb-6 text-center leading-relaxed px-2"
+              >
+                "{active.content}"
+              </motion.blockquote>
+
+              {/* Name / meta */}
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+              >
+                <div className="font-bold text-lg">{active.name}</div>
+                <div className="text-muted-foreground text-sm">{active.role}</div>
+                <div className="text-primary font-semibold text-sm">
+                  {active.company}
+                </div>
+              </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Controls */}
+      <div className="flex justify-center gap-4 mt-6">
+        {/* Prev */}
+        <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.15 }}>
+          <Button variant="outline" size="icon" onClick={prev} className="rounded-full w-9 h-9 sm:w-10 sm:h-10">
+            <ChevronLeft size={20} />
+          </Button>
+        </motion.div>
+
+        {/* Dots */}
         <div className="flex items-center gap-2">
           {testimonials.map((_, idx) => (
-            <button
+            <motion.button
               key={idx}
-              onClick={() => setCurrent(idx)}
-              className={`w-2 h-2 rounded-full transition-all duration-200 hover:scale-150 ${idx === current ? "bg-primary w-8" : "bg-border"}`}
+              onClick={() => {
+                setDirection(idx > current ? 1 : -1);
+                setCurrent(idx);
+              }}
+              whileHover={{ scale: 1.4 }}
+              className={`rounded-full transition-all ${
+                idx === current ? "bg-primary w-8 h-2" : "bg-border w-2 h-2"
+              }`}
             />
           ))}
         </div>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={next}
-          className="rounded-full bg-transparent hover:scale-110 hover:shadow-lg transition-all duration-200"
-        >
-          <ChevronRight size={20} />
-        </Button>
+
+        {/* Next */}
+        <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.15 }}>
+          <Button variant="outline" size="icon" onClick={next} className="rounded-full w-9 h-9 sm:w-10 sm:h-10">
+            <ChevronRight size={20} />
+          </Button>
+        </motion.div>
       </div>
     </div>
-  )
+  );
 }
