@@ -65,7 +65,6 @@ export function Button({
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
-
       /* ✨ Motion magic */
       whileHover={{ y: -2, scale: 1.03 }}
       whileTap={{ scale: 0.96, y: 0 }}

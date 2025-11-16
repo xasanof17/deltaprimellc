@@ -167,6 +167,7 @@ export function Footer() {
               ].map((item, idx) => (
                 <motion.a
                   key={idx}
+                  title="social link"
                   href={item.href}
                   variants={iconHover}
                   whileHover="hover"

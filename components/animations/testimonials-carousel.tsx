@@ -129,7 +129,10 @@ export function TestimonialsCarousel() {
      RENDER
      --------------------------------------------- */
   return (
-    <div ref={containerRef} className="relative max-w-3xl mx-auto w-full overflow-hidden">
+    <div
+      ref={containerRef}
+      className="relative max-w-3xl mx-auto w-full overflow-hidden"
+    >
       <AnimatePresence custom={direction} mode="popLayout">
         <motion.div
           key={current}
@@ -187,7 +190,9 @@ export function TestimonialsCarousel() {
                 animate={inView ? { opacity: 1 } : {}}
               >
                 <div className="font-bold text-lg">{active.name}</div>
-                <div className="text-muted-foreground text-sm">{active.role}</div>
+                <div className="text-muted-foreground text-sm">
+                  {active.role}
+                </div>
                 <div className="text-primary font-semibold text-sm">
                   {active.company}
                 </div>
@@ -201,8 +206,15 @@ export function TestimonialsCarousel() {
       <div className="flex justify-center gap-4 mt-6">
         {/* Prev */}
         <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.15 }}>
-          <Button variant="outline" size="icon" onClick={prev} className="rounded-full w-9 h-9 sm:w-10 sm:h-10">
+          <Button
+            role="button"
+            variant="outline"
+            size="icon"
+            onClick={prev}
+            className="rounded-full w-9 h-9 sm:w-10 sm:h-10"
+          >
             <ChevronLeft size={20} />
+            <span className="sr-only">Previous Button</span>
           </Button>
         </motion.div>
 
@@ -211,6 +223,7 @@ export function TestimonialsCarousel() {
           {testimonials.map((_, idx) => (
             <motion.button
               key={idx}
+              role="button"
               onClick={() => {
                 setDirection(idx > current ? 1 : -1);
                 setCurrent(idx);
@@ -225,8 +238,15 @@ export function TestimonialsCarousel() {
 
         {/* Next */}
         <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.15 }}>
-          <Button variant="outline" size="icon" onClick={next} className="rounded-full w-9 h-9 sm:w-10 sm:h-10">
+          <Button
+            role="button"
+            variant="outline"
+            size="icon"
+            onClick={next}
+            className="rounded-full w-9 h-9 sm:w-10 sm:h-10"
+          >
             <ChevronRight size={20} />
+            <span className="sr-only">Next Button</span>
           </Button>
         </motion.div>
       </div>
