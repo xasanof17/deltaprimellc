@@ -154,7 +154,7 @@ export function TestimonialsCarousel() {
                 justify-between 
                 min-h-[280px] 
                 sm:min-h-[300px] 
-                md:min-h-[320px] 
+                md:min-h-80 
                 lg:min-h-[340px]
               "
             >

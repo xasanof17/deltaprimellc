@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DriverApplicationModal } from "../driver-application-modal";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import Image from "next/image";
 import { InfiniteBanner } from "./banner";
+import Image from "next/image"; 
+import Link from "next/link";
 
 /* ─────────────────────────────── Variants (TS SAFE) ─────────────────────────────── */
 const navLoad: Variants = {

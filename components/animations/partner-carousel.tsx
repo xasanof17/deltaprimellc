@@ -5,6 +5,13 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 const partners = [
   { name: "Amazon Freight", logo: "/partners/amazon.png" },
   { name: "AmTrust", logo: "/partners/amtrust-logo.svg" },
@@ -35,78 +42,85 @@ const partners = [
 ];
 
 export function PartnerCarousel() {
-  const trackRef = useRef<HTMLDivElement | null>(null);
-
   const x = useMotionValue(0);
   const [paused, setPaused] = useState(false);
 
-  // CONSTANT SIZES → perfectly equal logos
-  const ITEM_W = 240; // fixed width for logos
-  const ITEM_H = 120;
-  const GAP = 60;
-
+  const ITEM_W = 160;
+  const ITEM_H = 80;
+  const GAP = 40;
   const fullItem = ITEM_W + GAP;
 
-  // 🔥 EXTEND x6 (perfect seamless loop)
   const extended = Array(6).fill(partners).flat();
-
   const TOTAL_WIDTH = partners.length * fullItem;
 
-  /* ---------------------------------------------
-     AUTO-SCROLL LOOP (always runs, no disappearance)
-  ----------------------------------------------*/
   useAnimationFrame((t, delta) => {
     if (!paused) {
       let newX = x.get() - delta * 0.12;
-
-      // Perfect seamless reset
-      if (newX <= -TOTAL_WIDTH) {
-        newX += TOTAL_WIDTH;
-      }
-
+      if (newX <= -TOTAL_WIDTH) newX += TOTAL_WIDTH;
       x.set(newX);
     }
   });
 
   return (
-    <div className="relative w-full overflow-hidden py-14">
-      {/* Left → Fade */}
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
+    <TooltipProvider delayDuration={0}>
+      <div className="relative w-full overflow-hidden py-14">
+        <div className="from-background pointer-events-none absolute inset-y-0 left-0 z-20 w-20 bg-linear-to-r to-transparent" />
+        <div className="from-background pointer-events-none absolute inset-y-0 right-0 z-20 w-20 bg-linear-to-l to-transparent" />
 
-      {/* Right → Fade */}
-      <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+        <motion.div
+          style={{ x }}
+          className="flex cursor-grab items-center gap-20 active:cursor-grabbing"
+          drag="x"
+          dragElastic={0.06}
+          dragConstraints={{ left: -TOTAL_WIDTH, right: 0 }}
+        >
+          {extended.map((partner, i) => {
+            const [open, setOpen] = useState(false);
+            const timer = useRef<NodeJS.Timeout | null>(null);
 
-      {/* TRACK */}
-      <motion.div
-        ref={trackRef}
-        style={{ x }}
-        className="flex items-center gap-20 cursor-grab active:cursor-grabbing"
-        drag="x"
-        dragElastic={0.06}
-        dragConstraints={{ left: -TOTAL_WIDTH, right: 0 }}
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onDragStart={() => setPaused(true)}
-        onDragEnd={() => setPaused(false)}
-      >
-        {extended.map((partner, i) => (
-          <motion.div
-            key={`${partner.name}-${i}`}
-            className="shrink-0 w-40 h-20 sm:w-48 sm:h-24 md:w-56 md:h-28 flex items-center justify-center"
-            whileHover={{ scale: 1.12 }}
-            transition={{ duration: 0.25 }}
-          >
-            <Image
-              src={partner.logo}
-              alt={partner.name}
-              width={ITEM_W}
-              height={ITEM_H}
-              className="object-contain max-w-full max-h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-              draggable={false}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
+            return (
+              <Tooltip key={i} open={open}>
+                <TooltipTrigger
+                  asChild
+                  onMouseEnter={() => {
+                    timer.current = setTimeout(() => {
+                      setOpen(true);
+                      setPaused(true); // pause ONLY when tooltip is open
+                    }, 900);
+                  }}
+                  onMouseLeave={() => {
+                    if (timer.current) clearTimeout(timer.current);
+                    setOpen(false);
+                    setPaused(false);
+                  }}
+                >
+                  <motion.div
+                    className="flex h-14 w-28 shrink-0 translate-z-0 items-center justify-center will-change-transform sm:h-16 sm:w-32 md:h-20 md:w-40"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      width={ITEM_W}
+                      height={ITEM_H}
+                      draggable={false}
+                      className="max-h-full max-w-full object-contain opacity-80 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                    />
+                  </motion.div>
+                </TooltipTrigger>
+
+                <TooltipContent
+                  side="bottom"
+                  className="translate-z-0 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-base text-black shadow-xl backdrop-blur-md will-change-transform dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+                >
+                  {partner.name}
+                </TooltipContent>
+              </Tooltip>
+            );
+          })}
+        </motion.div>
+      </div>
+    </TooltipProvider>
   );
 }

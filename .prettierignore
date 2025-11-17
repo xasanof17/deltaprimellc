@@ -1,0 +1,57 @@
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Env files (NEVER touch these)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Logs
+npm-debug.log
+pnpm-debug.log
+yarn-debug.log
+yarn-error.log
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git files
+.git
+.gitignore
+
+# Public assets
+public/**/*.png
+public/**/*.jpg
+public/**/*.jpeg
+public/**/*.webp
+public/**/*.svg
+public/**/*.ico
+
+# TypeScript build output
+*.tsbuildinfo
+
+# Storybook build
+storybook-static/
+
+# Editor folders
+.vscode/
+.idea/
+
+# Lock files (optional, usually don’t need formatting)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Backups / Temp
+*.bak
+*.tmp
