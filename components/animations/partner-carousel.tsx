@@ -112,7 +112,7 @@ export function PartnerCarousel() {
 
                 <TooltipContent
                   side="bottom"
-                  className="translate-z-0 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-base text-black shadow-xl backdrop-blur-md will-change-transform dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+                  className="translate-z-0 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-base text-black shadow-xl backdrop-blur-md will-change-transform dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
                 >
                   {partner.name}
                 </TooltipContent>

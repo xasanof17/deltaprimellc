@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
 import { DriverApplicationModal } from "../driver-application-modal";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { InfiniteBanner } from "./banner";
-import Image from "next/image"; 
+import Image from "next/image";
 import Link from "next/link";
 
-/* ─────────────────────────────── Variants (TS SAFE) ─────────────────────────────── */
+/* ─────────────────────────────── Variants ─────────────────────────────── */
 const navLoad: Variants = {
   hidden: { opacity: 0, y: -20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } }
@@ -21,23 +21,16 @@ const mobileMenuAnim: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.25,
-      ease: "easeOut",
-      staggerChildren: 0.08
-    }
+    transition: { duration: 0.25, ease: "easeOut", staggerChildren: 0.08 }
   }
 };
 
 const mobileItem: Variants = {
   hidden: { opacity: 0, x: -8 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.22, ease: "easeOut" }
-  }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.22, ease: "easeOut" } }
 };
 
+/* Navigation links */
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
@@ -51,25 +44,29 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const isHomePage = pathname === "/";
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
+  const isHomePage = pathname === "/";
   const shouldShowWhiteLogo = isHomePage && !isScrolled;
   const hasBackground = isScrolled || !isHomePage;
 
-  /* Scroll listener */
+  /* ─────────────────────────────── FIX: instant scroll detection ─────────────────────────────── */
   useEffect(() => {
+    // prevents flicker or delayed logo switching
+    setIsScrolled(window.scrollY > 10);
+
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* Close menu on route change */
+  /* Auto-close mobile menu on route change */
   useEffect(() => {
     if (isMobileMenuOpen) setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  /* Modal-safe outside click */
+  /* Outside click handling */
   useEffect(() => {
     if (!isMobileMenuOpen) return;
 
@@ -86,8 +83,7 @@ export function Header() {
     };
 
     window.addEventListener("click", handleClick, { capture: true });
-    return () =>
-      window.removeEventListener("click", handleClick, { capture: true });
+    return () => window.removeEventListener("click", handleClick, { capture: true });
   }, [isMobileMenuOpen]);
 
   return (
@@ -108,6 +104,7 @@ export function Header() {
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
+            
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image
@@ -127,7 +124,7 @@ export function Header() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105",
+                    "px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105",
                     hasBackground
                       ? "text-foreground hover:text-primary"
                       : "text-white hover:text-accent"
@@ -138,12 +135,12 @@ export function Header() {
               ))}
             </div>
 
-            {/* CTA Desktop */}
+            {/* Desktop CTA */}
             <div className="hidden lg:block">
               <DriverApplicationModal />
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Toggle */}
             <button
               data-nav-toggle
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

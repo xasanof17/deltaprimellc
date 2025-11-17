@@ -12,34 +12,23 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { motion, useInView, type Variants } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
-/* -------------------------------
-   ANIMATIONS
--------------------------------- */
+/* ------------------------------- ANIMATIONS -------------------------------- */
 const container: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-      staggerChildren: 0.12,
-    },
+    transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.12 },
   },
 };
 
 const item: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-/* 3D ICON HOVER */
 const iconHover: Variants = {
   hover: {
     scale: 1.25,
@@ -52,23 +41,34 @@ const iconHover: Variants = {
 
 export function Footer() {
   const ref = useRef<HTMLDivElement | null>(null);
+
+  // FIX: Prevent hydration mismatch for inView
+  const [enableAnim, setEnableAnim] = useState(false);
   const inView = useInView(ref, { amount: 0.2, once: true });
+
+  useEffect(() => {
+    setEnableAnim(true);
+  }, []);
+
+  // FIX: avoid SSR mismatch by computing once on client
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div
-        ref={ref}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 py-12"
-      >
+      <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <motion.div
           variants={container}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={enableAnim && inView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {/* Company Info */}
+          {/* Company */}
           <motion.div variants={item} className="space-y-4">
-            <Link href={"/"} className="block">
+            <Link href="/" className="block">
               <Image
                 src="/white-logo.svg"
                 alt="Delta Prime LLC"
@@ -77,6 +77,7 @@ export function Footer() {
                 className="h-12 w-auto"
               />
             </Link>
+
             <p className="text-sm opacity-90 leading-relaxed">
               Tech-enabled logistics solutions with global reach. Delivering
               excellence on time, every time.
@@ -86,17 +87,18 @@ export function Footer() {
           {/* Quick Links */}
           <motion.div variants={item}>
             <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+
             <ul className="space-y-2">
               {[
                 { name: "About Us", href: "/about" },
                 { name: "Services", href: "/services" },
                 { name: "Fleet & Technology", href: "/fleet" },
                 { name: "Shippers", href: "/shippers" },
-              ].map((link, idx) => (
-                <li key={idx}>
+              ].map((link, i) => (
+                <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-sm opacity-90 hover:opacity-100 hover:text-accent hover:scale-110 inline-block transition-all duration-200"
+                    className="text-sm opacity-90 hover:opacity-100 hover:scale-110 hover:text-accent inline-block transition-all duration-200"
                   >
                     {link.name}
                   </Link>
@@ -108,16 +110,17 @@ export function Footer() {
           {/* Resources */}
           <motion.div variants={item}>
             <h3 className="font-bold text-lg mb-4">Resources</h3>
+
             <ul className="space-y-2">
               {[
                 { name: "Driver Portal", href: "/drivers" },
                 { name: "Our Partners", href: "/partners" },
                 { name: "Contact Us", href: "/contact" },
-              ].map((link, idx) => (
-                <li key={idx}>
+              ].map((link, i) => (
+                <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-sm opacity-90 hover:opacity-100 hover:text-accent hover:scale-110 inline-block transition-all duration-200"
+                    className="text-sm opacity-90 hover:opacity-100 hover:scale-110 hover:text-accent inline-block transition-all duration-200"
                   >
                     {link.name}
                   </Link>
@@ -126,11 +129,12 @@ export function Footer() {
             </ul>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Contact */}
           <motion.div variants={item}>
             <h3 className="font-bold text-lg mb-4">Contact</h3>
+
             <ul className="space-y-3">
-              <li className="flex items-center justify-start">
+              <li className="flex items-center">
                 <a
                   href="https://maps.app.goo.gl/D3tTbm5wsmN3ct7k7"
                   target="_blank"
@@ -139,15 +143,18 @@ export function Footer() {
                   <MapPin size={16} /> 1101 31st, Downers Grove, IL 60515
                 </a>
               </li>
-              <li className="flex items-center justify-start">
-                <Link
+
+              {/* FIX: Replace Link with <a> for tel */}
+              <li className="flex items-center">
+                <a
                   href="tel:+17089072006"
                   className="flex items-center gap-2 text-sm opacity-90"
                 >
                   <Phone size={16} /> +1 (708) 907-2006
-                </Link>
+                </a>
               </li>
-              <li className="flex items-center justify-start">
+
+              <li className="flex items-center">
                 <a
                   href="mailto:applications@deltaprime.com"
                   className="flex items-center gap-2 text-sm opacity-90"
@@ -157,40 +164,33 @@ export function Footer() {
               </li>
             </ul>
 
-            {/* SOCIAL ICONS */}
+            {/* Social */}
             <div className="flex gap-3 mt-4">
-              {[
-                { icon: Facebook, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Linkedin, href: "#" },
-                { icon: Instagram, href: "#" },
-              ].map((item, idx) => (
+              {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
                 <motion.a
-                  key={idx}
-                  title="social link"
-                  href={item.href}
+                  key={i}
+                  href="#"
                   variants={iconHover}
                   whileHover="hover"
-                  className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center transition-transform"
-                  style={{
-                    perspective: "600px",
-                  }}
+                  className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center"
                 >
-                  <item.icon size={18} className="text-accent-foreground" />
+                  <Icon size={18} className="text-accent-foreground" />
                 </motion.a>
               ))}
             </div>
           </motion.div>
         </motion.div>
 
-        {/* COPYRIGHT */}
+        {/* Copyright (hydration-safe) */}
         <motion.div
           variants={item}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={enableAnim && inView ? "visible" : "hidden"}
           className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-90"
         >
-          <p>&copy; 2020-{new Date().getFullYear()} Delta Prime LLC. All rights reserved.</p>
+          {year && (
+            <p>&copy; 2020-{year} Delta Prime LLC. All rights reserved.</p>
+          )}
         </motion.div>
       </div>
     </footer>
