@@ -96,10 +96,9 @@ export default function WhyShipWithUs() {
   ];
 
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
-
+    <section className="bg-background relative overflow-hidden py-20">
       {/* FIXED background gradient (NO Z-INDEX 🤝) */}
-      <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+      <div className="from-primary/5 to-accent/5 pointer-events-none absolute inset-0 bg-linear-to-b via-transparent" />
 
       {/* SAFE CONTENT LAYER */}
       <div
@@ -111,18 +110,18 @@ export default function WhyShipWithUs() {
           variants={parent}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
           <motion.h2
             variants={fadeItem}
-            className="text-4xl md:text-5xl font-bold text-foreground mb-4"
+            className="text-foreground mb-4 text-4xl font-bold md:text-5xl"
           >
             Why Ship With Delta Prime
           </motion.h2>
 
           <motion.p
             variants={fadeItem}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-muted-foreground mx-auto max-w-2xl text-xl"
           >
             Technology-driven solutions that keep your business moving forward
           </motion.p>
@@ -133,33 +132,26 @@ export default function WhyShipWithUs() {
           variants={parent}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="
-            grid grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-3
-            gap-8
-            max-w-7xl mx-auto
-          "
+          className="mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
         >
           {FEATURES.map((item, i) => (
             <motion.div key={i} variants={fadeItem} className="h-full">
-              <Card className="border-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full flex">
-                <CardContent className="p-6 flex flex-col h-full">
-                  
+              <Card className="flex h-full border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <CardContent className="flex h-full flex-col p-6">
                   <motion.div
                     variants={iconFloat}
                     initial="initial"
                     animate="animate"
-                    className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto ${item.color}`}
+                    className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full ${item.color}`}
                   >
                     <item.icon size={32} />
                   </motion.div>
 
-                  <h3 className="text-xl font-bold text-foreground mb-2 text-center">
+                  <h3 className="text-foreground mb-2 text-center text-xl font-bold">
                     {item.title}
                   </h3>
 
-                  <p className="text-muted-foreground leading-relaxed text-center">
+                  <p className="text-muted-foreground text-center leading-relaxed">
                     {item.text}
                   </p>
                 </CardContent>

@@ -53,21 +53,21 @@ const CTASection = () => {
   });
 
   return (
-    <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+    <section className="bg-primary text-primary-foreground relative overflow-hidden py-24">
       {/* Subtle glow background */}
-      <div className="absolute inset-0 bg-linear-to-b from-primary/30 via-primary/20 to-primary/10 pointer-events-none" />
+      <div className="from-primary/30 via-primary/20 to-primary/10 pointer-events-none absolute inset-0 bg-linear-to-b" />
 
       <motion.div
         ref={ref}
         variants={textParent}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
-        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="relative z-10 container mx-auto px-4 text-center sm:px-6 lg:px-8"
       >
         {/* TITLE */}
         <motion.h2
           variants={fadeItem}
-          className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-balance"
+          className="mb-6 text-4xl font-bold tracking-tight text-balance md:text-5xl"
         >
           Ready to Transform Your Logistics?
         </motion.h2>
@@ -75,7 +75,7 @@ const CTASection = () => {
         {/* PARAGRAPH */}
         <motion.p
           variants={fadeItem}
-          className="text-xl max-w-2xl mx-auto opacity-90 mb-10 leading-relaxed"
+          className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed opacity-90"
         >
           Get a custom quote today and experience the Delta Prime difference
         </motion.p>

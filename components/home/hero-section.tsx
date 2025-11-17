@@ -35,7 +35,7 @@ const floatTitle: Variants = {
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-svh flex items-center justify-center overflow-hidden pt-[70px]">
+    <section className="relative flex min-h-svh items-center justify-center overflow-hidden pt-[70px]">
       {/* Background Video */}
       <motion.div
         className="absolute inset-0 z-0"
@@ -48,7 +48,7 @@ const HeroSection = () => {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         >
           <source src="/in_video.mp4" type="video/mp4" />
         </video>
@@ -58,32 +58,14 @@ const HeroSection = () => {
 
       {/* Main Content */}
       <motion.div
-        className="
-          relative z-10 
-          container mx-auto 
-          px-4 sm:px-6 lg:px-8
-          flex flex-col
-          justify-end
-          pb-5 md:pb-20   /* FIX: Extra breathing room for mobile */
-          text-center
-          min-h-[75vh]     /* FIX: Controls spacing tightly */
-        "
+        className="/* FIX: Extra breathing room for mobile */ /* FIX: Controls spacing tightly */ relative z-10 container mx-auto flex min-h-[75vh] flex-col justify-end px-4 pb-5 text-center sm:px-6 md:pb-20 lg:px-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
         {/* Title */}
         <motion.h1
-          className="
-            text-3xl 
-            md:text-5xl 
-            lg:text-6xl 
-            font-bold 
-            text-primary-foreground 
-            mb-3 sm:mb-4 
-            leading-tight sm:leading-tight 
-            drop-shadow-lg
-          "
+          className="text-primary-foreground mb-3 text-3xl leading-tight font-bold drop-shadow-lg sm:mb-4 sm:leading-tight md:text-5xl lg:text-6xl"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -96,16 +78,7 @@ const HeroSection = () => {
 
         {/* Description */}
         <motion.p
-          className="
-            text-sm 
-            md:text-lg 
-            lg:text-xl 
-            text-primary-foreground/90 
-            mb-5 sm:mb-6 
-            max-w-3xl mx-auto 
-            leading-relaxed 
-            drop-shadow-md
-          "
+          className="text-primary-foreground/90 mx-auto mb-5 max-w-3xl text-sm leading-relaxed drop-shadow-md sm:mb-6 md:text-lg lg:text-xl"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -118,7 +91,7 @@ const HeroSection = () => {
 
         {/* Badges */}
         <motion.div
-          className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6"
+          className="mb-6 flex flex-wrap justify-center gap-2 sm:gap-3"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -131,13 +104,7 @@ const HeroSection = () => {
           ].map((badge, i) => (
             <motion.div
               key={badge.text}
-              className="
-                flex items-center gap-2 
-                bg-white/10 backdrop-blur-sm 
-                px-3 py-1.5 
-                rounded-full 
-                border border-white/20
-              "
+              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-sm"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -146,8 +113,8 @@ const HeroSection = () => {
                 ease: "easeOut",
               }}
             >
-              <badge.icon className="w-4 h-4 text-white" />
-              <span className="text-white text-xs sm:text-sm font-medium">
+              <badge.icon className="h-4 w-4 text-white" />
+              <span className="text-xs font-medium text-white sm:text-sm">
                 {badge.text}
               </span>
             </motion.div>
@@ -156,7 +123,7 @@ const HeroSection = () => {
 
         {/* Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex flex-col justify-center gap-4 sm:flex-row"
           variants={fadeUp}
           initial="hidden"
           animate="visible"
@@ -167,15 +134,7 @@ const HeroSection = () => {
           <Link href="/about">
             <Button
               variant="outline"
-              className="
-                bg-transparent
-                border-2 border-primary-foreground 
-                text-primary-foreground
-                hover:bg-primary-foreground 
-                hover:text-primary 
-                font-semibold
-                w-full sm:w-auto
-              "
+              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary w-full border-2 bg-transparent font-semibold sm:w-auto"
             >
               Learn More
             </Button>

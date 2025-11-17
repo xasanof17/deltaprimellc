@@ -43,18 +43,18 @@ export default function CTAContact() {
   const inView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section className="py-20 bg-primary text-primary-foreground">
+    <section className="bg-primary text-primary-foreground py-20">
       <motion.div
         ref={ref}
         variants={parent}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="container mx-auto px-4 text-center sm:px-6 lg:px-8"
       >
         {/* Title */}
         <motion.h2
           variants={fadeItem}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-balance"
+          className="mb-6 text-2xl font-bold text-balance sm:text-3xl md:text-4xl lg:text-5xl"
         >
           Need Immediate Assistance?
         </motion.h2>
@@ -62,10 +62,7 @@ export default function CTAContact() {
         {/* Subtitle */}
         <motion.p
           variants={fadeItem}
-          className="
-            text-sm sm:text-base md:text-lg lg:text-xl 
-            mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed
-          "
+          className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed opacity-90 sm:text-base md:text-lg lg:text-xl"
         >
           Our 24/7 support team is always ready to help with urgent trucking and
           logistics needs
@@ -79,13 +76,7 @@ export default function CTAContact() {
         >
           <Button
             size="lg"
-            className="
-              bg-accent hover:bg-accent/90 
-              text-accent-foreground 
-              font-semibold 
-              text-sm sm:text-base md:text-lg 
-              px-8 py-6
-            "
+            className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-sm font-semibold sm:text-base md:text-lg"
           >
             <motion.span
               variants={phonePulse}

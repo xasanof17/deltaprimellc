@@ -79,25 +79,25 @@ const PartnerTypes = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="bg-background py-20">
       <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
           variants={parent}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
           <motion.h2
             variants={fadeItem}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+            className="text-foreground mb-4 text-3xl font-bold md:text-4xl lg:text-5xl"
           >
             Partnership Opportunities
           </motion.h2>
 
           <motion.p
             variants={fadeItem}
-            className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-muted-foreground mx-auto max-w-2xl text-lg lg:text-xl"
           >
             We collaborate with trusted partners across the U.S. freight and
             logistics industry.
@@ -109,24 +109,24 @@ const PartnerTypes = () => {
           variants={parent}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          className="mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:grid-cols-3"
         >
           {CARDS.map((card, index) => (
             <motion.div key={index} variants={fadeItem}>
-              <Card className="h-full hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border bg-card">
-                <CardContent className="p-5 md:p-8 flex flex-col h-full">
+              <Card className="bg-card h-full border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <CardContent className="flex h-full flex-col p-5 md:p-8">
                   {/* Title */}
-                  <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground mb-4">
+                  <h3 className="text-foreground mb-4 text-lg font-bold md:text-xl lg:text-2xl">
                     {card.title}
                   </h3>
 
                   {/* Text */}
-                  <p className="text-base lg:text-lg text-muted-foreground leading-relaxed mb-6">
+                  <p className="text-muted-foreground mb-6 text-base leading-relaxed lg:text-lg">
                     {card.text}
                   </p>
 
                   {/* Points */}
-                  <ul className="space-y-2 text-muted-foreground mt-auto">
+                  <ul className="text-muted-foreground mt-auto space-y-2">
                     {card.points.map((p, idx) => (
                       <li key={idx} className="flex items-center gap-2">
                         <motion.div

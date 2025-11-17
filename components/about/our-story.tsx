@@ -75,22 +75,22 @@ const OurStory = () => {
   const typed = useTypingEffect(STORY_CONTENT.typingIntro);
 
   return (
-    <section className="py-24 bg-muted relative overflow-hidden">
+    <section className="bg-muted relative overflow-hidden py-24">
       {/* subtle background */}
-      <div className="absolute inset-0 pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0" />
 
       <motion.div
         variants={parent}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.35 }} // 🔥 re-animate every scroll
-        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8"
       >
         {/* Title */}
         <motion.h2
           variants={fadeItem}
           viewport={{ once: false }}
-          className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-center"
+          className="text-foreground mb-8 text-center text-4xl font-bold md:text-5xl"
         >
           {STORY_CONTENT.title}
         </motion.h2>
@@ -99,7 +99,7 @@ const OurStory = () => {
         <motion.p
           variants={fadeItem}
           viewport={{ once: false }}
-          className="text-lg md:text-xl text-foreground/90 leading-relaxed max-w-4xl mx-auto mb-10 font-medium"
+          className="text-foreground/90 mx-auto mb-10 max-w-4xl text-lg leading-relaxed font-medium md:text-xl"
         >
           {typed}
           <span className="ml-1 animate-pulse">|</span>
@@ -109,7 +109,7 @@ const OurStory = () => {
         <motion.div
           variants={parent}
           viewport={{ once: false }}
-          className="space-y-6 text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto"
+          className="text-muted-foreground mx-auto max-w-4xl space-y-6 text-lg leading-relaxed"
         >
           {STORY_CONTENT.paragraphs.map((p, idx) => (
             <motion.p

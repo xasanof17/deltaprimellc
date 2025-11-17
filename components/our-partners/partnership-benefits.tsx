@@ -66,9 +66,9 @@ const PartnershipBenefits = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted">
+    <section className="bg-muted py-20">
       <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* LEFT TEXT SIDE */}
           <motion.div
             variants={parent}
@@ -77,7 +77,7 @@ const PartnershipBenefits = () => {
           >
             <motion.h2
               variants={item}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+              className="text-foreground mb-6 text-3xl font-bold md:text-4xl lg:text-5xl"
             >
               Partnership Benefits
             </motion.h2>
@@ -95,12 +95,12 @@ const PartnershipBenefits = () => {
                     animate="animate"
                   >
                     <CheckCircle
-                      className="text-accent shrink-0 mt-1"
+                      className="text-accent mt-1 shrink-0"
                       size={24}
                     />
                   </motion.div>
 
-                  <p className="text-base md:text-lg text-foreground leading-relaxed">
+                  <p className="text-foreground text-base leading-relaxed md:text-lg">
                     {benefit}
                   </p>
                 </motion.div>
@@ -113,12 +113,12 @@ const PartnershipBenefits = () => {
             variants={imageReveal}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
-            className="relative h-[360px] sm:h-[440px] lg:h-[500px] rounded-xl overflow-hidden shadow-xl"
+            className="relative h-[360px] overflow-hidden rounded-xl shadow-xl sm:h-[440px] lg:h-[500px]"
           >
             <img
               src="/logistics-partnership-handshake-business-meeting.jpg"
               alt="Partnership"
-              className="w-full h-full object-cover scale-105 hover:scale-100 transition-all duration-700"
+              className="h-full w-full scale-105 object-cover transition-all duration-700 hover:scale-100"
             />
           </motion.div>
         </div>

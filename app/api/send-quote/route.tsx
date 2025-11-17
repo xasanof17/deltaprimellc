@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server"
-import { sendEmail } from "@/lib/email"
+import { NextResponse } from "next/server";
+import { sendEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
-    console.log("[v0] 📧 Sending quote request email...")
+    console.log("[v0] 📧 Sending quote request email...");
 
-    const body = await request.json()
+    const body = await request.json();
     const {
       companyName,
       contactName,
@@ -17,23 +17,26 @@ export async function POST(request: Request) {
       cargoDetails,
       originCoords,
       destinationCoords,
-    } = body
+    } = body;
 
     // Calculate distance if coordinates are provided
-    let distance = "N/A"
+    let distance = "N/A";
     if (originCoords && destinationCoords) {
-      const R = 3958.8 // Earth's radius in miles
-      const lat1 = (originCoords.lat * Math.PI) / 180
-      const lat2 = (destinationCoords.lat * Math.PI) / 180
-      const dLat = ((destinationCoords.lat - originCoords.lat) * Math.PI) / 180
-      const dLng = ((destinationCoords.lng - originCoords.lng) * Math.PI) / 180
+      const R = 3958.8; // Earth's radius in miles
+      const lat1 = (originCoords.lat * Math.PI) / 180;
+      const lat2 = (destinationCoords.lat * Math.PI) / 180;
+      const dLat = ((destinationCoords.lat - originCoords.lat) * Math.PI) / 180;
+      const dLng = ((destinationCoords.lng - originCoords.lng) * Math.PI) / 180;
 
       const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) * Math.sin(dLng / 2)
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-      const distanceValue = R * c
-      distance = `${distanceValue.toFixed(0)} miles`
+        Math.cos(lat1) *
+          Math.cos(lat2) *
+          Math.sin(dLng / 2) *
+          Math.sin(dLng / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distanceValue = R * c;
+      distance = `${distanceValue.toFixed(0)} miles`;
     }
 
     const htmlContent = `
@@ -176,7 +179,7 @@ ${cargoDetails}
   </table>
 </body>
 </html>
-    `
+    `;
 
     // Plain text fallback
     const textContent = `
@@ -198,7 +201,7 @@ ${cargoDetails}
 
 ---
 Delta Prime LLC | Global Logistics | Tech Enabled | On Time Every Time
-    `
+    `;
 
     await sendEmail({
       to: process.env.SMTP_USER || "xasanof17@gmail.com", // Send to your Gmail
@@ -206,13 +209,16 @@ Delta Prime LLC | Global Logistics | Tech Enabled | On Time Every Time
       html: htmlContent,
       text: textContent,
       replyTo: email,
-    })
+    });
 
-    console.log("[v0] ✅ Quote email sent successfully!")
+    console.log("[v0] ✅ Quote email sent successfully!");
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error("[v0] ❌ Error in send-quote API:", error)
-    return NextResponse.json({ error: "Internal server error", details: error.message }, { status: 500 })
+    console.error("[v0] ❌ Error in send-quote API:", error);
+    return NextResponse.json(
+      { error: "Internal server error", details: error.message },
+      { status: 500 },
+    );
   }
 }

@@ -156,7 +156,7 @@ export function ShipperQuoteModal() {
     if (!validateForm()) {
       const allTouched = Object.keys(formData).reduce(
         (acc, key) => ({ ...acc, [key]: true }),
-        {}
+        {},
       );
       setTouched(allTouched);
       return;
@@ -225,14 +225,14 @@ export function ShipperQuoteModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold w-full sm:w-auto">
+        <Button className="bg-accent hover:bg-accent/90 text-accent-foreground w-full font-semibold sm:w-auto">
           Get a Quote <ArrowRight className="ml-2" size={20} />
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto modal-scroll p-4 sm:p-6">
+      <DialogContent className="modal-scroll max-h-[90vh] max-w-3xl overflow-y-auto p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold">
+          <DialogTitle className="text-lg font-bold sm:text-xl md:text-2xl">
             Request a Shipping Quote
           </DialogTitle>
           <DialogDescription className="text-xs sm:text-sm md:text-base">
@@ -249,32 +249,32 @@ export function ShipperQuoteModal() {
           />
         ) : isSendingQuote ? (
           <div className="py-8 text-center">
-            <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
-              <div className="w-8 h-8 border-4 border-accent-foreground/30 border-t-accent-foreground rounded-full animate-spin" />
+            <div className="bg-accent mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+              <div className="border-accent-foreground/30 border-t-accent-foreground h-8 w-8 animate-spin rounded-full border-4" />
             </div>
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2">
+            <h3 className="text-foreground mb-2 text-lg font-bold sm:text-xl md:text-2xl">
               Sending Your Quote Request...
             </h3>
-            <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
+            <p className="text-muted-foreground text-xs sm:text-sm md:text-base">
               Please wait while we process your request.
             </p>
           </div>
         ) : isSubmitted ? (
           <div className="py-8 text-center">
-            <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-accent mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
               <Package className="text-accent-foreground" size={32} />
             </div>
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2">
+            <h3 className="text-foreground mb-2 text-lg font-bold sm:text-xl md:text-2xl">
               Quote Request Submitted!
             </h3>
-            <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
+            <p className="text-muted-foreground text-xs sm:text-sm md:text-base">
               We'll get back to you within 24 hours.
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5 mt-4">
+          <form onSubmit={handleSubmit} className="mt-4 space-y-5">
             {/* Company + Contact */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="companyName" className="text-xs sm:text-sm">
                   Company Name <span className="text-red-500">*</span>
@@ -327,7 +327,7 @@ export function ShipperQuoteModal() {
             </div>
 
             {/* Email + Phone */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-xs sm:text-sm">
                   Email <span className="text-red-500">*</span>
@@ -442,7 +442,7 @@ export function ShipperQuoteModal() {
 
             <Button
               type="submit"
-              className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground w-full font-semibold"
             >
               Continue to Verification
             </Button>

@@ -57,7 +57,7 @@ const CompensationBenefits = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted">
+    <section className="bg-muted py-20">
       <motion.div
         ref={ref}
         variants={parent}
@@ -65,10 +65,10 @@ const CompensationBenefits = () => {
         animate={inView ? "visible" : "hidden"}
         className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
           {/* LEFT — Compensation & Benefits */}
-          <motion.div variants={fadeItem} className="flex flex-col h-full">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+          <motion.div variants={fadeItem} className="flex h-full flex-col">
+            <h2 className="text-foreground mb-6 text-3xl font-bold md:text-4xl">
               Compensation & Benefits
             </h2>
 
@@ -85,11 +85,11 @@ const CompensationBenefits = () => {
                     animate="animate"
                   >
                     <CheckCircle
-                      className="text-accent shrink-0 mt-1"
+                      className="text-accent mt-1 shrink-0"
                       size={24}
                     />
                   </motion.div>
-                  <p className="text-base md:text-lg text-foreground">
+                  <p className="text-foreground text-base md:text-lg">
                     {benefit}
                   </p>
                 </motion.div>
@@ -98,14 +98,14 @@ const CompensationBenefits = () => {
           </motion.div>
 
           {/* RIGHT — Requirements */}
-          <motion.div variants={fadeItem} className="flex flex-col h-full">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+          <motion.div variants={fadeItem} className="flex h-full flex-col">
+            <h2 className="text-foreground mb-6 text-3xl font-bold md:text-4xl">
               Requirements
             </h2>
 
-            <Card className="h-full hover:shadow-lg transition-all">
-              <CardContent className="px-4 md:px-6 flex flex-col h-full">
-                <ul className="space-y-3 text-foreground grow">
+            <Card className="h-full transition-all hover:shadow-lg">
+              <CardContent className="flex h-full flex-col px-4 md:px-6">
+                <ul className="text-foreground grow space-y-3">
                   {requirements.map((req, idx) => (
                     <motion.li
                       key={idx}
@@ -118,7 +118,7 @@ const CompensationBenefits = () => {
                         animate="animate"
                       >
                         <CheckCircle
-                          className="text-primary shrink-0 mt-1"
+                          className="text-primary mt-1 shrink-0"
                           size={20}
                         />
                       </motion.div>
@@ -129,9 +129,9 @@ const CompensationBenefits = () => {
 
                 <motion.div
                   variants={fadeItem}
-                  className="mt-6 p-4 bg-muted rounded-lg border border-border/40"
+                  className="bg-muted border-border/40 mt-6 rounded-lg border p-4"
                 >
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     <strong>New to trucking?</strong> Ask about our CDL training
                     program for qualified candidates.
                   </p>

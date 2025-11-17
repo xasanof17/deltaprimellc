@@ -19,7 +19,7 @@ A modern, tech-driven logistics and freight forwarding company website built wit
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Resend API key for email verification (sign up at [resend.com](https://resend.com))
 
@@ -57,11 +57,13 @@ The website uses Resend to send verification codes to users before form submissi
 ### Development vs Production
 
 **Development Mode:**
+
 - Resend allows sending emails only to your verified email address
 - The verification code is displayed directly in the UI for testing
 - No domain verification required
 
 **Production Mode:**
+
 - Verify your domain at [resend.com/domains](https://resend.com/domains)
 - Update the `from` address in the API route to use your domain (e.g., `noreply@deltaprimellc.com`)
 - Send emails to any recipient
@@ -69,6 +71,7 @@ The website uses Resend to send verification codes to users before form submissi
 ### Email Template
 
 The verification emails use beautiful HTML templates matching the Delta Prime LLC brand:
+
 - Deep blue (#1E3A8A) primary color
 - Vibrant orange (#FFA500) accent color
 - Professional layout with company branding
@@ -78,6 +81,7 @@ The verification emails use beautiful HTML templates matching the Delta Prime LL
 ## Form Validation Features
 
 ### Shipper Quote Form
+
 - Company name validation
 - Contact name validation (letters, spaces, hyphens, apostrophes)
 - Email validation (RFC 5322 compliant)
@@ -88,6 +92,7 @@ The verification emails use beautiful HTML templates matching the Delta Prime LL
 - Email verification before submission
 
 ### Driver Application Form
+
 - First/Last name validation
 - Email validation with verification
 - Country-based phone number with search
@@ -96,6 +101,7 @@ The verification emails use beautiful HTML templates matching the Delta Prime LL
 - Validation errors only shown after blur or submit
 
 ### Contact Form
+
 - Name validation
 - Email validation
 - Optional phone number with country code
@@ -105,6 +111,7 @@ The verification emails use beautiful HTML templates matching the Delta Prime LL
 ## Route Visualization
 
 The quote form includes an interactive Leaflet.js map that:
+
 - **Real Road Routing**: Uses OSRM (Open Source Routing Machine) to calculate actual driving routes
 - **Interactive Map**: Pan, zoom, and explore the route on OpenStreetMap tiles
 - **Distance & Duration**: Displays accurate mileage and estimated driving time
@@ -124,6 +131,7 @@ The quote form includes an interactive Leaflet.js map that:
 ## Address Input Features
 
 The custom `AddressInput` component provides:
+
 - **Manual Address Entry**: Full address input with automatic geocoding
 - **Coordinate Input**: Manual latitude/longitude entry
 - **Current Location**: Get user's current location via browser geolocation
@@ -135,6 +143,7 @@ The custom `AddressInput` component provides:
 ## Phone Input Features
 
 The `PhoneInput` component includes:
+
 - **Country Selection**: 10+ countries with flag icons
 - **Search Functionality**: Filter countries by name or code
 - **Auto-formatting**: Format phone numbers based on country
@@ -157,28 +166,28 @@ The `PhoneInput` component includes:
 
 \`\`\`
 ├── app/
-│   ├── api/
-│   │   └── send-verification/  # Email verification API route (Resend)
-│   ├── about/                  # About page
-│   ├── contact/                # Contact page with form
-│   ├── drivers/                # Drivers career page
-│   ├── partners/               # Partners page with carousel
-│   ├── shippers/               # Shippers services page
-│   └── page.tsx                # Homepage with video hero
+│ ├── api/
+│ │ └── send-verification/ # Email verification API route (Resend)
+│ ├── about/ # About page
+│ ├── contact/ # Contact page with form
+│ ├── drivers/ # Drivers career page
+│ ├── partners/ # Partners page with carousel
+│ ├── shippers/ # Shippers services page
+│ └── page.tsx # Homepage with video hero
 ├── components/
-│   ├── ui/                     # shadcn/ui components
-│   ├── address-input.tsx       # Address input with geocoding
-│   ├── phone-input.tsx         # Phone input with country codes
-│   ├── email-verification.tsx  # Email verification modal
-│   ├── route-map.tsx           # Leaflet.js route visualization
-│   ├── partners-carousel.tsx   # Animated partners carousel
-│   ├── driver-application-modal.tsx # Driver application form
-│   ├── shipper-quote-modal.tsx # Quote request form
-│   ├── header.tsx              # Navigation header
-│   └── footer.tsx              # Site footer
+│ ├── ui/ # shadcn/ui components
+│ ├── address-input.tsx # Address input with geocoding
+│ ├── phone-input.tsx # Phone input with country codes
+│ ├── email-verification.tsx # Email verification modal
+│ ├── route-map.tsx # Leaflet.js route visualization
+│ ├── partners-carousel.tsx # Animated partners carousel
+│ ├── driver-application-modal.tsx # Driver application form
+│ ├── shipper-quote-modal.tsx # Quote request form
+│ ├── header.tsx # Navigation header
+│ └── footer.tsx # Site footer
 └── lib/
-    ├── validation.ts           # Validation utilities and regex patterns
-    └── utils.ts                # General utilities
+├── validation.ts # Validation utilities and regex patterns
+└── utils.ts # General utilities
 \`\`\`
 
 ## Validation Patterns
@@ -195,6 +204,7 @@ The project includes comprehensive validation patterns in `lib/validation.ts`:
 ## Custom Scrollbars
 
 The website features beautiful custom scrollbars:
+
 - Deep blue (#1E3A8A) thumb color
 - Orange (#FFA500) hover color
 - Smooth transitions
@@ -246,6 +256,7 @@ This project uses the following free, open-source APIs:
 - **OpenStreetMap**: Map tiles (https://tile.openstreetmap.org)
 
 Note: These are public APIs with rate limits. For production use, consider:
+
 - Self-hosting OSRM
 - Using commercial geocoding services
 - Implementing caching for repeated requests

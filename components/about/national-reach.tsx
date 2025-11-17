@@ -42,7 +42,7 @@ const iconFloat: Variants = {
 ------------------------------------------- */
 const NationalReach = () => {
   return (
-    <section className="py-24 bg-background">
+    <section className="bg-background py-24">
       <motion.div
         variants={parent}
         initial="hidden"
@@ -51,11 +51,11 @@ const NationalReach = () => {
         className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
         {/* Heading */}
-        <motion.div variants={fadeItem} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <motion.div variants={fadeItem} className="mb-16 text-center">
+          <h2 className="text-foreground mb-4 text-4xl font-bold md:text-5xl">
             National Reach, Local Expertise
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed">
             Headquartered in Illinois with operations spanning all 48
             continental states.
           </p>
@@ -64,7 +64,7 @@ const NationalReach = () => {
         {/* Cards */}
         <motion.div
           variants={parent}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+          className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-3"
         >
           {[
             {
@@ -87,29 +87,25 @@ const NationalReach = () => {
             },
           ].map((item, idx) => (
             <motion.div key={idx} variants={fadeItem} className="h-full">
-              <Card
-                className="h-full flex flex-col border border-border bg-card/40 backdrop-blur-sm 
-                hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
-              >
-                <CardContent className="p-8 flex flex-col grow text-center">
-
+              <Card className="border-border bg-card/40 flex h-full flex-col border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                <CardContent className="flex grow flex-col p-8 text-center">
                   {/* ICON */}
                   <motion.div
                     variants={iconFloat}
                     initial="initial"
                     animate="animate"
-                    className="w-16 h-16 mx-auto mb-6 flex items-center justify-center"
+                    className="mx-auto mb-6 flex h-16 w-16 items-center justify-center"
                   >
                     <item.icon className={item.color} size={48} />
                   </motion.div>
 
                   {/* TITLE */}
-                  <h3 className="text-2xl font-bold text-foreground mb-3">
+                  <h3 className="text-foreground mb-3 text-2xl font-bold">
                     {item.title}
                   </h3>
 
                   {/* TEXT */}
-                  <p className="text-muted-foreground leading-relaxed grow text-base sm:text-lg">
+                  <p className="text-muted-foreground grow text-base leading-relaxed sm:text-lg">
                     {item.text}
                   </p>
                 </CardContent>

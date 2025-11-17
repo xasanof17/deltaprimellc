@@ -49,13 +49,13 @@ export default function CTADrivers() {
   });
 
   return (
-    <section className="py-20 bg-primary text-primary-foreground relative overflow-hidden">
+    <section className="bg-primary text-primary-foreground relative overflow-hidden py-20">
       {/* Soft gradient overlay */}
-      <div className="absolute inset-0 pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0" />
 
       <div
         ref={ref}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
+        className="relative z-10 container mx-auto px-4 text-center sm:px-6 lg:px-8"
       >
         {/* Animated Title + Subtitle */}
         <motion.div
@@ -65,14 +65,14 @@ export default function CTADrivers() {
         >
           <motion.h2
             variants={item}
-            className="text-4xl md:text-5xl font-bold mb-6 text-balance"
+            className="mb-6 text-4xl font-bold text-balance md:text-5xl"
           >
             Ready to Start Your Journey?
           </motion.h2>
 
           <motion.p
             variants={item}
-            className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed"
+            className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed opacity-90"
           >
             Join the Delta Prime family today and experience what it’s like to
             drive for a company that puts drivers first.

@@ -56,7 +56,7 @@ const ContactInfoCards = () => {
         <a
           href="https://maps.app.goo.gl/D3tTbm5wsmN3ct7k7"
           target="_blank"
-          className="text-sm sm:text-base text-muted-foreground leading-relaxed"
+          className="text-muted-foreground text-sm leading-relaxed sm:text-base"
         >
           1101 31st <br />
           Downers Grove, IL 60515 <br />
@@ -70,7 +70,7 @@ const ContactInfoCards = () => {
       icon: Phone,
       color: "bg-accent text-accent-foreground",
       content: (
-        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
           Main: <a href="tel:+17089072006">+1 (708) 907-2006</a> <br />
           Sales: <a href="tel:+17089072006">+1 (708) 907-2006</a> <br />
           Support: <a href="tel:+17089072006">+1 (708) 907-2006</a>
@@ -83,7 +83,7 @@ const ContactInfoCards = () => {
       icon: Mail,
       color: "bg-primary text-primary-foreground",
       content: (
-        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
           Drivers:{" "}
           <a href="mailto:applications@deltaprimellc.com">
             applications@deltaprimellc.com
@@ -105,7 +105,7 @@ const ContactInfoCards = () => {
       icon: Clock,
       color: "bg-accent text-accent-foreground",
       content: (
-        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+        <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
           Monday–Friday: 8 AM – 6 PM CST <br />
           Saturday: 9 AM – 2 PM CST <br />
           24/7 Emergency Support Available
@@ -126,7 +126,7 @@ const ContactInfoCards = () => {
       {DATA.map((item, i) => (
         <motion.div key={i} variants={fadeItem}>
           <Card
-            className={`border-2 ${item.border} hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
+            className={`border-2 ${item.border} transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
           >
             <CardContent className="p-6">
               {/* Floating Icon */}
@@ -134,13 +134,13 @@ const ContactInfoCards = () => {
                 variants={iconFloat}
                 initial="initial"
                 animate="animate"
-                className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${item.color}`}
+                className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${item.color}`}
               >
                 <item.icon size={24} />
               </motion.div>
 
               {/* Title */}
-              <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
+              <h3 className="text-foreground mb-2 text-lg font-bold sm:text-xl">
                 {item.title}
               </h3>
 

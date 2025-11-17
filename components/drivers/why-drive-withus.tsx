@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Award,
-  DollarSign,
-  Heart,
-  Shield,
-  Truck,
-  Users,
-} from "lucide-react";
+import { Award, DollarSign, Heart, Shield, Truck, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef } from "react";
@@ -101,7 +94,7 @@ const WhyDriveWithUs = () => {
   const inView = useInView(ref, { amount: 0.25 });
 
   return (
-    <section className="py-20 bg-background">
+    <section className="bg-background py-20">
       <motion.div
         ref={ref}
         variants={parent}
@@ -112,34 +105,34 @@ const WhyDriveWithUs = () => {
         {/* Title */}
         <motion.h2
           variants={fadeItem}
-          className="text-center text-4xl md:text-5xl font-bold text-foreground mb-12"
+          className="text-foreground mb-12 text-center text-4xl font-bold md:text-5xl"
         >
           Why Drive With Us
         </motion.h2>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
             <motion.div key={i} variants={fadeItem}>
-              <Card className="h-full border-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <CardContent className="p-8 flex flex-col h-full">
+              <Card className="h-full border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <CardContent className="flex h-full flex-col p-8">
                   {/* Icon */}
                   <motion.div
                     variants={iconFloat}
                     initial="initial"
                     animate="animate"
-                    className={`w-16 h-16 ${f.bg} rounded-full flex items-center justify-center mb-5 shadow-md`}
+                    className={`h-16 w-16 ${f.bg} mb-5 flex items-center justify-center rounded-full shadow-md`}
                   >
                     <f.icon className={f.iconColor} size={32} />
                   </motion.div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-bold text-foreground mb-3">
+                  <h3 className="text-foreground mb-3 text-xl font-bold">
                     {f.title}
                   </h3>
 
                   {/* Text */}
-                  <p className="text-muted-foreground leading-relaxed grow">
+                  <p className="text-muted-foreground grow leading-relaxed">
                     {f.text}
                   </p>
                 </CardContent>

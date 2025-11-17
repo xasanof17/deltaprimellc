@@ -13,7 +13,11 @@ import Link from "next/link";
 /* ─────────────────────────────── Variants ─────────────────────────────── */
 const navLoad: Variants = {
   hidden: { opacity: 0, y: -20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" },
+  },
 };
 
 const mobileMenuAnim: Variants = {
@@ -21,13 +25,17 @@ const mobileMenuAnim: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.25, ease: "easeOut", staggerChildren: 0.08 }
-  }
+    transition: { duration: 0.25, ease: "easeOut", staggerChildren: 0.08 },
+  },
 };
 
 const mobileItem: Variants = {
   hidden: { opacity: 0, x: -8 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.22, ease: "easeOut" } }
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.22, ease: "easeOut" },
+  },
 };
 
 /* Navigation links */
@@ -83,7 +91,8 @@ export function Header() {
     };
 
     window.addEventListener("click", handleClick, { capture: true });
-    return () => window.removeEventListener("click", handleClick, { capture: true });
+    return () =>
+      window.removeEventListener("click", handleClick, { capture: true });
   }, [isMobileMenuOpen]);
 
   return (
@@ -96,15 +105,14 @@ export function Header() {
         initial="hidden"
         animate="visible"
         className={cn(
-          "fixed top-[35px] left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-[35px] right-0 left-0 z-50 transition-all duration-300",
           hasBackground
-            ? "bg-background/90 backdrop-blur-md shadow"
-            : "bg-transparent"
+            ? "bg-background/90 shadow backdrop-blur-md"
+            : "bg-transparent",
         )}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            
+          <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image
@@ -118,7 +126,7 @@ export function Header() {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-2">
+            <div className="hidden items-center gap-2 lg:flex">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
@@ -127,7 +135,7 @@ export function Header() {
                     "px-3 py-2 text-base font-medium transition-all duration-300 hover:scale-105",
                     hasBackground
                       ? "text-foreground hover:text-primary"
-                      : "text-white hover:text-accent"
+                      : "hover:text-accent text-white",
                   )}
                 >
                   {item.name}
@@ -145,10 +153,10 @@ export function Header() {
               data-nav-toggle
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={cn(
-                "lg:hidden p-2 rounded-md transition-all duration-300 hover:scale-110 active:scale-95",
+                "rounded-md p-2 transition-all duration-300 hover:scale-110 active:scale-95 lg:hidden",
                 hasBackground
                   ? "text-foreground hover:bg-accent/10"
-                  : "text-white hover:bg-white/10"
+                  : "text-white hover:bg-white/10",
               )}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -164,7 +172,7 @@ export function Header() {
                 initial="hidden"
                 animate="visible"
                 exit={{ opacity: 0, y: -10 }}
-                className="lg:hidden py-4 border-t border-border bg-background/95 backdrop-blur-lg shadow-md"
+                className="border-border bg-background/95 border-t py-4 shadow-md backdrop-blur-lg lg:hidden"
               >
                 <div className="flex flex-col gap-2">
                   {navigation.map((item) => (
@@ -172,7 +180,7 @@ export function Header() {
                       <Link
                         href={item.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="px-4 py-2 text-sm font-medium text-foreground hover:bg-muted rounded-md transition-all"
+                        className="text-foreground hover:bg-muted rounded-md px-4 py-2 text-sm font-medium transition-all"
                       >
                         {item.name}
                       </Link>

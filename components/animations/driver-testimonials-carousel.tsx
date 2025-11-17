@@ -95,7 +95,7 @@ export default function DriverTestimonialsCarousel() {
   };
 
   return (
-    <div ref={ref} className="relative w-full max-w-3xl mx-auto">
+    <div ref={ref} className="relative mx-auto w-full max-w-3xl">
       <AnimatePresence custom={dir} mode="popLayout">
         <motion.div
           key={index}
@@ -109,18 +109,18 @@ export default function DriverTestimonialsCarousel() {
           dragElastic={0.15}
           onDragEnd={dragEnd}
         >
-          <Card className="border shadow-md hover:shadow-xl transition-all bg-card">
-            <CardContent className="p-8 sm:p-10 min-h-[290px] flex flex-col justify-between">
-              <div className="flex justify-center mb-4">
-                <Quote className="text-accent w-10 h-10 opacity-80" />
+          <Card className="bg-card border shadow-md transition-all hover:shadow-xl">
+            <CardContent className="flex min-h-[290px] flex-col justify-between p-8 sm:p-10">
+              <div className="mb-4 flex justify-center">
+                <Quote className="text-accent h-10 w-10 opacity-80" />
               </div>
 
-              <p className="text-lg sm:text-xl text-foreground text-center leading-relaxed italic mb-6 px-3">
+              <p className="text-foreground mb-6 px-3 text-center text-lg leading-relaxed italic sm:text-xl">
                 "{current.content}"
               </p>
 
               <div className="text-center">
-                <p className="font-bold text-lg">{current.name}</p>
+                <p className="text-lg font-bold">{current.name}</p>
                 <p className="text-muted-foreground text-sm">{current.role}</p>
               </div>
             </CardContent>
@@ -129,13 +129,13 @@ export default function DriverTestimonialsCarousel() {
       </AnimatePresence>
 
       {/* Controls */}
-      <div className="flex justify-center gap-4 mt-6">
+      <div className="mt-6 flex justify-center gap-4">
         <motion.div whileTap={{ scale: 0.92 }} whileHover={{ scale: 1.1 }}>
           <Button
             variant="outline"
             size="icon"
             onClick={prev}
-            className="rounded-full w-10 h-10"
+            className="h-10 w-10 rounded-full"
           >
             <ChevronLeft size={22} />
           </Button>
@@ -153,8 +153,8 @@ export default function DriverTestimonialsCarousel() {
               whileHover={{ scale: 1.3 }}
               className={`rounded-full transition-all ${
                 i === index
-                  ? "bg-primary w-8 h-2"
-                  : "bg-border w-2 h-2 opacity-60"
+                  ? "bg-primary h-2 w-8"
+                  : "bg-border h-2 w-2 opacity-60"
               }`}
             />
           ))}
@@ -165,7 +165,7 @@ export default function DriverTestimonialsCarousel() {
             variant="outline"
             size="icon"
             onClick={next}
-            className="rounded-full w-10 h-10"
+            className="h-10 w-10 rounded-full"
           >
             <ChevronRight size={22} />
           </Button>

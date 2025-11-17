@@ -35,39 +35,36 @@ export default function NumbersSection() {
 
   const items = [
     { value: fleet, suffix: "+", label: "Fleet Vehicles", color: "primary" },
-    { value: shipments, suffix: "+", label: "Shipments Delivered", color: "accent" },
+    {
+      value: shipments,
+      suffix: "+",
+      label: "Shipments Delivered",
+      color: "accent",
+    },
     { value: clients, suffix: "+", label: "Clients Served", color: "primary" },
     { value: years, suffix: "+", label: "Years Experience", color: "accent" },
   ];
 
   return (
-    <section ref={sectionRef} className="py-16 sm:py-20 bg-muted">
+    <section ref={sectionRef} className="bg-muted py-16 sm:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-
         {/* Header Animation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={start ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.45 }}
-          className="text-center mb-10 sm:mb-12"
+          className="mb-10 text-center sm:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-foreground mb-4 text-3xl font-bold sm:text-4xl md:text-5xl">
             By the Numbers
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg sm:text-xl">
             Our track record speaks for itself
           </p>
         </motion.div>
 
         {/* Number Blocks */}
-        <div
-          className="
-            grid grid-cols-2 
-            lg:grid-cols-4 
-            gap-10 sm:gap-12 lg:gap-16 xl:gap-20
-            justify-items-center
-          "
-        >
+        <div className="grid grid-cols-2 justify-items-center gap-10 sm:gap-12 lg:grid-cols-4 lg:gap-16 xl:gap-20">
           {items.map((item, index) => (
             <motion.div
               key={index}
@@ -78,21 +75,16 @@ export default function NumbersSection() {
                 duration: 0.5,
                 ease: "easeOut",
               }}
-              className="text-center min-w-40 xl:min-w-[200px]"
+              className="min-w-40 text-center xl:min-w-[200px]"
             >
               <div
-                className={`
-                  font-bold 
-                  ${colorMap[item.color]}
-                  text-4xl sm:text-5xl md:text-5xl xl:text-[64px]
-                  mb-2
-                `}
+                className={`font-bold ${colorMap[item.color]} mb-2 text-4xl sm:text-5xl md:text-5xl xl:text-[64px]`}
               >
                 {item.value.toLocaleString()}
                 {item.suffix}
               </div>
 
-              <div className="text-sm sm:text-base md:text-lg text-muted-foreground">
+              <div className="text-muted-foreground text-sm sm:text-base md:text-lg">
                 {item.label}
               </div>
             </motion.div>

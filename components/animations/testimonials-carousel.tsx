@@ -131,7 +131,7 @@ export function TestimonialsCarousel() {
   return (
     <div
       ref={containerRef}
-      className="relative max-w-3xl mx-auto w-full overflow-hidden"
+      className="relative mx-auto w-full max-w-3xl overflow-hidden"
     >
       <AnimatePresence custom={direction} mode="popLayout">
         <motion.div
@@ -146,20 +146,10 @@ export function TestimonialsCarousel() {
           dragElastic={0.15}
           onDragEnd={handleDragEnd}
         >
-          <Card className="border shadow-md hover:shadow-xl transition-all duration-300 w-full">
-            <CardContent
-              className="
-                p-6 sm:p-8 md:p-10 
-                flex flex-col 
-                justify-between 
-                min-h-[280px] 
-                sm:min-h-[300px] 
-                md:min-h-80 
-                lg:min-h-[340px]
-              "
-            >
+          <Card className="w-full border shadow-md transition-all duration-300 hover:shadow-xl">
+            <CardContent className="flex min-h-[280px] flex-col justify-between p-6 sm:min-h-[300px] sm:p-8 md:min-h-80 md:p-10 lg:min-h-[340px]">
               {/* Stars */}
-              <div className="flex gap-1 mb-3 justify-center">
+              <div className="mb-3 flex justify-center gap-1">
                 {Array.from({ length: active.rating }).map((_, i) => (
                   <motion.div
                     key={i}
@@ -178,7 +168,7 @@ export function TestimonialsCarousel() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.45 }}
-                className="text-base sm:text-lg md:text-xl text-foreground mb-6 text-center leading-relaxed px-2"
+                className="text-foreground mb-6 px-2 text-center text-base leading-relaxed sm:text-lg md:text-xl"
               >
                 "{active.content}"
               </motion.blockquote>
@@ -189,11 +179,11 @@ export function TestimonialsCarousel() {
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
               >
-                <div className="font-bold text-lg">{active.name}</div>
+                <div className="text-lg font-bold">{active.name}</div>
                 <div className="text-muted-foreground text-sm">
                   {active.role}
                 </div>
-                <div className="text-primary font-semibold text-sm">
+                <div className="text-primary text-sm font-semibold">
                   {active.company}
                 </div>
               </motion.div>
@@ -203,7 +193,7 @@ export function TestimonialsCarousel() {
       </AnimatePresence>
 
       {/* Controls */}
-      <div className="flex justify-center gap-4 mt-6">
+      <div className="mt-6 flex justify-center gap-4">
         {/* Prev */}
         <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.15 }}>
           <Button
@@ -211,7 +201,7 @@ export function TestimonialsCarousel() {
             variant="outline"
             size="icon"
             onClick={prev}
-            className="rounded-full w-9 h-9 sm:w-10 sm:h-10"
+            className="h-9 w-9 rounded-full sm:h-10 sm:w-10"
           >
             <ChevronLeft size={20} />
             <span className="sr-only">Previous Button</span>
@@ -230,7 +220,7 @@ export function TestimonialsCarousel() {
               }}
               whileHover={{ scale: 1.4 }}
               className={`rounded-full transition-all ${
-                idx === current ? "bg-primary w-8 h-2" : "bg-border w-2 h-2"
+                idx === current ? "bg-primary h-2 w-8" : "bg-border h-2 w-2"
               }`}
             />
           ))}
@@ -243,7 +233,7 @@ export function TestimonialsCarousel() {
             variant="outline"
             size="icon"
             onClick={next}
-            className="rounded-full w-9 h-9 sm:w-10 sm:h-10"
+            className="h-9 w-9 rounded-full sm:h-10 sm:w-10"
           >
             <ChevronRight size={20} />
             <span className="sr-only">Next Button</span>

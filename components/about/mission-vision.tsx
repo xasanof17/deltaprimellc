@@ -33,9 +33,9 @@ const iconFloat: Variants = {
 
 const MissionVisionSection = () => {
   return (
-    <section className="py-20 sm:py-24 bg-background relative overflow-hidden">
+    <section className="bg-background relative overflow-hidden py-20 sm:py-24">
       {/* Soft Gradient */}
-      <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+      <div className="from-primary/5 to-accent/5 pointer-events-none absolute inset-0 bg-linear-to-b via-transparent" />
 
       <motion.div
         variants={parent}
@@ -44,29 +44,27 @@ const MissionVisionSection = () => {
         viewport={{ once: false, amount: 0.3 }} // 🔥 Re-animate on scroll up/down
         className="container mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-2">
           {/* Mission */}
           <motion.div variants={item} viewport={{ once: false }}>
-            <Card
-              className="border border-primary/40 shadow-lg hover:shadow-2xl transition-all backdrop-blur-md bg-card/70 relative overflow-hidden min-h-[380px] md:min-h-[400px]"
-            >
-              <div className="absolute left-0 top-0 w-1.5 sm:w-2 h-full bg-primary rounded-r-full" />
+            <Card className="border-primary/40 bg-card/70 relative min-h-[380px] overflow-hidden border shadow-lg backdrop-blur-md transition-all hover:shadow-2xl md:min-h-[400px]">
+              <div className="bg-primary absolute top-0 left-0 h-full w-1.5 rounded-r-full sm:w-2" />
 
-              <CardContent className="p-6 sm:p-8 lg:p-10 relative z-10 flex flex-col">
+              <CardContent className="relative z-10 flex flex-col p-6 sm:p-8 lg:p-10">
                 <motion.div
                   variants={iconFloat}
                   initial="initial"
                   animate="animate"
-                  className="w-16 h-16 sm:w-20 sm:h-20 bg-primary/10 border border-primary/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto md:mx-0"
+                  className="bg-primary/10 border-primary/20 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border shadow-lg backdrop-blur-md sm:h-20 sm:w-20 md:mx-0"
                 >
                   <Target className="text-primary" size={34} />
                 </motion.div>
 
-                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 tracking-tight text-center md:text-left">
+                <h2 className="text-foreground mb-4 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-left">
                   Our Mission
                 </h2>
 
-                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed text-center md:text-left">
+                <p className="text-muted-foreground text-center text-base leading-relaxed sm:text-lg md:text-left">
                   To revolutionize global logistics through cutting-edge
                   technology, exceptional service, and unwavering reliability.
                   We don’t just move freight — we build trust, speed, and
@@ -78,26 +76,24 @@ const MissionVisionSection = () => {
 
           {/* Vision */}
           <motion.div variants={item} viewport={{ once: false }}>
-            <Card
-              className="border border-accent/40 shadow-lg hover:shadow-2xl transition-all backdrop-blur-md bg-card/70 relative overflow-hidden min-h-[380px] md:min-h-[400px]"
-            >
-              <div className="absolute right-0 top-0 w-1.5 sm:w-2 h-full bg-accent rounded-l-full" />
+            <Card className="border-accent/40 bg-card/70 relative min-h-[380px] overflow-hidden border shadow-lg backdrop-blur-md transition-all hover:shadow-2xl md:min-h-[400px]">
+              <div className="bg-accent absolute top-0 right-0 h-full w-1.5 rounded-l-full sm:w-2" />
 
-              <CardContent className="p-6 sm:p-8 lg:p-10 relative z-10 flex flex-col">
+              <CardContent className="relative z-10 flex flex-col p-6 sm:p-8 lg:p-10">
                 <motion.div
                   variants={iconFloat}
                   initial="initial"
                   animate="animate"
-                  className="w-16 h-16 sm:w-20 sm:h-20 bg-accent/10 border border-accent/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto md:mx-0"
+                  className="bg-accent/10 border-accent/20 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border shadow-lg backdrop-blur-md sm:h-20 sm:w-20 md:mx-0"
                 >
                   <Eye className="text-accent" size={34} />
                 </motion.div>
 
-                <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 tracking-tight text-center md:text-left">
+                <h2 className="text-foreground mb-4 text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-left">
                   Our Vision
                 </h2>
 
-                <p className="text-muted-foreground text-base sm:text-lg leading-relaxed text-center md:text-left">
+                <p className="text-muted-foreground text-center text-base leading-relaxed sm:text-lg md:text-left">
                   To become the world’s most trusted logistics partner by
                   setting global standards in innovation, sustainability, and
                   customer experience — transforming the future of freight.

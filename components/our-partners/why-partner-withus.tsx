@@ -73,7 +73,7 @@ const WhyPartnerWithUs = () => {
   ];
 
   return (
-    <section className="py-24 bg-background">
+    <section className="bg-background py-24">
       <motion.div
         variants={parent}
         initial="hidden"
@@ -84,13 +84,13 @@ const WhyPartnerWithUs = () => {
         {/* Heading */}
         <motion.div
           variants={fadeItem}
-          className="text-center mb-14"
+          className="mb-14 text-center"
           viewport={{ once: false }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-foreground mb-4 text-4xl font-bold md:text-5xl">
             Why Partner With Us
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
             Experience the benefits of working with an industry leader
           </p>
         </motion.div>
@@ -99,7 +99,7 @@ const WhyPartnerWithUs = () => {
         <motion.div
           variants={parent}
           viewport={{ once: false }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto"
+          className="mx-auto grid max-w-7xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
         >
           {ITEMS.map((item, index) => (
             <motion.div
@@ -108,23 +108,23 @@ const WhyPartnerWithUs = () => {
               viewport={{ once: false, amount: 0.35 }} // 🔥 re-animate on scroll down/up
               className="h-full"
             >
-              <Card className="h-full flex flex-col border bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-xl">
-                <CardContent className="p-6 flex flex-col grow text-center">
+              <Card className="bg-card flex h-full flex-col rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <CardContent className="flex grow flex-col p-6 text-center">
                   {/* Floating Icon */}
                   <motion.div
                     variants={floatIcon}
                     initial="initial"
                     animate="animate"
-                    className={`w-16 h-16 ${item.bg} rounded-full flex items-center justify-center mx-auto mb-6 shadow-md`}
+                    className={`h-16 w-16 ${item.bg} mx-auto mb-6 flex items-center justify-center rounded-full shadow-md`}
                   >
                     <item.icon className={item.color} size={32} />
                   </motion.div>
 
-                  <h3 className="text-xl font-bold text-foreground mb-3">
+                  <h3 className="text-foreground mb-3 text-xl font-bold">
                     {item.title}
                   </h3>
 
-                  <p className="text-muted-foreground leading-relaxed grow">
+                  <p className="text-muted-foreground grow leading-relaxed">
                     {item.text}
                   </p>
                 </CardContent>

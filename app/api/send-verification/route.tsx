@@ -1,36 +1,39 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
+import { type NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, code, type } = await request.json()
+    const { email, code, type } = await request.json();
 
-    console.log(`[v0] 📧 Attempting to send verification email to: ${email}`)
-    console.log(`[v0] 🔢 Code: ${code}`)
-    console.log(`[v0] 📋 Type: ${type}`)
+    console.log(`[v0] 📧 Attempting to send verification email to: ${email}`);
+    console.log(`[v0] 🔢 Code: ${code}`);
+    console.log(`[v0] 📋 Type: ${type}`);
 
     // Check if RESEND_API_KEY is configured
-    const resendApiKey = process.env.RESEND_API_KEY
+    const resendApiKey = process.env.RESEND_API_KEY;
 
     if (!resendApiKey) {
-      console.error("[v0] ❌ RESEND_API_KEY is not configured")
+      console.error("[v0] ❌ RESEND_API_KEY is not configured");
       return NextResponse.json(
         {
           error: "Email service not configured",
-          details: "RESEND_API_KEY environment variable is missing. Please add it in the Vars section.",
+          details:
+            "RESEND_API_KEY environment variable is missing. Please add it in the Vars section.",
         },
         { status: 500 },
-      )
+      );
     }
 
-    const resend = new Resend(resendApiKey)
+    const resend = new Resend(resendApiKey);
 
     // Determine subject based on type
     const subject =
-      type === "driver" ? "Verify Your Driver Application – Delta Prime LLC" : "Verify Your Email – Delta Prime LLC"
+      type === "driver"
+        ? "Verify Your Driver Application – Delta Prime LLC"
+        : "Verify Your Email – Delta Prime LLC";
 
     // Plain text fallback
-    const textContent = `Your verification code is: ${code}\n\nThis code will expire in 10 minutes.\n\nIf you didn't request this code, please ignore this email.\n\nDelta Prime LLC\nGlobal Logistics | Tech Enabled | On Time Every Time`
+    const textContent = `Your verification code is: ${code}\n\nThis code will expire in 10 minutes.\n\nIf you didn't request this code, please ignore this email.\n\nDelta Prime LLC\nGlobal Logistics | Tech Enabled | On Time Every Time`;
 
     // HTML email template with brand colors
     const htmlContent = `
@@ -124,7 +127,7 @@ export async function POST(request: NextRequest) {
   </table>
 </body>
 </html>
-    `
+    `;
 
     // Send email using Resend
     // Note: In development/testing mode, Resend only allows sending to the verified email address
@@ -135,10 +138,10 @@ export async function POST(request: NextRequest) {
       subject: subject,
       text: textContent,
       html: htmlContent,
-    })
+    });
 
     if (error) {
-      console.error("[v0] ❌ Resend error:", error.message)
+      console.error("[v0] ❌ Resend error:", error.message);
 
       // Check if it's the domain verification error
       if (error.message.includes("You can only send testing emails")) {
@@ -150,7 +153,7 @@ export async function POST(request: NextRequest) {
             code: code, // Include code in response for development
           },
           { status: 403 },
-        )
+        );
       }
 
       return NextResponse.json(
@@ -159,24 +162,24 @@ export async function POST(request: NextRequest) {
           details: error.message,
         },
         { status: 500 },
-      )
+      );
     }
 
-    console.log(`[v0] ✅ Email sent successfully! Message ID: ${data?.id}`)
+    console.log(`[v0] ✅ Email sent successfully! Message ID: ${data?.id}`);
 
     return NextResponse.json({
       success: true,
       messageId: data?.id,
       message: "Verification email sent successfully",
-    })
+    });
   } catch (error: any) {
-    console.error("[v0] ❌ Unexpected error:", error)
+    console.error("[v0] ❌ Unexpected error:", error);
     return NextResponse.json(
       {
         error: "Failed to send verification email",
         details: error.message || "An unexpected error occurred",
       },
       { status: 500 },
-    )
+    );
   }
 }

@@ -38,7 +38,7 @@ export function CustomPhoneInput({
   useEffect(() => {
     const observer = new MutationObserver(() => {
       const dropdown = document.querySelector(
-        ".react-tel-input .country-list"
+        ".react-tel-input .country-list",
       ) as HTMLDivElement | null;
 
       if (dropdown && dropdown.style.display !== "none") {
@@ -86,14 +86,14 @@ export function CustomPhoneInput({
         onValueChange={(val) => {
           setSearch(val);
           const nativeSearch = document.querySelector(
-            ".react-tel-input .search-box"
+            ".react-tel-input .search-box",
           ) as HTMLInputElement | null;
           if (nativeSearch) {
             nativeSearch.value = val;
             nativeSearch.dispatchEvent(new Event("input", { bubbles: true }));
           }
         }}
-      />
+      />,
     );
 
     return () => {
@@ -103,9 +103,9 @@ export function CustomPhoneInput({
   }, [isDropdownOpen, search]);
 
   return (
-    <div className={cn("flex flex-col gap-1 w-full", className)}>
+    <div className={cn("flex w-full flex-col gap-1", className)}>
       {label && (
-        <label className="text-sm font-medium text-foreground">
+        <label className="text-foreground text-sm font-medium">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
@@ -121,29 +121,27 @@ export function CustomPhoneInput({
           placeholder,
         }}
         containerStyle={{
-          width: "100%"
+          width: "100%",
         }}
         inputStyle={{
-          width: "100%"
+          width: "100%",
         }}
         inputClass={cn(
           "h-10 w-full rounded-md border border-input bg-background text-sm px-3 py-2 text-foreground focus:ring-2 focus:ring-ring focus:outline-none",
-          error && "border-red-500 ring-red-500/30"
+          error && "border-red-500 ring-red-500/30",
         )}
         buttonClass={cn(
           "border border-input rounded-l-md bg-card hover:bg-muted transition flex items-center justify-center",
-          error && "border-red-500"
+          error && "border-red-500",
         )}
         dropdownClass={cn(
           "absolute z-[9999] w-[300px] bg-popover text-popover-foreground border border-border rounded-md shadow-md mt-1 overflow-hidden",
-          "max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent"
+          "max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent",
         )}
         searchClass="hidden" // hide built-in search box
       />
 
-      {error && (
-        <p className="text-xs text-red-500 mt-1">{String(error)}</p>
-      )}
+      {error && <p className="mt-1 text-xs text-red-500">{String(error)}</p>}
     </div>
   );
 }

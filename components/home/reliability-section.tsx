@@ -45,19 +45,19 @@ const ReliabilitySection = () => {
   const onTime = useCountUp(0, 99, start, 1.2);
 
   return (
-    <section className="py-20 bg-primary text-primary-foreground" ref={ref}>
+    <section className="bg-primary text-primary-foreground py-20" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={start ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+          <h2 className="mb-6 text-4xl font-bold md:text-6xl">
             Reliability in <span className="text-accent">Motion</span>
           </h2>
-          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-primary-foreground/90 mx-auto max-w-4xl text-lg leading-relaxed md:text-xl">
             We believe every mile matters — every delivery reflects our
             dedication. From local routes to cross-country freight, our drivers
             and equipment deliver safety, consistency, and performance.
@@ -65,7 +65,7 @@ const ReliabilitySection = () => {
         </motion.div>
 
         {/* CARDS (COUNTUP + ANIMATIONS) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* 1 — Years Experience */}
           <motion.div
             variants={containerFade}
@@ -74,13 +74,13 @@ const ReliabilitySection = () => {
             custom={0}
           >
             <Card
-              className={`bg-primary-foreground/5 hover:cursor-pointer border-primary-foreground/20 backdrop-blur-sm ${cardHover}`}
+              className={`bg-primary-foreground/5 border-primary-foreground/20 backdrop-blur-sm hover:cursor-pointer ${cardHover}`}
             >
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <div className="bg-accent/20 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
                   <Package className="text-accent" size={24} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">
+                <div className="text-primary-foreground mb-2 text-4xl font-bold md:text-5xl">
                   {years}+
                 </div>
                 <div className="text-primary-foreground/70">
@@ -101,10 +101,10 @@ const ReliabilitySection = () => {
               className={`bg-primary-foreground/5 border-primary-foreground/20 backdrop-blur-sm ${cardHover}`}
             >
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <div className="bg-accent/20 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
                   <Globe className="text-accent" size={24} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">
+                <div className="text-primary-foreground mb-2 text-4xl font-bold md:text-5xl">
                   {clients.toLocaleString()}+
                 </div>
                 <div className="text-primary-foreground/70">Happy Clients</div>
@@ -123,10 +123,10 @@ const ReliabilitySection = () => {
               className={`bg-primary-foreground/5 border-primary-foreground/20 backdrop-blur-sm ${cardHover}`}
             >
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <div className="bg-accent/20 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
                   <Clock className="text-accent" size={24} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">
+                <div className="text-primary-foreground mb-2 text-4xl font-bold md:text-5xl">
                   {onTime}%
                 </div>
                 <div className="text-primary-foreground/70">
@@ -147,10 +147,10 @@ const ReliabilitySection = () => {
               className={`bg-primary-foreground/5 border-primary-foreground/20 backdrop-blur-sm ${cardHover}`}
             >
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <div className="bg-accent/20 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg">
                   <Shield className="text-accent" size={24} />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-primary-foreground mb-2">
+                <div className="text-primary-foreground mb-2 text-4xl font-bold md:text-5xl">
                   A
                 </div>
                 <div className="text-primary-foreground/70">Safety Rating</div>
@@ -167,7 +167,7 @@ const ReliabilitySection = () => {
           className="text-center"
         >
           <Link href="/contact">
-            <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold px-8 py-6 text-lg">
+            <Button className="bg-accent text-accent-foreground hover:bg-accent/90 px-8 py-6 text-lg font-semibold">
               Speak With an Expert <ArrowRight className="ml-2" size={20} />
             </Button>
           </Link>

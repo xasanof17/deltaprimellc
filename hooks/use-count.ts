@@ -2,7 +2,12 @@
 import { useEffect, useState } from "react";
 import { animate, easeOut } from "framer-motion";
 
-export function useCountUp(start: number, end: number, trigger: boolean, duration = 1.2) {
+export function useCountUp(
+  start: number,
+  end: number,
+  trigger: boolean,
+  duration = 1.2,
+) {
   const [value, setValue] = useState(start);
 
   useEffect(() => {

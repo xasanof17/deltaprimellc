@@ -39,15 +39,15 @@ export default function CTAShippers() {
   const inView = useInView(ref, { amount: 0.35, once: false });
 
   return (
-    <section className="py-20 bg-primary text-primary-foreground relative overflow-hidden">
+    <section className="bg-primary text-primary-foreground relative overflow-hidden py-20">
       {/* subtle background shine */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 opacity-20">
         <div className="absolute inset-0" />
       </div>
 
       <div
         ref={ref}
-        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="relative z-10 container mx-auto px-4 text-center sm:px-6 lg:px-8"
       >
         <motion.div
           variants={parent}
@@ -56,14 +56,14 @@ export default function CTAShippers() {
         >
           <motion.h2
             variants={fadeItem}
-            className="text-4xl md:text-5xl font-bold mb-6 text-balance"
+            className="mb-6 text-4xl font-bold text-balance md:text-5xl"
           >
             Ready to Optimize Your Shipping?
           </motion.h2>
 
           <motion.p
             variants={fadeItem}
-            className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed"
+            className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed opacity-90"
           >
             Join thousands of businesses that trust Delta Prime for their
             logistics needs
@@ -72,14 +72,14 @@ export default function CTAShippers() {
           {/* Buttons */}
           <motion.div
             variants={fadeItem}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col justify-center gap-4 sm:flex-row"
           >
             <ShipperQuoteModal />
 
             <Link href="/about">
               <Button
                 variant="outline"
-                className="w-full md:w-auto bg-transparent border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-semibold"
+                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary w-full border-2 bg-transparent font-semibold md:w-auto"
               >
                 View Services <ArrowRight className="ml-2" size={20} />
               </Button>

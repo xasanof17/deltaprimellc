@@ -101,38 +101,42 @@ const services = [
     title: "Real-Time Tracking & Analytics",
     description:
       "Advanced logistics visibility with GPS tracking, automated updates, and detailed performance analytics.",
-    features: ["GPS tracking 24/7", "Smart notifications", "Dashboards", "History insights"],
+    features: [
+      "GPS tracking 24/7",
+      "Smart notifications",
+      "Dashboards",
+      "History insights",
+    ],
   },
 ];
 
 export default function ServicesPage() {
   return (
     <main className="min-h-screen pt-20">
-
       {/* HERO SECTION */}
-      <section className="relative py-20 bg-primary text-primary-foreground">
+      <section className="bg-primary text-primary-foreground relative py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="max-w-4xl mx-auto text-center"
+            className="mx-auto max-w-4xl text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">
+            <h1 className="mb-6 text-5xl font-bold text-balance md:text-6xl">
               Our Services
             </h1>
-            <p className="text-xl opacity-90 leading-relaxed max-w-2xl mx-auto">
-              Comprehensive transportation solutions tailored to your business needs.
+            <p className="mx-auto max-w-2xl text-xl leading-relaxed opacity-90">
+              Comprehensive transportation solutions tailored to your business
+              needs.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* SERVICES GRID */}
-      <section className="py-16 bg-background">
+      <section className="bg-background py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, idx) => (
               <motion.div
                 key={idx}
@@ -143,12 +147,10 @@ export default function ServicesPage() {
                 viewport={{ once: false, amount: 0.2 }}
                 custom={idx}
               >
-                <Card
-                  className="flex flex-col h-full overflow-hidden border hover:border-primary transition-all duration-300 hover:shadow-xl group bg-card rounded-xl"
-                >
+                <Card className="hover:border-primary group bg-card flex h-full flex-col overflow-hidden rounded-xl border transition-all duration-300 hover:shadow-xl">
                   {/* IMAGE */}
                   {service.image && (
-                    <div className="relative h-48 overflow-hidden shrink-0">
+                    <div className="relative h-48 shrink-0 overflow-hidden">
                       <Image
                         src={service.image}
                         alt={service.title}
@@ -156,30 +158,32 @@ export default function ServicesPage() {
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
 
-                      <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-3 py-1 rounded-md text-xs font-semibold">
+                      <div className="bg-primary text-primary-foreground absolute top-3 left-3 rounded-md px-3 py-1 text-xs font-semibold">
                         {service.badge}
                       </div>
 
-                      <div className="absolute top-3 right-3 w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                        <service.icon size={20} className="text-primary-foreground" />
+                      <div className="bg-primary absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-lg">
+                        <service.icon
+                          size={20}
+                          className="text-primary-foreground"
+                        />
                       </div>
                     </div>
                   )}
 
                   {/* CONTENT */}
-                  <CardContent className="p-5 flex flex-col grow">
-
-                    <h3 className="text-xl font-bold text-foreground mb-1">
+                  <CardContent className="flex grow flex-col p-5">
+                    <h3 className="text-foreground mb-1 text-xl font-bold">
                       {service.title}
                     </h3>
 
                     {service.subtitle && (
-                      <p className="text-xs font-semibold text-primary mb-3">
+                      <p className="text-primary mb-3 text-xs font-semibold">
                         {service.subtitle}
                       </p>
                     )}
 
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                    <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
                       {service.description}
                     </p>
 
@@ -189,7 +193,10 @@ export default function ServicesPage() {
                         <div className="space-y-2">
                           {service.features.map((feature, fidx) => (
                             <div key={fidx} className="flex items-center gap-2">
-                              <CheckCircle className="text-accent shrink-0" size={16} />
+                              <CheckCircle
+                                className="text-accent shrink-0"
+                                size={16}
+                              />
                               <span className="text-xs">{feature}</span>
                             </div>
                           ))}
@@ -198,14 +205,13 @@ export default function ServicesPage() {
                         <Link href="/contact">
                           <Button
                             variant="outline"
-                            className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                            className="group-hover:bg-primary group-hover:text-primary-foreground w-full transition-colors"
                           >
                             Learn More
                           </Button>
                         </Link>
                       )}
                     </div>
-
                   </CardContent>
                 </Card>
               </motion.div>
@@ -215,25 +221,26 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      <section className="bg-primary text-primary-foreground py-20">
         <motion.div
-          className="container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          className="container mx-auto px-4 text-center sm:px-6 lg:px-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="mb-6 text-4xl font-bold md:text-5xl">
             How Can We Assist You Today?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed">
-            Our team is ready to support your freight needs with fast response time.
+          <p className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed opacity-90">
+            Our team is ready to support your freight needs with fast response
+            time.
           </p>
 
           <Link href="/contact">
             <Button
               size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold"
             >
               Contact Us
             </Button>

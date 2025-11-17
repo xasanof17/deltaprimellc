@@ -9,12 +9,12 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen pt-20">
       {/* Hero Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 text-balance">
+      <section className="bg-primary text-primary-foreground py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto px-4 text-center sm:px-6 lg:px-8">
+          <h1 className="mb-4 text-2xl font-bold text-balance sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             Get In Touch
           </h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl opacity-90 max-w-3xl mx-auto leading-relaxed">
+          <p className="mx-auto max-w-3xl text-sm leading-relaxed opacity-90 sm:text-base md:text-lg lg:text-xl xl:text-2xl">
             Have questions? Need a quote? Our team is here to help you find the
             perfect logistics solution
           </p>
@@ -22,9 +22,9 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Information & Form */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <section className="bg-background py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
             {/* Contact Info Cards */}
             <ContactInfoCards />
 

@@ -51,13 +51,13 @@ export function validatePhone(phone: string) {
 
 export function validatePhoneByCountry(
   phone: string,
-  countryCode: string
+  countryCode: string,
 ): { valid: boolean; message: string } {
   if (!phone) return { valid: false, message: "Phone number is required" };
   try {
     const parsed = parsePhoneNumberFromString(
       phone,
-      countryCode as CountryCode
+      countryCode as CountryCode,
     );
     if (!parsed || !parsed.isValid()) {
       return { valid: false, message: "Invalid phone number format" };
@@ -134,7 +134,7 @@ export function validateCoordinates(coords: string) {
 }
 
 export function parseCoordinates(
-  coords: string
+  coords: string,
 ): { lat: number; lng: number } | null {
   const m = coords.match(/^([-+]?\d+\.?\d*),\s*([-+]?\d+\.?\d*)$/);
   if (!m) return null;
@@ -176,7 +176,7 @@ export function validateCDL(cdl: string) {
 
   // Typical CDL pattern: 1–2 letters followed by 6–8 digits
   const cdlRegex = /^([A-Z]{1,2})\d{6,8}$/;
-  
+
   if (!cdlRegex.test(cleaned)) {
     return {
       valid: false,
@@ -222,7 +222,7 @@ export async function getCountryMetadata(forceRefresh = false) {
 
   try {
     const res = await fetch(
-      "https://restcountries.com/v3.1/all?fields=name,cca2,flags"
+      "https://restcountries.com/v3.1/all?fields=name,cca2,flags",
     );
     if (!res.ok) throw new Error(`REST Countries API error: ${res.status}`);
 

@@ -35,7 +35,7 @@ const Node = ({ position }: { position: [number, number, number] }) => {
   useFrame(() => {
     if (ref.current) {
       ref.current.scale.setScalar(
-        1 + Math.sin(performance.now() * 0.002) * 0.18
+        1 + Math.sin(performance.now() * 0.002) * 0.18,
       );
     }
   });
@@ -136,7 +136,7 @@ const NetworkMesh = () => {
  */
 export default function App() {
   return (
-    <div className="w-full h-screen rounded-xl bg-[#070B12]">
+    <div className="h-screen w-full rounded-xl bg-[#070B12]">
       <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
         <color attach="background" args={["#070B12"]} />
         <NetworkMesh />

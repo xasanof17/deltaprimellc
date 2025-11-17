@@ -35,7 +35,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 interface AnimatedButtonProps
@@ -69,7 +69,6 @@ export function Button({
       whileHover={{ y: -2, scale: 1.03 }}
       whileTap={{ scale: 0.96, y: 0 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
-
       {...props}
     />
   );

@@ -59,12 +59,12 @@ export function Footer() {
 
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div ref={ref} className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <motion.div
           variants={container}
           initial="hidden"
           animate={enableAnim && inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
         >
           {/* Company */}
           <motion.div variants={item} className="space-y-4">
@@ -78,7 +78,7 @@ export function Footer() {
               />
             </Link>
 
-            <p className="text-sm opacity-90 leading-relaxed">
+            <p className="text-sm leading-relaxed opacity-90">
               Tech-enabled logistics solutions with global reach. Delivering
               excellence on time, every time.
             </p>
@@ -86,7 +86,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <motion.div variants={item}>
-            <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="mb-4 text-lg font-bold">Quick Links</h3>
 
             <ul className="space-y-2">
               {[
@@ -98,7 +98,7 @@ export function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-sm opacity-90 hover:opacity-100 hover:scale-110 hover:text-accent inline-block transition-all duration-200"
+                    className="hover:text-accent inline-block text-sm opacity-90 transition-all duration-200 hover:scale-110 hover:opacity-100"
                   >
                     {link.name}
                   </Link>
@@ -109,7 +109,7 @@ export function Footer() {
 
           {/* Resources */}
           <motion.div variants={item}>
-            <h3 className="font-bold text-lg mb-4">Resources</h3>
+            <h3 className="mb-4 text-lg font-bold">Resources</h3>
 
             <ul className="space-y-2">
               {[
@@ -120,7 +120,7 @@ export function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="text-sm opacity-90 hover:opacity-100 hover:scale-110 hover:text-accent inline-block transition-all duration-200"
+                    className="hover:text-accent inline-block text-sm opacity-90 transition-all duration-200 hover:scale-110 hover:opacity-100"
                   >
                     {link.name}
                   </Link>
@@ -131,7 +131,7 @@ export function Footer() {
 
           {/* Contact */}
           <motion.div variants={item}>
-            <h3 className="font-bold text-lg mb-4">Contact</h3>
+            <h3 className="mb-4 text-lg font-bold">Contact</h3>
 
             <ul className="space-y-3">
               <li className="flex items-center">
@@ -165,14 +165,14 @@ export function Footer() {
             </ul>
 
             {/* Social */}
-            <div className="flex gap-3 mt-4">
+            <div className="mt-4 flex gap-3">
               {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
                 <motion.a
                   key={i}
                   href="#"
                   variants={iconHover}
                   whileHover="hover"
-                  className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center"
+                  className="bg-accent flex h-10 w-10 items-center justify-center rounded-xl"
                 >
                   <Icon size={18} className="text-accent-foreground" />
                 </motion.a>
@@ -186,7 +186,7 @@ export function Footer() {
           variants={item}
           initial="hidden"
           animate={enableAnim && inView ? "visible" : "hidden"}
-          className="border-t border-primary-foreground/20 mt-8 pt-8 text-center text-sm opacity-90"
+          className="border-primary-foreground/20 mt-8 border-t pt-8 text-center text-sm opacity-90"
         >
           {year && (
             <p>&copy; 2020-{year} Delta Prime LLC. All rights reserved.</p>

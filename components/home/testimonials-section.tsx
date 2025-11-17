@@ -42,31 +42,31 @@ const TestimonialsSection = () => {
   });
 
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
+    <section className="bg-background relative overflow-hidden py-20">
       {/* soft gradient accent */}
-      <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+      <div className="from-primary/5 to-accent/5 pointer-events-none absolute inset-0 bg-linear-to-b via-transparent" />
 
       <div
         ref={ref}
-        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl"
+        className="relative z-10 container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
       >
         {/* Heading */}
         <motion.div
           variants={parent}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
           <motion.h2
             variants={item}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 tracking-tight"
+            className="text-foreground mb-3 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
           >
             What Our Clients Say
           </motion.h2>
 
           <motion.p
             variants={item}
-            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-muted-foreground mx-auto max-w-2xl text-base sm:text-lg md:text-xl"
           >
             Trusted by businesses worldwide
           </motion.p>

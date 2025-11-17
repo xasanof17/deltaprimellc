@@ -43,9 +43,9 @@ const HeroDriversSection = () => {
   const inView = useInView(ref, { amount: 0.3 });
 
   return (
-    <section className="relative py-20 bg-linear-to-r from-primary to-primary/80">
+    <section className="from-primary to-primary/80 relative bg-linear-to-r py-20">
       <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           {/* LEFT: TEXT */}
           <motion.div
             variants={parent}
@@ -55,14 +55,14 @@ const HeroDriversSection = () => {
           >
             <motion.h1
               variants={fadeItem}
-              className="text-4xl sm:text-5xl md:text-6xl tracking-tight leading-tight font-bold mb-6 text-balance"
+              className="mb-6 text-4xl leading-tight font-bold tracking-tight text-balance sm:text-5xl md:text-6xl"
             >
               Drive With Delta Prime
             </motion.h1>
 
             <motion.p
               variants={fadeItem}
-              className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed"
+              className="mb-8 text-xl leading-relaxed opacity-90 md:text-2xl"
             >
               Join a professional team that values your experience, respects
               your time, and rewards your hard work. Enjoy steady miles, modern
@@ -80,12 +80,12 @@ const HeroDriversSection = () => {
             variants={imageAnim}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
-            className="relative h-[400px] rounded-lg overflow-hidden shadow-xl"
+            className="relative h-[400px] overflow-hidden rounded-lg shadow-xl"
           >
             <img
               src="/card2.jpg"
               alt="Professional driver"
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </motion.div>
         </div>

@@ -1,20 +1,31 @@
-import { NextResponse } from "next/server"
-import { sendEmail } from "@/lib/email"
+import { NextResponse } from "next/server";
+import { sendEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
-    console.log("[v0] 📧 Sending driver application email...")
+    console.log("[v0] 📧 Sending driver application email...");
 
-    const body = await request.json()
-    const { firstName, lastName, email, phone, countryCode, cdl, experience, position, startDate, hearAbout, message } =
-      body
+    const body = await request.json();
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      countryCode,
+      cdl,
+      experience,
+      position,
+      startDate,
+      hearAbout,
+      message,
+    } = body;
 
     // Format position label
     const positionLabels: Record<string, string> = {
       "company-driver": "Company Driver",
       "lease-to-own": "Lease to Own",
       "owner-operator": "Owner Operator",
-    }
+    };
 
     // Format hear about label
     const hearAboutLabels: Record<string, string> = {
@@ -26,13 +37,17 @@ export async function POST(request: Request) {
       "google-search": "Google Search",
       referral: "Referral",
       other: "Other",
-    }
+    };
 
     // Format start date
     const formatDate = (dateString: string) => {
-      const date = new Date(dateString)
-      return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
-    }
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    };
 
     // Create beautiful HTML email template
     const htmlContent = `
@@ -203,7 +218,7 @@ ${message}
   </table>
 </body>
 </html>
-    `
+    `;
 
     // Plain text fallback
     const textContent = `
@@ -227,7 +242,7 @@ ${message ? `Additional Information:\n${message}` : ""}
 
 ---
 Delta Prime LLC | Global Logistics | Tech Enabled | On Time Every Time
-    `
+    `;
 
     // Send email using Gmail SMTP
     await sendEmail({
@@ -236,13 +251,16 @@ Delta Prime LLC | Global Logistics | Tech Enabled | On Time Every Time
       html: htmlContent,
       text: textContent,
       replyTo: email,
-    })
+    });
 
-    console.log("[v0] ✅ Driver application email sent successfully!")
+    console.log("[v0] ✅ Driver application email sent successfully!");
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error("[v0] ❌ Error in send-driver-application API:", error)
-    return NextResponse.json({ error: "Internal server error", details: error.message }, { status: 500 })
+    console.error("[v0] ❌ Error in send-driver-application API:", error);
+    return NextResponse.json(
+      { error: "Internal server error", details: error.message },
+      { status: 500 },
+    );
   }
 }

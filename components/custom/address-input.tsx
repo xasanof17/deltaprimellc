@@ -98,7 +98,7 @@ export function AddressInput({
           {
             headers: { "User-Agent": "DeltaPrimeLogistics/1.0" },
             signal: abortControllerRef.current.signal,
-          }
+          },
         );
         const data = await response.json();
 
@@ -135,7 +135,7 @@ export function AddressInput({
         setIsSearching(false);
       }
     },
-    [onChange, isPasteSearch]
+    [onChange, isPasteSearch],
   );
 
   useEffect(() => {
@@ -234,7 +234,7 @@ export function AddressInput({
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
             {
               headers: { "User-Agent": "DeltaPrimeLogistics/1.0" },
-            }
+            },
           );
           const data = await response.json();
 
@@ -258,14 +258,14 @@ export function AddressInput({
       (error) => {
         setIsLoadingLocation(false);
         alert("Unable to retrieve your location: " + error.message);
-      }
+      },
     );
   };
 
   return (
-    <div className="space-y-2 relative">
+    <div className="relative space-y-2">
       <div className="flex items-center justify-between gap-2">
-        <Label htmlFor={id} className="text-xs sm:text-sm font-medium shrink-0">
+        <Label htmlFor={id} className="shrink-0 text-xs font-medium sm:text-sm">
           {label} {required && <span className="text-red-500">*</span>}
         </Label>
         <div className="flex items-center gap-1">
@@ -275,8 +275,8 @@ export function AddressInput({
             onClick={() => setUseCoordinates(!useCoordinates)}
             className="h-7 px-2 text-xs text-blue-900 hover:text-orange-500"
           >
-            <MapPin className="w-3 h-3 sm:mr-1" />
-            <span className="hidden sm:inline text-xs font-normal">
+            <MapPin className="h-3 w-3 sm:mr-1" />
+            <span className="hidden text-xs font-normal sm:inline">
               {useCoordinates ? "Use Address" : "Use Coordinates"}
             </span>
           </Button>
@@ -287,8 +287,8 @@ export function AddressInput({
             disabled={isLoadingLocation}
             className="h-7 px-2 text-xs text-blue-900 hover:text-orange-500"
           >
-            <Navigation className="w-3 h-3 sm:mr-1" />
-            <span className="hidden sm:inline text-xs font-normal">
+            <Navigation className="h-3 w-3 sm:mr-1" />
+            <span className="hidden text-xs font-normal sm:inline">
               {isLoadingLocation ? "Getting..." : "Current Location"}
             </span>
           </Button>
@@ -308,13 +308,13 @@ export function AddressInput({
           className={`text-sm ${error ? "border-red-500" : ""}`}
         />
         {isSearching && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+          <div className="absolute top-1/2 right-3 -translate-y-1/2">
+            <Loader2 className="text-muted-foreground h-4 w-4 animate-spin" />
           </div>
         )}
       </div>
 
-      {error && <p className="text-xs sm:text-sm text-red-500">{error}</p>}
+      {error && <p className="text-xs text-red-500 sm:text-sm">{error}</p>}
 
       {value && parseCoordinates(value) && (
         <p className="text-xs text-green-600">
@@ -326,16 +326,16 @@ export function AddressInput({
       {showSuggestions && suggestions.length > 0 && (
         <div
           ref={suggestionsRef}
-          className="absolute z-50 w-full mt-1 bg-white border border-border rounded-md shadow-lg max-h-60 overflow-y-auto"
+          className="border-border absolute z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-md border bg-white shadow-lg"
         >
           {suggestions.map((suggestion, index) => (
             <button
               key={index}
               type="button"
               onClick={() => handleSelectSuggestion(suggestion)}
-              className="w-full px-3 sm:px-4 py-2 sm:py-3 text-left text-[11px] sm:text-sm hover:bg-muted transition-colors border-b border-border last:border-b-0 flex items-start gap-2"
+              className="hover:bg-muted border-border flex w-full items-start gap-2 border-b px-3 py-2 text-left text-[11px] transition-colors last:border-b-0 sm:px-4 sm:py-3 sm:text-sm"
             >
-              <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mt-0.5 text-blue-900 shrink-0" />
+              <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-blue-900 sm:h-4 sm:w-4" />
               <span className="text-foreground">{suggestion.display_name}</span>
             </button>
           ))}

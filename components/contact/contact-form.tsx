@@ -122,7 +122,7 @@ const ContactForm = () => {
     if (!validateForm()) {
       const allTouched = Object.keys(formData).reduce(
         (acc, key) => ({ ...acc, [key]: true }),
-        {}
+        {},
       );
       setTouched(allTouched);
       return;
@@ -150,24 +150,24 @@ const ContactForm = () => {
     <div className="lg:col-span-2">
       <Card className="border-2">
         <CardContent className="p-4 sm:p-6 md:p-8">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4 sm:mb-6">
+          <h2 className="text-foreground mb-4 text-xl font-bold sm:mb-6 sm:text-2xl md:text-3xl">
             Send Us a Message
           </h2>
           {isSubmitted ? (
             <div className="py-12 text-center">
-              <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-accent mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
                 <CheckCircle className="text-accent-foreground" size={32} />
               </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2">
+              <h3 className="text-foreground mb-2 text-lg font-bold sm:text-xl md:text-2xl">
                 Message Sent!
               </h3>
-              <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
+              <p className="text-muted-foreground text-xs sm:text-sm md:text-base">
                 We'll get back to you as soon as possible.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="firstName" className="text-xs sm:text-sm">
                     First Name <span className="text-red-500">*</span>
@@ -184,7 +184,7 @@ const ContactForm = () => {
                         e.preventDefault();
                       }
                     }}
-                    className={`text-sm sm:text-base capitalize ${
+                    className={`text-sm capitalize sm:text-base ${
                       errors.firstName ? "border-red-500" : ""
                     }`}
                     placeholder="John"
@@ -193,7 +193,7 @@ const ContactForm = () => {
                   {errors.firstName && (
                     <p className="text-xs text-red-500">{errors.firstName}</p>
                   )}
-                  <p className="text-[10px] sm:text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-[10px] sm:text-xs">
                     Single word only (e.g., John, Mary-Jane)
                   </p>
                 </div>
@@ -213,7 +213,7 @@ const ContactForm = () => {
                         e.preventDefault();
                       }
                     }}
-                    className={`text-sm sm:text-base capitalize ${
+                    className={`text-sm capitalize sm:text-base ${
                       errors.lastName ? "border-red-500" : ""
                     }`}
                     placeholder="Smith"
@@ -225,7 +225,7 @@ const ContactForm = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-xs sm:text-sm">
                     Email <span className="text-red-500">*</span>
@@ -271,7 +271,7 @@ const ContactForm = () => {
                   value={formData.company}
                   onChange={(e) => handleFieldChange("company", e.target.value)}
                   onBlur={() => handleFieldBlur("company")}
-                  className={`text-sm sm:text-base capitalize ${
+                  className={`text-sm capitalize sm:text-base ${
                     errors.company ? "border-red-500" : ""
                   }`}
                   placeholder="Your Company Inc."
@@ -291,7 +291,7 @@ const ContactForm = () => {
                   value={formData.subject}
                   onChange={(e) => handleFieldChange("subject", e.target.value)}
                   onBlur={() => handleFieldBlur("subject")}
-                  className={`text-sm sm:text-base capitalize ${
+                  className={`text-sm capitalize sm:text-base ${
                     errors.subject ? "border-red-500" : ""
                   }`}
                   placeholder="How can we help you?"
@@ -321,7 +321,7 @@ const ContactForm = () => {
                 {errors.message && (
                   <p className="text-xs text-red-500">{errors.message}</p>
                 )}
-                <p className="text-[10px] sm:text-xs text-muted-foreground">
+                <p className="text-muted-foreground text-[10px] sm:text-xs">
                   {formData.message.length} characters (minimum 10 required)
                 </p>
               </div>
@@ -329,7 +329,7 @@ const ContactForm = () => {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm sm:text-base"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground w-full text-sm font-semibold sm:text-base"
               >
                 Send Message
               </Button>

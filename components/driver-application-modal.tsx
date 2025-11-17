@@ -194,7 +194,7 @@ export function DriverApplicationModal() {
   const validCount = useMemo(
     () => REQUIRED_FIELDS.filter(fieldIsValid).length,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [formData] // email verification affects final 100% state
+    [formData], // email verification affects final 100% state
   );
 
   const handleFieldChange = (name: keyof FormData, value: string) => {
@@ -363,9 +363,9 @@ export function DriverApplicationModal() {
         </Button>
       </DialogTrigger>
       <div data-radix-portal="true">
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto modal-scroll p-4 sm:p-6">
+        <DialogContent className="modal-scroll max-h-[85vh] max-w-2xl overflow-y-auto p-4 sm:p-6">
           <DialogHeader className="pb-2">
-            <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold">
+            <DialogTitle className="text-lg font-bold sm:text-xl md:text-2xl">
               Driver Application
             </DialogTitle>
             <DialogDescription className="text-xs sm:text-sm md:text-base">
@@ -375,25 +375,25 @@ export function DriverApplicationModal() {
 
           {isSubmitted ? (
             <div className="py-8 text-center">
-              <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="bg-accent mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
                 <CheckCircle className="text-accent-foreground" size={32} />
               </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2">
+              <h3 className="text-foreground mb-2 text-lg font-bold sm:text-xl md:text-2xl">
                 Application Submitted!
               </h3>
-              <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
+              <p className="text-muted-foreground text-xs sm:text-sm md:text-base">
                 Our recruitment team will contact you soon.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 mt-2">
+            <form onSubmit={handleSubmit} className="mt-2 space-y-6">
               {/* ================= Personal ================= */}
               <section className="space-y-4">
-                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground">
+                <h3 className="text-foreground text-sm font-semibold sm:text-base md:text-lg">
                   Personal Information
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {/* First Name */}
                   <div className="space-y-1.5">
                     <Label htmlFor="firstName" className="text-xs sm:text-sm">
@@ -411,10 +411,10 @@ export function DriverApplicationModal() {
                           e.preventDefault();
                       }}
                       className={cn(
-                        "text-sm sm:text-base capitalize",
+                        "text-sm capitalize sm:text-base",
                         (touched.firstName || attemptedSubmit) &&
                           errors.firstName &&
-                          "border-red-500"
+                          "border-red-500",
                       )}
                       maxLength={50}
                       placeholder="John"
@@ -426,7 +426,7 @@ export function DriverApplicationModal() {
                           {errors.firstName}
                         </p>
                       )}
-                    <p className="text-[10px] sm:text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-[10px] sm:text-xs">
                       Single word only (e.g., John, Mary-Jane)
                     </p>
                   </div>
@@ -448,10 +448,10 @@ export function DriverApplicationModal() {
                           e.preventDefault();
                       }}
                       className={cn(
-                        "text-sm sm:text-base capitalize",
+                        "text-sm capitalize sm:text-base",
                         (touched.lastName || attemptedSubmit) &&
                           errors.lastName &&
-                          "border-red-500"
+                          "border-red-500",
                       )}
                       maxLength={50}
                       placeholder="Smith"
@@ -466,7 +466,7 @@ export function DriverApplicationModal() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {/* Email */}
                   <div className="space-y-1.5">
                     <Label htmlFor="email" className="text-xs sm:text-sm">
@@ -484,7 +484,7 @@ export function DriverApplicationModal() {
                         "text-sm sm:text-base",
                         (touched.email || attemptedSubmit) &&
                           errors.email &&
-                          "border-red-500"
+                          "border-red-500",
                       )}
                       placeholder="example@email.com"
                       maxLength={100}
@@ -514,11 +514,11 @@ export function DriverApplicationModal() {
 
               {/* ================= CDL & Experience ================= */}
               <section className="space-y-4">
-                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground">
+                <h3 className="text-foreground text-sm font-semibold sm:text-base md:text-lg">
                   CDL & Experience
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {/* CDL */}
                   <div className="space-y-1.5">
                     <Label
@@ -533,7 +533,7 @@ export function DriverApplicationModal() {
                         href="https://tpr.fmcsa.dot.gov/check"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[10px] sm:text-xs text-primary hover:underline flex items-center gap-1"
+                        className="text-primary flex items-center gap-1 text-[10px] hover:underline sm:text-xs"
                       >
                         <span className="hidden sm:inline">Verify CDL</span>
                         <ExternalLink size={12} />
@@ -548,7 +548,7 @@ export function DriverApplicationModal() {
                         "text-sm sm:text-base",
                         (touched.cdl || attemptedSubmit) &&
                           errors.cdl &&
-                          "border-red-500"
+                          "border-red-500",
                       )}
                       placeholder="A1234567"
                       maxLength={10}
@@ -557,7 +557,7 @@ export function DriverApplicationModal() {
                     {(touched.cdl || attemptedSubmit) && errors.cdl && (
                       <p className="text-xs text-red-500">{errors.cdl}</p>
                     )}
-                    <p className="text-[10px] sm:text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-[10px] sm:text-xs">
                       Format: Letter(s) followed by 6–8 digits
                     </p>
                   </div>
@@ -580,7 +580,7 @@ export function DriverApplicationModal() {
                         "text-sm sm:text-base",
                         (touched.experience || attemptedSubmit) &&
                           errors.experience &&
-                          "border-red-500"
+                          "border-red-500",
                       )}
                       placeholder="5"
                       maxLength={2}
@@ -592,7 +592,7 @@ export function DriverApplicationModal() {
                           {errors.experience}
                         </p>
                       )}
-                    <p className="text-[10px] sm:text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-[10px] sm:text-xs">
                       Maximum 10 years
                     </p>
                   </div>
@@ -601,7 +601,7 @@ export function DriverApplicationModal() {
 
               {/* ================= Position & Availability ================= */}
               <section className="space-y-4">
-                <h3 className="text-sm sm:text-base md:text-lg font-semibold text-foreground">
+                <h3 className="text-foreground text-sm font-semibold sm:text-base md:text-lg">
                   Position & Availability
                 </h3>
 
@@ -626,7 +626,7 @@ export function DriverApplicationModal() {
                       />
                       <Label
                         htmlFor="company-driver"
-                        className="font-normal cursor-pointer text-xs sm:text-sm"
+                        className="cursor-pointer text-xs font-normal sm:text-sm"
                       >
                         Company Driver
                       </Label>
@@ -635,7 +635,7 @@ export function DriverApplicationModal() {
                       <RadioGroupItem value="lease-to-own" id="lease-to-own" />
                       <Label
                         htmlFor="lease-to-own"
-                        className="font-normal cursor-pointer text-xs sm:text-sm"
+                        className="cursor-pointer text-xs font-normal sm:text-sm"
                       >
                         Lease to Own
                       </Label>
@@ -647,7 +647,7 @@ export function DriverApplicationModal() {
                       />
                       <Label
                         htmlFor="owner-operator"
-                        className="font-normal cursor-pointer text-xs sm:text-sm"
+                        className="cursor-pointer text-xs font-normal sm:text-sm"
                       >
                         Owner Operator
                       </Label>
@@ -658,7 +658,7 @@ export function DriverApplicationModal() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {/* Start Date */}
                   <div className="space-y-1.5">
                     <Label htmlFor="startDate" className="text-xs sm:text-sm">
@@ -670,14 +670,14 @@ export function DriverApplicationModal() {
                         <Button
                           variant="outline"
                           className={cn(
-                            "w-full justify-start text-left font-normal text-xs sm:text-sm",
+                            "w-full justify-start text-left text-xs font-normal sm:text-sm",
                             !formData.startDate && "text-muted-foreground",
                             (touched.startDate || attemptedSubmit) &&
                               errors.startDate &&
-                              "border-red-500"
+                              "border-red-500",
                           )}
                         >
-                          <CalendarIcon className="mr-2 h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
+                          <CalendarIcon className="mr-2 h-3 w-3 shrink-0 sm:h-4 sm:w-4" />
                           <span className="truncate">
                             {formData.startDate
                               ? formatDateToDDMMYYYY(formData.startDate)
@@ -686,7 +686,7 @@ export function DriverApplicationModal() {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent
-                        className="w-auto p-0 z-9999"
+                        className="z-9999 w-auto p-0"
                         align="start"
                         sideOffset={4}
                       >
@@ -701,9 +701,9 @@ export function DriverApplicationModal() {
                             if (date) {
                               // local-safe YYYY-MM-DD
                               const localDate = `${date.getFullYear()}-${String(
-                                date.getMonth() + 1
+                                date.getMonth() + 1,
                               ).padStart(2, "0")}-${String(
-                                date.getDate()
+                                date.getDate(),
                               ).padStart(2, "0")}`;
                               handleFieldChange("startDate", localDate);
                               if (touched.startDate)
@@ -746,7 +746,7 @@ export function DriverApplicationModal() {
                           "text-xs sm:text-sm",
                           (touched.hearAbout || attemptedSubmit) &&
                             errors.hearAbout &&
-                            "border-red-500"
+                            "border-red-500",
                         )}
                       >
                         <SelectValue placeholder="Select an option" />
@@ -790,7 +790,7 @@ export function DriverApplicationModal() {
                   placeholder="Tell us about your experience, certs, and why you want to join Delta Prime..."
                   maxLength={1000}
                 />
-                <p className="text-[10px] sm:text-xs text-muted-foreground text-right">
+                <p className="text-muted-foreground text-right text-[10px] sm:text-xs">
                   {formData.message.length}/1000 characters
                 </p>
               </section>
@@ -798,7 +798,7 @@ export function DriverApplicationModal() {
               <Button
                 type="submit"
                 className={cn(
-                  "w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm sm:text-base"
+                  "bg-accent hover:bg-accent/90 text-accent-foreground w-full text-sm font-semibold sm:text-base",
                 )}
                 onClick={() => {}}
               >

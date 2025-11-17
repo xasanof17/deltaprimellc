@@ -43,9 +43,9 @@ const HeroShippersSection = () => {
   const inView = useInView(ref, { amount: 0.3 });
 
   return (
-    <section className="relative py-20 bg-linear-to-r from-primary to-primary/80">
+    <section className="from-primary to-primary/80 relative bg-linear-to-r py-20">
       <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           {/* LEFT: TEXT */}
           <motion.div
             variants={parent}
@@ -55,14 +55,14 @@ const HeroShippersSection = () => {
           >
             <motion.h1
               variants={fadeItem}
-              className="text-3xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-bold mb-6 text-balance md:max-w-[400px]"
+              className="mb-6 text-3xl leading-tight font-bold tracking-tight text-balance md:max-w-[400px] md:text-5xl lg:text-6xl"
             >
               Ship Smarter, Ship Faster
             </motion.h1>
 
             <motion.p
               variants={fadeItem}
-              className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed"
+              className="mb-8 text-xl leading-relaxed opacity-90 md:text-2xl"
             >
               Experience seamless logistics solutions powered by cutting-edge
               technology. From local deliveries to international freight, we've
@@ -79,12 +79,12 @@ const HeroShippersSection = () => {
             variants={imageAnim}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
-            className="relative h-[400px] rounded-lg overflow-hidden shadow-xl"
+            className="relative h-[400px] overflow-hidden rounded-lg shadow-xl"
           >
             <img
               src="/card3.jpg"
               alt="Professional shipper"
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </motion.div>
         </div>

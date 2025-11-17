@@ -44,18 +44,18 @@ const iconFloat: Variants = {
 -------------------------------------------------- */
 const AboutCTA = () => {
   return (
-    <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+    <section className="bg-primary text-primary-foreground relative overflow-hidden py-24">
       {/* Soft gradient overlay */}
-      <div className="absolute inset-0 bg-linear-to-b from-primary/20 via-primary/10 to-transparent pointer-events-none" />
+      <div className="from-primary/20 via-primary/10 pointer-events-none absolute inset-0 bg-linear-to-b to-transparent" />
 
       <motion.div
         variants={parent}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.35 }} // 🔥 re-animates scroll up/down
-        className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="mx-auto max-w-4xl text-center">
           {/* ICON */}
           <motion.div
             variants={fadeItem}
@@ -65,7 +65,7 @@ const AboutCTA = () => {
               variants={iconFloat}
               initial="initial"
               animate="animate"
-              className="w-20 h-20 rounded-2xl bg-primary-foreground/10 border border-primary-foreground/20 backdrop-blur-sm flex items-center justify-center shadow-xl"
+              className="bg-primary-foreground/10 border-primary-foreground/20 flex h-20 w-20 items-center justify-center rounded-2xl border shadow-xl backdrop-blur-sm"
             >
               <TrendingUp size={42} className="text-primary-foreground" />
             </motion.div>
@@ -74,7 +74,7 @@ const AboutCTA = () => {
           {/* TITLE */}
           <motion.h2
             variants={fadeItem}
-            className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
+            className="mb-6 text-4xl leading-tight font-bold md:text-5xl"
           >
             Technology-Driven Excellence
           </motion.h2>
@@ -82,7 +82,7 @@ const AboutCTA = () => {
           {/* TEXT */}
           <motion.p
             variants={fadeItem}
-            className="text-lg md:text-xl leading-relaxed opacity-90 mb-10 max-w-3xl mx-auto"
+            className="mx-auto mb-10 max-w-3xl text-lg leading-relaxed opacity-90 md:text-xl"
           >
             Our proprietary logistics platform uses machine learning algorithms
             to optimize routes, predict potential delays, and automate
@@ -95,7 +95,7 @@ const AboutCTA = () => {
             <Link href="/contact">
               <Button
                 size="lg"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl hover:scale-[1.04] transition-all duration-300"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-xl"
               >
                 Contact Us to Learn More
               </Button>

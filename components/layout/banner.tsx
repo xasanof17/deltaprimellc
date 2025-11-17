@@ -35,7 +35,7 @@ export function InfiniteBanner() {
   });
 
   return (
-    <div className="fixed top-0 right-0 left-0 z-9999 overflow-hidden bg-red-600 py-2 shadow-md select-none dark:bg-red-700">
+    <div className="fixed top-0 right-0 left-0 z-50 overflow-hidden bg-red-600 py-2 shadow-md select-none dark:bg-red-700">
       {/* Left fade */}
       <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-10 bg-linear-to-r from-red-600 to-transparent sm:w-20 dark:from-red-700" />
       {/* Right fade */}

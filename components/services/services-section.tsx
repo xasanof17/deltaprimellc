@@ -80,7 +80,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted">
+    <section className="bg-muted py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title Animation */}
         <motion.div
@@ -89,18 +89,18 @@ const ServicesSection = () => {
           viewport={{ amount: 0.3, once: false }}
           variants={fadeUp}
           custom={0}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h2 className="text-foreground mb-4 text-4xl font-bold md:text-5xl">
             Our Services
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
             Comprehensive logistics solutions tailored to your needs
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service, idx) => (
             <motion.div
               key={idx}
@@ -112,10 +112,10 @@ const ServicesSection = () => {
               whileHover={{ y: -6, scale: 1.03 }}
               transition={{ duration: 0.25 }}
             >
-              <Card className="shadow-sm hover:shadow-xl transition-shadow rounded-xl">
+              <Card className="rounded-xl shadow-sm transition-shadow hover:shadow-xl">
                 <CardContent className="p-6">
                   <service.icon className="text-primary mb-4" size={40} />
-                  <h3 className="text-xl font-bold text-foreground mb-2">
+                  <h3 className="text-foreground mb-2 text-xl font-bold">
                     {service.title}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
@@ -138,7 +138,7 @@ const ServicesSection = () => {
         >
           <Link href="/services">
             <MotionButton
-              className="font-semibold w-full sm:w-auto"
+              className="w-full font-semibold sm:w-auto"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.96, y: 0 }}
             >

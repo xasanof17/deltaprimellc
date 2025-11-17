@@ -51,10 +51,10 @@ const cardVariants: Variants = {
 
 export default function PropositionsSection() {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-background">
+    <section className="bg-background py-16 sm:py-20 lg:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item, i) => (
             <motion.div
               key={i}
@@ -64,21 +64,18 @@ export default function PropositionsSection() {
               viewport={{ once: false, amount: 0.2 }}
               variants={cardVariants}
             >
-              <Card className="h-full border-2 hover:border-primary transition-all duration-300 hover:shadow-xl flex flex-col">
-                <CardContent className="p-6 sm:p-8 flex flex-col grow text-center">
-
+              <Card className="hover:border-primary flex h-full flex-col border-2 transition-all duration-300 hover:shadow-xl">
+                <CardContent className="flex grow flex-col p-6 text-center sm:p-8">
                   {/* ICON */}
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 + i * 0.1, duration: 0.45 }}
-                    className={`mx-auto mb-6 rounded-full flex items-center justify-center 
-                    ${colorMap[item.color]} 
-                    w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20`}
+                    className={`mx-auto mb-6 flex items-center justify-center rounded-full ${colorMap[item.color]} h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20`}
                   >
                     <item.icon
                       size={26}
-                      className="sm:w-8 sm:h-8 lg:w-9 lg:h-9"
+                      className="sm:h-8 sm:w-8 lg:h-9 lg:w-9"
                     />
                   </motion.div>
 
@@ -87,11 +84,7 @@ export default function PropositionsSection() {
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25 + i * 0.1, duration: 0.5 }}
-                    className="
-                      text-lg sm:text-xl lg:text-2xl 
-                      font-bold text-foreground mb-4 min-h-14 
-                      flex items-center justify-center text-balance
-                    "
+                    className="text-foreground mb-4 flex min-h-14 items-center justify-center text-lg font-bold text-balance sm:text-xl lg:text-2xl"
                   >
                     {item.title}
                   </motion.h3>
@@ -101,15 +94,10 @@ export default function PropositionsSection() {
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.35 + i * 0.1, duration: 0.55 }}
-                    className="
-                      text-sm sm:text-base lg:text-lg 
-                      xl:text-xl text-muted-foreground 
-                      leading-relaxed 
-                    "
+                    className="text-muted-foreground text-sm leading-relaxed sm:text-base lg:text-lg xl:text-xl"
                   >
                     {item.desc}
                   </motion.p>
-
                 </CardContent>
               </Card>
             </motion.div>

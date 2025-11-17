@@ -48,36 +48,36 @@ export default function DriverTestimonials() {
   });
 
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
+    <section className="bg-background relative overflow-hidden py-20">
       {/* background soft accent */}
-      <div className="absolute inset-0 pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0" />
 
       <div
         ref={ref}
-        className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl"
+        className="relative z-10 container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8"
       >
         {/* Heading */}
         <motion.div
           variants={parent}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
           <motion.h2
             variants={item}
-            className="text-4xl md:text-5xl font-bold text-foreground mb-3"
+            className="text-foreground mb-3 text-4xl font-bold md:text-5xl"
           >
             What Our Drivers Say
           </motion.h2>
 
           <motion.div
             variants={underline}
-            className="mx-auto h-[3px] w-20 sm:w-28 rounded-full bg-linear-to-r from-primary via-accent to-primary mb-4"
+            className="from-primary via-accent to-primary mx-auto mb-4 h-[3px] w-20 rounded-full bg-linear-to-r sm:w-28"
           />
 
           <motion.p
             variants={item}
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-muted-foreground mx-auto max-w-2xl text-xl"
           >
             Real stories from the professionals behind the wheel
           </motion.p>

@@ -56,10 +56,10 @@ const OurPartnersCTA = () => {
   });
 
   return (
-    <section className="py-20 bg-primary text-primary-foreground">
+    <section className="bg-primary text-primary-foreground py-20">
       <div
         ref={ref}
-        className="container mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="container mx-auto px-4 text-center sm:px-6 lg:px-8"
       >
         <motion.div
           variants={parent}
@@ -69,7 +69,7 @@ const OurPartnersCTA = () => {
           {/* Title */}
           <motion.h2
             variants={fadeItem}
-            className="text-4xl md:text-5xl font-bold mb-6 text-balance"
+            className="mb-6 text-4xl font-bold text-balance md:text-5xl"
           >
             Ready to Partner With Us?
           </motion.h2>
@@ -77,7 +77,7 @@ const OurPartnersCTA = () => {
           {/* Subtitle */}
           <motion.p
             variants={fadeItem}
-            className="text-xl mb-8 max-w-2xl mx-auto opacity-90 leading-relaxed"
+            className="mx-auto mb-8 max-w-2xl text-xl leading-relaxed opacity-90"
           >
             Join our network of successful partners and take your logistics
             business to the next level
@@ -88,7 +88,7 @@ const OurPartnersCTA = () => {
             <Link href="/contact">
               <Button
                 size="lg"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6 flex items-center gap-2"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground flex items-center gap-2 px-8 py-6 text-lg font-semibold"
               >
                 Contact Us Today
                 <ArrowRight size={20} />
