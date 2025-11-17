@@ -195,8 +195,4 @@
   .dark .modal-scroll {
     scrollbar-color: oklch(0.45 0.12 264) oklch(0.25 0 0);
   }
-
-  /* Removed react-phone-number-input styles since we're using custom component */
 }
-
-/* 🧭 React Phone Input — ShadCN visual integration */
