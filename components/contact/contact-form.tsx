@@ -150,7 +150,7 @@ const ContactForm = () => {
     <div className="lg:col-span-2">
       <Card className="border-2">
         <CardContent className="p-4 sm:p-6 md:p-8">
-          <h2 className="text-foreground mb-4 text-xl font-bold sm:mb-6 sm:text-2xl md:text-3xl">
+          <h2 className="text-foreground mb-4 text-lg! font-bold sm:mb-6 sm:text-2xl! md:text-3xl!">
             Send Us a Message
           </h2>
           {isSubmitted ? (
@@ -193,7 +193,7 @@ const ContactForm = () => {
                   {errors.firstName && (
                     <p className="text-xs text-red-500">{errors.firstName}</p>
                   )}
-                  <p className="text-muted-foreground text-[10px] sm:text-xs">
+                  <p className="text-muted-foreground text-[10px]! sm:text-xs!">
                     Single word only (e.g., John, Mary-Jane)
                   </p>
                 </div>
@@ -321,7 +321,7 @@ const ContactForm = () => {
                 {errors.message && (
                   <p className="text-xs text-red-500">{errors.message}</p>
                 )}
-                <p className="text-muted-foreground text-[10px] sm:text-xs">
+                <p className="text-muted-foreground text-sm!">
                   {formData.message.length} characters (minimum 10 required)
                 </p>
               </div>

@@ -117,6 +117,8 @@ export function CustomPhoneInput({
         disableSearchIcon
         disableDropdown
         inputProps={{
+          id: "phone",
+          name: "phone",
           required,
           placeholder,
         }}
@@ -133,10 +135,6 @@ export function CustomPhoneInput({
         buttonClass={cn(
           "border border-input rounded-l-md bg-card hover:bg-muted transition flex items-center justify-center",
           error && "border-red-500",
-        )}
-        dropdownClass={cn(
-          "absolute z-[9999] w-[300px] bg-popover text-popover-foreground border border-border rounded-md shadow-md mt-1 overflow-hidden",
-          "max-h-[320px] overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent",
         )}
         searchClass="hidden" // hide built-in search box
       />

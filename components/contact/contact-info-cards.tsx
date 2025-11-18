@@ -56,7 +56,7 @@ const ContactInfoCards = () => {
         <a
           href="https://maps.app.goo.gl/D3tTbm5wsmN3ct7k7"
           target="_blank"
-          className="text-muted-foreground text-sm leading-relaxed sm:text-base"
+          className="text-muted-foreground text-base! leading-relaxed md:text-lg!"
         >
           1101 31st <br />
           Downers Grove, IL 60515 <br />
@@ -70,7 +70,7 @@ const ContactInfoCards = () => {
       icon: Phone,
       color: "bg-accent text-accent-foreground",
       content: (
-        <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+        <p className="text-muted-foreground text-base! leading-relaxed md:text-lg!">
           Main: <a href="tel:+17089072006">+1 (708) 907-2006</a> <br />
           Sales: <a href="tel:+17089072006">+1 (708) 907-2006</a> <br />
           Support: <a href="tel:+17089072006">+1 (708) 907-2006</a>
@@ -83,7 +83,7 @@ const ContactInfoCards = () => {
       icon: Mail,
       color: "bg-primary text-primary-foreground",
       content: (
-        <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+        <p className="text-muted-foreground text-base! leading-relaxed sm:text-lg!">
           Drivers:{" "}
           <a href="mailto:applications@deltaprimellc.com">
             applications@deltaprimellc.com
@@ -105,7 +105,7 @@ const ContactInfoCards = () => {
       icon: Clock,
       color: "bg-accent text-accent-foreground",
       content: (
-        <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+        <p className="text-muted-foreground text-base! leading-relaxed sm:text-lg!">
           Monday–Friday: 8 AM – 6 PM CST <br />
           Saturday: 9 AM – 2 PM CST <br />
           24/7 Emergency Support Available
@@ -128,7 +128,7 @@ const ContactInfoCards = () => {
           <Card
             className={`border-2 ${item.border} transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
           >
-            <CardContent className="p-6">
+            <CardContent className="px-4 md:px-6">
               {/* Floating Icon */}
               <motion.div
                 variants={iconFloat}
