@@ -1,23 +1,28 @@
 import NetworkCanvas from "./network-canvas";
 
-const ContactMap = () => {
+export default function ContactMap() {
   return (
-    <section className="bg-muted py-20">
+    <section className="bg-muted py-16 sm:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
+        <div className="mb-10 text-center sm:mb-12">
           <h2 className="text-foreground mb-4 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
             Our Service Coverage
           </h2>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-base sm:text-lg md:text-xl">
-            With offices and facilities across North America and beyond
+
+          <p className="text-muted-foreground mx-auto max-w-2xl text-sm sm:text-base md:text-lg">
+            Coast-to-coast coverage across the United States, with key hubs in
+            major freight markets.
           </p>
         </div>
-        <div className="relative h-[500px] overflow-hidden rounded-lg">
-          {/* <NetworkCanvas /> */}
+
+        <div className="mx-auto max-w-6xl">
+          <div style={{ aspectRatio: "1003 / 603" }} className="relative mx-auto aspect-[1003/603] w-full max-w-5xl overflow-hidden rounded-2xl border border-slate-200 bg-background shadow-sm">
+            <div className="h-full w-full">
+              <NetworkCanvas />
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default ContactMap;
+}

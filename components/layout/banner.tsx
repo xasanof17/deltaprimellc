@@ -50,7 +50,7 @@ export function InfiniteBanner() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-50 overflow-hidden bg-red-600 py-2 shadow-md select-none dark:bg-red-700"
+      className="fixed top-0 right-0 left-0 z-50 overflow-hidden bg-red-600 py-2 shadow-md select-none dark:bg-red-700"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -60,7 +60,7 @@ export function InfiniteBanner() {
 
       {/* CONVEYOR SYSTEM */}
       <motion.div
-        className="flex whitespace-nowrap will-change-transform cursor-grab active:cursor-grabbing"
+        className="flex cursor-grab whitespace-nowrap will-change-transform active:cursor-grabbing"
         style={{ x }}
         drag="x"
         dragElastic={0.0001}
@@ -95,8 +95,8 @@ function BannerItem({ item }: { item: { label: string; tag: string } }) {
           item.tag === "HOT"
             ? "bg-yellow-300 text-black dark:bg-yellow-400"
             : item.tag === "NEW"
-            ? "bg-white text-black dark:bg-gray-200"
-            : "border border-white/20 bg-black/25 text-white dark:bg-white/20"
+              ? "bg-white text-black dark:bg-gray-200"
+              : "border border-white/20 bg-black/25 text-white dark:bg-white/20"
         }`}
       >
         {item.tag}
