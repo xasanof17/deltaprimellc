@@ -3,7 +3,7 @@
 import { useMotionValue, useAnimationFrame } from "framer-motion";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 import {
   Tooltip,
@@ -23,7 +23,7 @@ const partners = [
   { name: "Coyote Logistics", logo: "/partners/coyote-logistics.svg" },
   { name: "BestPass", logo: "/partners/best-pass.png" },
   { name: "Armstrong", logo: "/partners/armstrong.png" },
-  { name: "CH Robinson", logo: "/partners/ch-robinson.svg" },
+  { name: "C.H Robinson", logo: "/partners/ch-robinson.svg" },
   { name: "Uber", logo: "/partners/uber.svg" },
   { name: "Trans Chicago", logo: "/partners/trans-chicago.png" },
   { name: "QuickManage", logo: "/partners/quickmanage.svg" },

@@ -75,7 +75,7 @@ const CTASection = () => {
         {/* PARAGRAPH */}
         <motion.p
           variants={fadeItem}
-          className="mx-auto mb-10 max-w-2xl text-xl leading-relaxed opacity-90"
+          className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed opacity-90 md:text-xl"
         >
           Get a custom quote today and experience the Delta Prime difference
         </motion.p>

@@ -3,9 +3,9 @@
 import { ArrowRight, Clock, Globe, Package, Shield } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import Link from "next/link";
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import Link from "next/link";
 
 // use-count hook
 import { useCountUp } from "@/hooks/use-count";
@@ -30,7 +30,7 @@ const cardHover =
 ------------------------------------------- */
 const ReliabilitySection = () => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { amount: 0.4 });
+  const inView = useInView(ref, { amount: 0.3 });
 
   const [start, setStart] = useState(false);
 

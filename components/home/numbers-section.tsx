@@ -64,7 +64,7 @@ export default function NumbersSection() {
         </motion.div>
 
         {/* Number Blocks */}
-        <div className="grid grid-cols-2 justify-items-center gap-10 sm:gap-12 lg:grid-cols-4 lg:gap-16 xl:gap-20">
+        <div className="by-numbers grid grid-cols-2 justify-items-center gap-10 sm:gap-10 lg:grid-cols-4 lg:gap-16 xl:gap-20">
           {items.map((item, index) => (
             <motion.div
               key={index}

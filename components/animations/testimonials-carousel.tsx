@@ -131,7 +131,7 @@ export function TestimonialsCarousel() {
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto w-full max-w-3xl overflow-hidden"
+      className="carousel-section relative mx-auto w-full max-w-3xl overflow-hidden"
     >
       <AnimatePresence custom={direction} mode="popLayout">
         <motion.div
@@ -219,7 +219,7 @@ export function TestimonialsCarousel() {
                 setCurrent(idx);
               }}
               whileHover={{ scale: 1.4 }}
-              className={`rounded-full transition-all ${
+              className={`dots-button rounded-full transition-all ${
                 idx === current ? "bg-primary h-2 w-8" : "bg-border h-2 w-2"
               }`}
             />

@@ -91,7 +91,7 @@ const FEATURES = [
 ------------------------------------------- */
 const WhyDriveWithUs = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { amount: 0.25 });
+  const inView = useInView(ref, { amount: 0.15 });
 
   return (
     <section className="bg-background py-20">
@@ -115,13 +115,13 @@ const WhyDriveWithUs = () => {
           {FEATURES.map((f, i) => (
             <motion.div key={i} variants={fadeItem}>
               <Card className="h-full border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <CardContent className="flex h-full flex-col p-8">
+                <CardContent className="flex h-full flex-col px-5 py-5 md:px-8 md:py-8">
                   {/* Icon */}
                   <motion.div
                     variants={iconFloat}
                     initial="initial"
                     animate="animate"
-                    className={`h-16 w-16 ${f.bg} mb-5 flex items-center justify-center rounded-full shadow-md`}
+                    className={`h-14 w-14 md:h-16 md:w-16 ${f.bg} mb-5 flex items-center justify-center rounded-full shadow-md`}
                   >
                     <f.icon className={f.iconColor} size={32} />
                   </motion.div>
@@ -132,7 +132,7 @@ const WhyDriveWithUs = () => {
                   </h3>
 
                   {/* Text */}
-                  <p className="text-muted-foreground grow leading-relaxed">
+                  <p className="text-muted-foreground grow">
                     {f.text}
                   </p>
                 </CardContent>

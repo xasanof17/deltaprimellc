@@ -110,12 +110,12 @@ export default function DriverTestimonialsCarousel() {
           onDragEnd={dragEnd}
         >
           <Card className="bg-card border shadow-md transition-all hover:shadow-xl">
-            <CardContent className="flex min-h-[290px] flex-col justify-between p-8 sm:p-10">
-              <div className="mb-4 flex justify-center">
+            <CardContent className="flex min-h-[290px] flex-col justify-between p-3 sm:p-10 md:p-8">
+              <div className="mb-2 flex justify-center md:mb-4">
                 <Quote className="text-accent h-10 w-10 opacity-80" />
               </div>
 
-              <p className="text-foreground mb-6 px-3 text-center text-lg leading-relaxed italic sm:text-xl">
+              <p className="text-foreground mb-6 px-3 text-center text-lg italic sm:text-xl md:leading-relaxed">
                 "{current.content}"
               </p>
 
@@ -151,7 +151,7 @@ export default function DriverTestimonialsCarousel() {
                 setIndex(i);
               }}
               whileHover={{ scale: 1.3 }}
-              className={`rounded-full transition-all ${
+              className={`dots-button rounded-full transition-all ${
                 i === index
                   ? "bg-primary h-2 w-8"
                   : "bg-border h-2 w-2 opacity-60"

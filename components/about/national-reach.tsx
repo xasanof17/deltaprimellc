@@ -55,7 +55,7 @@ const NationalReach = () => {
           <h2 className="text-foreground mb-4 text-4xl font-bold md:text-5xl">
             National Reach, Local Expertise
           </h2>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg md:text-xl">
             Headquartered in Illinois with operations spanning all 48
             continental states.
           </p>
@@ -88,7 +88,7 @@ const NationalReach = () => {
           ].map((item, idx) => (
             <motion.div key={idx} variants={fadeItem} className="h-full">
               <Card className="border-border bg-card/40 flex h-full flex-col border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-                <CardContent className="flex grow flex-col p-8 text-center">
+                <CardContent className="flex grow flex-col p-4 text-center md:p-8">
                   {/* ICON */}
                   <motion.div
                     variants={iconFloat}

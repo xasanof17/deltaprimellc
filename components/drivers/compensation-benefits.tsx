@@ -131,7 +131,7 @@ const CompensationBenefits = () => {
                   variants={fadeItem}
                   className="bg-muted border-border/40 mt-6 rounded-lg border p-4"
                 >
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-muted-foreground text-sm! md:text-lg!">
                     <strong>New to trucking?</strong> Ask about our CDL training
                     program for qualified candidates.
                   </p>

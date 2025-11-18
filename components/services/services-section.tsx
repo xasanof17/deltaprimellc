@@ -113,7 +113,7 @@ const ServicesSection = () => {
               transition={{ duration: 0.25 }}
             >
               <Card className="rounded-xl shadow-sm transition-shadow hover:shadow-xl">
-                <CardContent className="p-6">
+                <CardContent className="p-4 md:p-6">
                   <service.icon className="text-primary mb-4" size={40} />
                   <h3 className="text-foreground mb-2 text-xl font-bold">
                     {service.title}

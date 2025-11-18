@@ -12,7 +12,7 @@ export default function TrustedSection() {
           className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.4 }}
+          viewport={{ once: false, amount: 0.5 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <h2 className="text-foreground mb-3 text-3xl font-bold sm:text-4xl md:text-5xl">

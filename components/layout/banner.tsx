@@ -50,13 +50,13 @@ export function InfiniteBanner() {
 
   return (
     <div
-      className="fixed top-0 right-0 left-0 z-50 overflow-hidden bg-red-600 py-2 shadow-md select-none dark:bg-red-700"
+      className="fixed top-0 right-0 left-0 z-50 overflow-hidden bg-[#E3000F] py-2 shadow-md select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       {/* Fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-20 bg-linear-to-r from-red-600 to-transparent dark:from-red-700" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-20 bg-linear-to-l from-red-600 to-transparent dark:from-red-700" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-10 bg-linear-to-r from-[#E3000F] to-transparent md:w-20" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-10 bg-linear-to-l from-[#E3000F] to-transparent md:w-20" />
 
       {/* CONVEYOR SYSTEM */}
       <motion.div
@@ -87,11 +87,11 @@ export function InfiniteBanner() {
 
 function BannerItem({ item }: { item: { label: string; tag: string } }) {
   return (
-    <div className="mx-10 flex items-center gap-3 text-[14px] font-semibold tracking-wide text-white">
-      <Megaphone size={20} className="opacity-80" />
+    <div className="mx-10 flex items-center gap-2 text-sm font-bold text-white">
+      <Megaphone size={20} />
 
       <span
-        className={`rounded-md px-2 py-0.5 text-[10px] font-bold ${
+        className={`rounded-md px-2 py-0.5 text-center text-[10px] font-bold ${
           item.tag === "HOT"
             ? "bg-yellow-300 text-black dark:bg-yellow-400"
             : item.tag === "NEW"
@@ -102,7 +102,7 @@ function BannerItem({ item }: { item: { label: string; tag: string } }) {
         {item.tag}
       </span>
 
-      <span className="opacity-90">{item.label}</span>
+      <span>{item.label}</span>
     </div>
   );
 }

@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import { icon } from "leaflet";
 
 /* ------------------------------- ANIMATIONS -------------------------------- */
 const container: Variants = {
@@ -38,6 +39,13 @@ const iconHover: Variants = {
     transition: { type: "spring", stiffness: 250, damping: 15 },
   },
 };
+
+const socials = [
+  { icon: Instagram, href: "https://www.instagram.com/deltaprimellc/" },
+  { icon: Facebook, href: "#" },
+  { icon: Linkedin, href: "#" },
+  { icon: Twitter, href: "#" },
+];
 
 export function Footer() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -78,7 +86,7 @@ export function Footer() {
               />
             </Link>
 
-            <p className="text-sm leading-relaxed opacity-90">
+            <p className="text-base leading-relaxed opacity-90">
               Tech-enabled logistics solutions with global reach. Delivering
               excellence on time, every time.
             </p>
@@ -92,13 +100,12 @@ export function Footer() {
               {[
                 { name: "About Us", href: "/about" },
                 { name: "Services", href: "/services" },
-                { name: "Fleet & Technology", href: "/fleet" },
                 { name: "Shippers", href: "/shippers" },
               ].map((link, i) => (
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="hover:text-accent inline-block text-sm opacity-90 transition-all duration-200 hover:scale-110 hover:opacity-100"
+                    className="hover:text-accent inline-block text-base opacity-90 transition-all duration-200 hover:scale-110 hover:opacity-100"
                   >
                     {link.name}
                   </Link>
@@ -109,7 +116,7 @@ export function Footer() {
 
           {/* Resources */}
           <motion.div variants={item}>
-            <h3 className="mb-4 text-lg font-bold">Resources</h3>
+            <h3 className="mb-4 text-base font-bold">Resources</h3>
 
             <ul className="space-y-2">
               {[
@@ -120,7 +127,7 @@ export function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="hover:text-accent inline-block text-sm opacity-90 transition-all duration-200 hover:scale-110 hover:opacity-100"
+                    className="hover:text-accent inline-block text-base opacity-90 transition-all duration-200 hover:scale-110 hover:opacity-100"
                   >
                     {link.name}
                   </Link>
@@ -138,7 +145,7 @@ export function Footer() {
                 <a
                   href="https://maps.app.goo.gl/D3tTbm5wsmN3ct7k7"
                   target="_blank"
-                  className="flex items-center gap-2 text-sm opacity-90"
+                  className="flex items-center gap-2 text-base opacity-90"
                 >
                   <MapPin size={16} /> 1101 31st, Downers Grove, IL 60515
                 </a>
@@ -148,7 +155,7 @@ export function Footer() {
               <li className="flex items-center">
                 <a
                   href="tel:+17089072006"
-                  className="flex items-center gap-2 text-sm opacity-90"
+                  className="flex items-center gap-2 text-base opacity-90"
                 >
                   <Phone size={16} /> +1 (708) 907-2006
                 </a>
@@ -157,7 +164,7 @@ export function Footer() {
               <li className="flex items-center">
                 <a
                   href="mailto:applications@deltaprime.com"
-                  className="flex items-center gap-2 text-sm opacity-90"
+                  className="flex items-center gap-2 text-base opacity-90"
                 >
                   <Mail size={16} /> applications@deltaprime.com
                 </a>
@@ -166,15 +173,16 @@ export function Footer() {
 
             {/* Social */}
             <div className="mt-4 flex gap-3">
-              {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
+              {socials.map(({ icon: Icon, href }, i) => (
                 <motion.a
+                  target="_blank"
                   key={i}
-                  href="#"
+                  href={href}
                   variants={iconHover}
                   whileHover="hover"
                   className="bg-accent flex h-10 w-10 items-center justify-center rounded-xl"
                 >
-                  <Icon size={18} className="text-accent-foreground" />
+                  <Icon size={20} className="text-white opacity-90" />
                 </motion.a>
               ))}
             </div>

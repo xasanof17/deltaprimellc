@@ -77,7 +77,7 @@ export default function DriverTestimonials() {
 
           <motion.p
             variants={item}
-            className="text-muted-foreground mx-auto max-w-2xl text-xl"
+            className="text-muted-foreground mx-auto max-w-2xl text-lg md:text-xl"
           >
             Real stories from the professionals behind the wheel
           </motion.p>

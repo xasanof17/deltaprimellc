@@ -196,3 +196,38 @@
     scrollbar-color: oklch(0.45 0.12 264) oklch(0.25 0 0);
   }
 }
+@media (max-width: 426px) {
+  section {
+    @apply py-14;
+  }
+  section button {
+    @apply p-3 text-base;
+  }
+  .dots-button {
+    @apply p-0;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  section p:first-of-type {
+    @apply text-lg;
+  }
+}
+
+@media (max-width: 375px) {
+  .by-numbers {
+    @apply grid-cols-1;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  section {
+    @apply py-10;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+}
