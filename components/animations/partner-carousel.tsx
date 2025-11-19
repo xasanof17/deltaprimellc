@@ -43,7 +43,8 @@ const partners = [
 
 export function PartnerCarousel() {
   const x = useMotionValue(0);
-  const [paused, setPaused] = useState(false);
+  const speed = useMotionValue(0.12); // current speed
+  const targetSpeed = useRef(0.12); // desired speed (smooth easing)
 
   const ITEM_W = 160;
   const ITEM_H = 80;
@@ -53,13 +54,24 @@ export function PartnerCarousel() {
   const extended = Array(6).fill(partners).flat();
   const TOTAL_WIDTH = partners.length * fullItem;
 
+  // Smooth carousel animation
   useAnimationFrame((t, delta) => {
-    if (!paused) {
-      let newX = x.get() - delta * 0.12;
-      if (newX <= -TOTAL_WIDTH) newX += TOTAL_WIDTH;
-      x.set(newX);
-    }
+    const currentSpeed = speed.get();
+    const nextSpeed = currentSpeed + (targetSpeed.current - currentSpeed) * 0.1;
+    speed.set(nextSpeed);
+
+    let newX = x.get() - delta * nextSpeed;
+    if (newX <= -TOTAL_WIDTH) newX += TOTAL_WIDTH;
+    x.set(newX);
   });
+
+  const smoothlyStop = () => {
+    targetSpeed.current = 0; // smoothly decelerate
+  };
+
+  const smoothlyResume = () => {
+    targetSpeed.current = 0.12; // smoothly accelerate
+  };
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -78,24 +90,28 @@ export function PartnerCarousel() {
             const [open, setOpen] = useState(false);
             const timer = useRef<NodeJS.Timeout | null>(null);
 
+            const handleMouseEnter = () => {
+              timer.current = setTimeout(() => {
+                setOpen(true);
+                smoothlyStop(); // pause carousel only when tooltip opens
+              }, 1000); // 1 second delay
+            };
+
+            const handleMouseLeave = () => {
+              if (timer.current) clearTimeout(timer.current);
+              setOpen(false);
+              smoothlyResume();
+            };
+
             return (
               <Tooltip key={i} open={open}>
                 <TooltipTrigger
                   asChild
-                  onMouseEnter={() => {
-                    timer.current = setTimeout(() => {
-                      setOpen(true);
-                      setPaused(true); // pause ONLY when tooltip is open
-                    }, 900);
-                  }}
-                  onMouseLeave={() => {
-                    if (timer.current) clearTimeout(timer.current);
-                    setOpen(false);
-                    setPaused(false);
-                  }}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <motion.div
-                    className="flex h-14 w-28 shrink-0 translate-z-0 items-center justify-center will-change-transform sm:h-16 sm:w-32 md:h-20 md:w-40"
+                    className="flex h-14 w-28 shrink-0 translate-z-0 items-center justify-center opacity-80 grayscale transition-all duration-300 will-change-transform hover:opacity-100 hover:grayscale-0 sm:h-16 sm:w-32 md:h-20 md:w-40"
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.25 }}
                   >
@@ -105,14 +121,15 @@ export function PartnerCarousel() {
                       width={ITEM_W}
                       height={ITEM_H}
                       draggable={false}
-                      className="max-h-full max-w-full object-contain opacity-80 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                      className="max-h-full max-w-full object-contain"
                     />
                   </motion.div>
                 </TooltipTrigger>
 
                 <TooltipContent
                   side="bottom"
-                  className="translate-z-0 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-base text-black shadow-xl backdrop-blur-md will-change-transform dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+                  collisionPadding={0}
+                  className="rounded-xl border border-neutral-200 bg-white px-3 py-2 text-base text-black shadow-xl backdrop-blur-md dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
                 >
                   {partner.name}
                 </TooltipContent>
