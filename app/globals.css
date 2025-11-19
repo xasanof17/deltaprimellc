@@ -131,14 +131,6 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    &::selection {
-      background-color: transparent;
-      color: var(--accent);
-    }
-  }
-  img,
-  svg {
-    @apply pointer-events-none select-none;
   }
 
   /* Added smooth scroll behavior globally */
@@ -153,10 +145,6 @@
   a .clicktocall {
     @apply no-underline;
     color: white !important;
-  }
-  a,
-  button {
-    @apply cursor-pointer;
   }
   body {
     @apply bg-background text-foreground;

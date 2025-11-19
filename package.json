@@ -1,12 +1,8 @@
 {
-  "name": "deltaprime",
-  "version": "1.0.0",
+  "name": "my-v0-project",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "author": {
-    "name": "Xasanov Javohir",
-    "email": "xasanof17@gmail.com"
-  },
   "scripts": {
     "build": "next build",
     "dev": "next dev",
