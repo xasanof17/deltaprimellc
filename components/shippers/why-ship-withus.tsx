@@ -52,7 +52,7 @@ export default function WhyShipWithUs() {
   const ref = useRef<HTMLDivElement | null>(null);
 
   const inView = useInView(ref, {
-    amount: 0.20,
+    amount: 0.2,
     once: false,
   });
 

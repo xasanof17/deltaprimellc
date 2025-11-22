@@ -12,7 +12,8 @@ import * as THREE from "three";
 
 function getCentroid(shape: THREE.Shape) {
   const pts = shape.getPoints(150);
-  let x = 0, y = 0;
+  let x = 0,
+    y = 0;
   pts.forEach((p) => {
     x += p.x;
     y += p.y;
@@ -21,7 +22,10 @@ function getCentroid(shape: THREE.Shape) {
 }
 
 function computeBounds(shapes: any[]) {
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  let minX = Infinity,
+    maxX = -Infinity,
+    minY = Infinity,
+    maxY = -Infinity;
   shapes.forEach(({ shape }) => {
     shape.getPoints(80).forEach((p: any) => {
       minX = Math.min(minX, p.x);
@@ -43,7 +47,7 @@ function createArc(a: THREE.Vector2, b: THREE.Vector2) {
   const curve = new THREE.QuadraticBezierCurve3(
     new THREE.Vector3(a.x, a.y, 0),
     mid,
-    new THREE.Vector3(b.x, b.y, 0)
+    new THREE.Vector3(b.x, b.y, 0),
   );
   return curve.getPoints(80);
 }
@@ -53,10 +57,12 @@ function createArc(a: THREE.Vector2, b: THREE.Vector2) {
 ---------------------------------------------------------- */
 function DebugInfo({ info }: { info: string[] }) {
   return (
-    <div className="absolute top-4 left-4 bg-black/80 text-white p-4 rounded-lg text-xs font-mono max-w-md z-10">
-      <h3 className="font-bold mb-2 text-green-400">Debug Info:</h3>
+    <div className="absolute top-4 left-4 z-10 max-w-md rounded-lg bg-black/80 p-4 font-mono text-xs text-white">
+      <h3 className="mb-2 font-bold text-green-400">Debug Info:</h3>
       {info.map((line, i) => (
-        <div key={i} className="mb-1">{line}</div>
+        <div key={i} className="mb-1">
+          {line}
+        </div>
       ))}
     </div>
   );
@@ -66,10 +72,10 @@ function DebugInfo({ info }: { info: string[] }) {
    MAIN MAP
 ---------------------------------------------------------- */
 
-function USMap({ 
-  boxHeight, 
-  onDebugInfo 
-}: { 
+function USMap({
+  boxHeight,
+  onDebugInfo,
+}: {
   boxHeight: number;
   onDebugInfo: (info: string[]) => void;
 }) {
@@ -78,36 +84,42 @@ function USMap({
   const shapes = useMemo(() => {
     const allShapes: any[] = [];
     const debugInfo: string[] = [];
-    
+
     debugInfo.push(`✅ SVG loaded successfully`);
     debugInfo.push(`📊 Total paths: ${svg.paths.length}`);
-    
+
     svg.paths.forEach((path, pathIndex) => {
       const fillColor = path.color?.getStyle() || "#193678";
       const pathShapes = SVGLoader.createShapes(path);
-      const id = path.userData?.node?.getAttribute("id") || `state-${pathIndex}`;
-      
+      const id =
+        path.userData?.node?.getAttribute("id") || `state-${pathIndex}`;
+
       pathShapes.forEach((shape) => {
         allShapes.push({
           id,
           shape,
           centroid: getCentroid(shape),
-          color: fillColor
+          color: fillColor,
         });
       });
     });
 
     debugInfo.push(`🗺️ Shapes created: ${allShapes.length}`);
-    debugInfo.push(`🏷️ Sample IDs: ${allShapes.slice(0, 3).map(s => s.id).join(", ")}`);
-    
+    debugInfo.push(
+      `🏷️ Sample IDs: ${allShapes
+        .slice(0, 3)
+        .map((s) => s.id)
+        .join(", ")}`,
+    );
+
     onDebugInfo(debugInfo);
     console.log("SVG Processing:", debugInfo);
-    
+
     return allShapes;
   }, [svg, onDebugInfo]);
 
   const bounds = computeBounds(shapes);
-  const scale = (boxHeight) / bounds.height; // Reduced scale for more margin
+  const scale = boxHeight / bounds.height; // Reduced scale for more margin
   const offsetX = -bounds.center.x * scale;
   const offsetY = -bounds.center.y * scale;
 
@@ -155,18 +167,16 @@ function USMap({
 ---------------------------------------------------------- */
 
 export default function NetworkCanvasDebug() {
-  const [debugInfo, setDebugInfo] = useState<string[]>([
-    "⏳ Loading SVG..."
-  ]);
+  const [debugInfo, setDebugInfo] = useState<string[]>(["⏳ Loading SVG..."]);
   const [error, setError] = useState<string | null>(null);
 
   return (
-    <div className="w-full h-full relative">
+    <div className="relative h-full w-full">
       <DebugInfo info={debugInfo} />
-      
+
       {error && (
-        <div className="absolute top-20 left-4 bg-red-900/90 text-white p-4 rounded-lg text-xs max-w-md z-10">
-          <h3 className="font-bold mb-2">❌ Error:</h3>
+        <div className="absolute top-20 left-4 z-10 max-w-md rounded-lg bg-red-900/90 p-4 text-xs text-white">
+          <h3 className="mb-2 font-bold">❌ Error:</h3>
           <div>{error}</div>
         </div>
       )}
@@ -177,7 +187,7 @@ export default function NetworkCanvasDebug() {
         gl={{ antialias: true }}
         onCreated={() => {
           console.log("✅ Canvas created successfully");
-          setDebugInfo(prev => [...prev, "✅ Canvas initialized"]);
+          setDebugInfo((prev) => [...prev, "✅ Canvas initialized"]);
         }}
         onError={(error) => {
           console.error("❌ Canvas error:", error);
@@ -186,12 +196,12 @@ export default function NetworkCanvasDebug() {
       >
         <color attach="background" args={["#f8fafc"]} />
         <ambientLight intensity={1.2} />
-        
+
         <React.Suspense fallback={null}>
-          <USMap 
+          <USMap
             boxHeight={300}
             onDebugInfo={(info) => {
-              setDebugInfo(prev => [...prev, ...info]);
+              setDebugInfo((prev) => [...prev, ...info]);
             }}
           />
         </React.Suspense>

@@ -132,9 +132,7 @@ const WhyDriveWithUs = () => {
                   </h3>
 
                   {/* Text */}
-                  <p className="text-muted-foreground grow">
-                    {f.text}
-                  </p>
+                  <p className="text-muted-foreground grow">{f.text}</p>
                 </CardContent>
               </Card>
             </motion.div>

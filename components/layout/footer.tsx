@@ -3,9 +3,9 @@
 import Link from "next/link";
 import {
   Facebook,
-  Twitter,
   Linkedin,
   Instagram,
+  Twitch,
   Mail,
   Phone,
   MapPin,
@@ -13,7 +13,6 @@ import {
 import Image from "next/image";
 import { motion, useInView, type Variants } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { icon } from "leaflet";
 
 /* ------------------------------- ANIMATIONS -------------------------------- */
 const container: Variants = {
@@ -42,9 +41,8 @@ const iconHover: Variants = {
 
 const socials = [
   { icon: Instagram, href: "https://www.instagram.com/deltaprimellc/" },
-  { icon: Facebook, href: "#" },
-  { icon: Linkedin, href: "#" },
-  { icon: Twitter, href: "#" },
+  { icon: Facebook, href: "https://www.facebook.com/share/1FYa8FSQcy/" },
+  { icon: Twitch, href: "https://www.tiktok.com/@delta.prime.llc" },
 ];
 
 export function Footer() {
