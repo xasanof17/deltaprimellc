@@ -200,6 +200,9 @@
   section {
     @apply py-14;
   }
+  .modal-overlay section {
+    @apply py-0;
+  }
   section button {
     @apply p-3 text-base;
   }
@@ -209,11 +212,26 @@
   h3 {
     @apply text-lg;
   }
+  .modal-overlay h2 {
+    @apply text-xl;
+  }
   h2 {
     @apply text-3xl;
   }
   section p:first-of-type {
     @apply text-lg;
+  }
+  .modal-overlay section p:nth-of-type(1) {
+    @apply text-sm;
+  }
+  .modal-overlay .truncate {
+    @apply text-sm;
+  }
+  .modal-overlay button {
+    @apply text-sm;
+  }
+  .modal-overlay label {
+    @apply text-sm;
   }
 }
 

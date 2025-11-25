@@ -363,12 +363,12 @@ export function DriverApplicationModal() {
         </Button>
       </DialogTrigger>
       <div data-radix-portal="true">
-        <DialogContent className="modal-scroll max-h-[85vh] max-w-2xl overflow-y-auto p-4 sm:p-6">
+        <DialogContent className="modal-overlay modal-scroll max-h-[85vh] max-w-2xl overflow-y-auto p-4 sm:p-6">
           <DialogHeader className="pb-2">
             <DialogTitle className="text-lg font-bold sm:text-xl md:text-2xl">
               Driver Application
             </DialogTitle>
-            <DialogDescription className="text-xs sm:text-sm md:text-base">
+            <DialogDescription className="text-xs sm:text-base">
               Join the Delta Prime team. Fill out the form below to get started.
             </DialogDescription>
           </DialogHeader>

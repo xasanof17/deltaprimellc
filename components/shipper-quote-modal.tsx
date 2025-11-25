@@ -232,7 +232,7 @@ export function ShipperQuoteModal() {
 
       <DialogContent className="modal-scroll max-h-[90vh] max-w-3xl overflow-y-auto p-4 sm:p-6">
         <DialogHeader>
-          <DialogTitle className="text-lg font-bold sm:text-xl md:text-2xl">
+          <DialogTitle className="text-lg! font-bold sm:text-xl! md:text-2xl!">
             Request a Shipping Quote
           </DialogTitle>
           <DialogDescription className="text-xs sm:text-sm md:text-base">
