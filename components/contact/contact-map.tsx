@@ -18,9 +18,8 @@ export default function ContactMap() {
         <div className="mx-auto max-w-6xl">
           <div
             style={{ aspectRatio: "1003 / 603" }}
-            className="bg-background relative mx-auto aspect-[1003/603] w-full max-w-5xl overflow-hidden rounded-2xl border border-slate-200 shadow-sm"
-          >
-            <div className="h-full w-full">
+            className="bg-background relative mx-auto aspect-[1003/603] w-full max-w-5xl overflow-hidden rounded-2xl border border-slate-200 shadow-sm"          >
+            <div className="h-[420px] w-full rounded-xl border border-slate-100 bg-[#f8fafc] sm:h-[500px] lg:h-[600px]">
               <NetworkCanvas />
             </div>
           </div>

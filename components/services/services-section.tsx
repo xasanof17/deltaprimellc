@@ -16,7 +16,7 @@ import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { Button } from "../ui/button";
 
-const MotionButton = motion(Button);
+const MotionButton = motion.create(Button);
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },

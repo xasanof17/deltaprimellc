@@ -356,7 +356,8 @@ export function DriverApplicationModal() {
       <DialogTrigger asChild>
         <Button
           size="sm"
-          className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+          variant="outline"
+          // className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
         >
           <UserRoundPenIcon className="mr-1" size={20} />
           Driver Application

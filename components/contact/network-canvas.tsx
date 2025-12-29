@@ -1,161 +1,130 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
-import { Canvas, useLoader } from "@react-three/fiber";
-import { SVGLoader } from "three-stdlib";
-import { Line } from "@react-three/drei";
+import React, { useMemo, useState, useEffect, useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Center, Environment, OrbitControls, Line } from "@react-three/drei";
 import * as THREE from "three";
 
 /* ----------------------------------------------------------
-   Helpers
+   CONSTANTS — MAP & ARC CONSTRAINTS
 ---------------------------------------------------------- */
+const GEOJSON_URL =
+  "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json";
 
-function getCentroid(shape: THREE.Shape) {
-  const pts = shape.getPoints(150);
-  let x = 0,
-    y = 0;
-  pts.forEach((p) => {
-    x += p.x;
-    y += p.y;
-  });
-  return new THREE.Vector2(x / pts.length, y / pts.length);
-}
-
-function computeBounds(shapes: any[]) {
-  let minX = Infinity,
-    maxX = -Infinity,
-    minY = Infinity,
-    maxY = -Infinity;
-  shapes.forEach(({ shape }) => {
-    shape.getPoints(80).forEach((p: any) => {
-      minX = Math.min(minX, p.x);
-      maxX = Math.max(maxX, p.x);
-      minY = Math.min(minY, p.y);
-      maxY = Math.max(maxY, p.y);
-    });
-  });
-  const width = maxX - minX;
-  const height = maxY - minY;
-  const center = new THREE.Vector2(minX + width / 2, minY + height / 2);
-  return { minX, maxX, minY, maxY, width, height, center };
-}
-
-function createArc(a: THREE.Vector2, b: THREE.Vector2) {
-  const dist = a.distanceTo(b);
-  const h = dist * 0.22;
-  const mid = new THREE.Vector3((a.x + b.x) / 2, (a.y + b.y) / 2 + h, 0);
-  const curve = new THREE.QuadraticBezierCurve3(
-    new THREE.Vector3(a.x, a.y, 0),
-    mid,
-    new THREE.Vector3(b.x, b.y, 0),
-  );
-  return curve.getPoints(80);
-}
+const ARC_BASE_Z = 2.2; // always above state meshes
+const MIN_ARC_HEIGHT = 6; // minimum arc lift
+const MAX_ARC_HEIGHT = 18; // max clamp so arcs never escape map
 
 /* ----------------------------------------------------------
-   Debug Info Component
+   CONTINUOUS DOTTED FLOW SHADER (NOT DASHED)
 ---------------------------------------------------------- */
-function DebugInfo({ info }: { info: string[] }) {
-  return (
-    <div className="absolute top-4 left-4 z-10 max-w-md rounded-lg bg-black/80 p-4 font-mono text-xs text-white">
-      <h3 className="mb-2 font-bold text-green-400">Debug Info:</h3>
-      {info.map((line, i) => (
-        <div key={i} className="mb-1">
-          {line}
-        </div>
-      ))}
-    </div>
-  );
-}
+const StripeDotShader = {
+  uniforms: {
+    uTime: { value: 0 },
+    uColor: { value: new THREE.Color("#6366f1") },
+    uSpeed: { value: 0.4 },
+    uOpacity: { value: 1.0 },
+    uPhase: { value: Math.random() * 10.0 },
+  },
+  vertexShader: `
+    varying float vProgress;
+    void main() {
+      vProgress = uv.x;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    uniform float uTime;
+    uniform float uSpeed;
+    uniform float uOpacity;
+    uniform float uPhase;
+    uniform vec3 uColor;
+    varying float vProgress;
+
+    void main() {
+      float spacing = 26.0;
+      float dotSize = 0.18;
+
+      float flow = uTime * uSpeed + uPhase;
+      float pattern = fract(vProgress * spacing - flow);
+
+      float dot =
+        smoothstep(dotSize, dotSize + 0.04, pattern) *
+        smoothstep(1.0 - dotSize, 1.0 - dotSize - 0.04, pattern);
+
+      float edgeFade =
+        smoothstep(0.0, 0.1, vProgress) *
+        smoothstep(1.0, 0.9, vProgress);
+
+      if (dot < 0.15) discard;
+
+      gl_FragColor = vec4(uColor, dot * edgeFade * uOpacity);
+    }
+  `,
+};
 
 /* ----------------------------------------------------------
-   MAIN MAP
+   STATE MESH
 ---------------------------------------------------------- */
+function State3D({ shapes }: { shapes: THREE.Shape[] }) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const [hovered, setHovered] = useState(false);
 
-function USMap({
-  boxHeight,
-  onDebugInfo,
-}: {
-  boxHeight: number;
-  onDebugInfo: (info: string[]) => void;
-}) {
-  const svg = useLoader(SVGLoader, "/maps/usa.svg");
+  const borders = useMemo(
+    () =>
+      shapes.map((shape) =>
+        shape.getPoints(50).map((p) => new THREE.Vector3(p.x, p.y, 1.02)),
+      ),
+    [shapes],
+  );
 
-  const shapes = useMemo(() => {
-    const allShapes: any[] = [];
-    const debugInfo: string[] = [];
+  useFrame(() => {
+    if (!meshRef.current) return;
 
-    debugInfo.push(`✅ SVG loaded successfully`);
-    debugInfo.push(`📊 Total paths: ${svg.paths.length}`);
-
-    svg.paths.forEach((path, pathIndex) => {
-      const fillColor = path.color?.getStyle() || "#193678";
-      const pathShapes = SVGLoader.createShapes(path);
-      const id =
-        path.userData?.node?.getAttribute("id") || `state-${pathIndex}`;
-
-      pathShapes.forEach((shape) => {
-        allShapes.push({
-          id,
-          shape,
-          centroid: getCentroid(shape),
-          color: fillColor,
-        });
-      });
-    });
-
-    debugInfo.push(`🗺️ Shapes created: ${allShapes.length}`);
-    debugInfo.push(
-      `🏷️ Sample IDs: ${allShapes
-        .slice(0, 3)
-        .map((s) => s.id)
-        .join(", ")}`,
+    meshRef.current.position.z = THREE.MathUtils.lerp(
+      meshRef.current.position.z,
+      hovered ? 2 : 0,
+      0.1,
     );
 
-    onDebugInfo(debugInfo);
-    console.log("SVG Processing:", debugInfo);
-
-    return allShapes;
-  }, [svg, onDebugInfo]);
-
-  const bounds = computeBounds(shapes);
-  const scale = boxHeight / bounds.height; // Reduced scale for more margin
-  const offsetX = -bounds.center.x * scale;
-  const offsetY = -bounds.center.y * scale;
-
-  const arcs = useMemo(() => {
-    const cents = shapes.map((s) => s.centroid);
-    const out: THREE.Vector3[][] = [];
-
-    for (let i = 0; i < cents.length; i++) {
-      for (let j = i + 1; j < cents.length; j++) {
-        const d = cents[i].distanceTo(cents[j]);
-        if (d > 50 && d < 300 && Math.random() < 0.12) {
-          out.push(createArc(cents[i], cents[j]));
-        }
-      }
-    }
-
-    console.log(`✨ Generated ${out.length} network connections`);
-    return out;
-  }, [shapes]);
+    (meshRef.current.material as THREE.MeshStandardMaterial).color.lerp(
+      new THREE.Color(hovered ? "#4f46e5" : "#f1f5f9"),
+      0.1,
+    );
+  });
 
   return (
-    <group scale={[scale, -scale, scale]} position={[offsetX, offsetY, 0]}>
-      {shapes.map((s, i) => (
-        <mesh key={`state-${i}`}>
-          <shapeGeometry args={[s.shape]} />
-          <meshBasicMaterial color="#1E78D6" side={THREE.DoubleSide} />
-        </mesh>
-      ))}
-      {arcs.map((pts, i) => (
+    <group
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerOut={() => setHovered(false)}
+    >
+      <mesh ref={meshRef}>
+        <extrudeGeometry
+          args={[
+            shapes,
+            {
+              depth: 1,
+              bevelEnabled: true,
+              bevelThickness: 0.05,
+              bevelSize: 0.02,
+              bevelSegments: 2,
+            },
+          ]}
+        />
+        <meshStandardMaterial roughness={0.7} metalness={0.1} />
+      </mesh>
+
+      {borders.map((pts, i) => (
         <Line
-          key={`arc-${i}`}
+          key={i}
           points={pts}
-          color="#4FC3F7"
-          lineWidth={1.5}
+          color="#cbd5e1"
+          lineWidth={0.5}
           transparent
-          opacity={0.65}
+          opacity={0.5}
         />
       ))}
     </group>
@@ -163,48 +132,233 @@ function USMap({
 }
 
 /* ----------------------------------------------------------
-   PUBLIC COMPONENT WITH DEBUG
+   ANIMATED ARC (ALWAYS ABOVE MAP)
 ---------------------------------------------------------- */
+function AnimatedDottedArc({
+  points,
+  lifetime,
+  onExpire,
+}: {
+  points: THREE.Vector3[];
+  lifetime: number;
+  onExpire: () => void;
+}) {
+  const matRef = useRef<any>(null);
+  const born = useRef(performance.now());
+  const curve = useMemo(() => new THREE.CatmullRomCurve3(points), [points]);
+  const speed = useMemo(() => 0.25 + Math.random() * 0.35, []);
+  const phase = useMemo(() => Math.random() * 20, []);
 
-export default function NetworkCanvasDebug() {
-  const [debugInfo, setDebugInfo] = useState<string[]>(["⏳ Loading SVG..."]);
-  const [error, setError] = useState<string | null>(null);
+  useFrame((state) => {
+    if (!matRef.current) return;
+
+    const t = (performance.now() - born.current) / 1000;
+    const fadeIn = Math.min(t / 0.6, 1);
+    const fadeOut = Math.min((lifetime - t) / 0.8, 1);
+
+    matRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
+    matRef.current.uniforms.uSpeed.value = speed;
+    matRef.current.uniforms.uPhase.value = phase;
+    matRef.current.uniforms.uOpacity.value = Math.min(fadeIn, fadeOut);
+
+    if (t > lifetime) onExpire();
+  });
 
   return (
-    <div className="relative h-full w-full">
-      <DebugInfo info={debugInfo} />
+    <mesh>
+      <tubeGeometry args={[curve, 120, 0.04, 8, false]} />
+      <shaderMaterial
+        ref={matRef}
+        args={[StripeDotShader]}
+        transparent
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </mesh>
+  );
+}
 
-      {error && (
-        <div className="absolute top-20 left-4 z-10 max-w-md rounded-lg bg-red-900/90 p-4 text-xs text-white">
-          <h3 className="mb-2 font-bold">❌ Error:</h3>
-          <div>{error}</div>
-        </div>
-      )}
+/* ----------------------------------------------------------
+   RESPONSIVE CAMERA
+---------------------------------------------------------- */
+function ResponsiveCamera() {
+  const { camera, size } = useThree();
 
-      <Canvas
-        camera={{ position: [0, 0, 500], fov: 55 }}
-        style={{ width: "100%", height: "100%" }}
-        gl={{ antialias: true }}
-        onCreated={() => {
-          console.log("✅ Canvas created successfully");
-          setDebugInfo((prev) => [...prev, "✅ Canvas initialized"]);
-        }}
-        onError={(error) => {
-          console.error("❌ Canvas error:", error);
-          // setError(error.message);
-        }}
-      >
-        <color attach="background" args={["#f8fafc"]} />
-        <ambientLight intensity={1.2} />
+  useEffect(() => {
+    if (!(camera instanceof THREE.PerspectiveCamera)) return;
 
-        <React.Suspense fallback={null}>
-          <USMap
-            boxHeight={300}
-            onDebugInfo={(info) => {
-              setDebugInfo((prev) => [...prev, ...info]);
-            }}
+    if (size.width < 640) {
+      camera.position.set(0, -12, 95);
+      camera.fov = 40;
+    } else if (size.width < 1024) {
+      camera.position.set(0, -14, 85);
+      camera.fov = 37;
+    } else {
+      camera.position.set(0, -15, 80);
+      camera.fov = 35;
+    }
+
+    camera.updateProjectionMatrix();
+  }, [size, camera]);
+
+  return null;
+}
+
+/* ----------------------------------------------------------
+   GLOBAL MAP + CONSTRAINED RANDOM TRAFFIC
+---------------------------------------------------------- */
+function GlobalTrafficMap() {
+  const [data, setData] = useState<any>(null);
+  const [arcs, setArcs] = useState<THREE.Vector3[][]>([]);
+  const { viewport } = useThree();
+
+  useEffect(() => {
+    fetch(GEOJSON_URL)
+      .then((res) => res.json())
+      .then(setData);
+  }, []);
+
+  const { states, centroids } = useMemo(() => {
+    if (!data) return { states: [], centroids: [] };
+
+    const states: any[] = [];
+    const centroids: THREE.Vector3[] = [];
+
+    data.features.forEach((f: any) => {
+      if (["Alaska", "Hawaii", "Puerto Rico"].includes(f.properties.name))
+        return;
+
+      const shapes: THREE.Shape[] = [];
+
+      const project = (coords: number[][]) => {
+        const s = new THREE.Shape();
+        coords.forEach(([lon, lat], i) => {
+          const x = (lon + 96) * 1.5;
+          const y = (lat - 38) * 1.8;
+          i === 0 ? s.moveTo(x, y) : s.lineTo(x, y);
+        });
+        return s;
+      };
+
+      if (f.geometry.type === "Polygon") {
+        shapes.push(project(f.geometry.coordinates[0]));
+      } else {
+        f.geometry.coordinates.forEach((poly: any) =>
+          shapes.push(project(poly[0])),
+        );
+      }
+
+      const box = new THREE.Box2();
+      shapes[0].getPoints().forEach((p) => box.expandByPoint(p));
+      const center = new THREE.Vector2();
+      box.getCenter(center);
+
+      centroids.push(new THREE.Vector3(center.x, center.y, ARC_BASE_Z));
+      states.push({ shapes });
+    });
+
+    return { states, centroids };
+  }, [data]);
+
+  // ✅ CLAMPED ARC GENERATOR (KEY FIX)
+  const makeCurve = () => {
+    if (centroids.length < 2) return null;
+
+    const a = centroids[Math.floor(Math.random() * centroids.length)];
+    const b = centroids[Math.floor(Math.random() * centroids.length)];
+    if (!a || !b || a === b) return null;
+
+    const start = a.clone();
+    const end = b.clone();
+
+    const distance = start.distanceTo(end);
+    const height = THREE.MathUtils.clamp(
+      distance * 0.35,
+      MIN_ARC_HEIGHT,
+      MAX_ARC_HEIGHT,
+    );
+
+    const mid = new THREE.Vector3().lerpVectors(start, end, 0.5);
+    mid.z = ARC_BASE_Z + height;
+
+    return [start, mid, end];
+  };
+
+  useEffect(() => {
+    if (!centroids.length) return;
+
+    setArcs(
+      Array.from({ length: 10 })
+        .map(makeCurve)
+        .filter(Boolean) as THREE.Vector3[][],
+    );
+
+    const interval = setInterval(() => {
+      setArcs((prev) => {
+        if (prev.length > 18) return prev;
+        const next = makeCurve();
+        return next ? [...prev, next] : prev;
+      });
+    }, 900);
+
+    return () => clearInterval(interval);
+  }, [centroids]);
+
+  const scale = Math.min(viewport.width / 80, 1);
+
+  return (
+    <Center>
+      <group scale={scale} rotation={[-0.4, 0, 0]}>
+        {states.map((s, i) => (
+          <State3D key={i} shapes={s.shapes} />
+        ))}
+
+        {arcs.map((pts, i) => (
+          <AnimatedDottedArc
+            key={i}
+            points={pts}
+            lifetime={6 + Math.random() * 2}
+            onExpire={() =>
+              setArcs((prev) => prev.filter((_, idx) => idx !== i))
+            }
           />
-        </React.Suspense>
+        ))}
+      </group>
+    </Center>
+  );
+}
+
+/* ----------------------------------------------------------
+   MAIN EXPORT
+---------------------------------------------------------- */
+export default function NetworkCanvas() {
+  const [dpr, setDpr] = useState(1);
+
+  useEffect(() => {
+    setDpr(Math.min(window.devicePixelRatio || 1, 2));
+  }, []);
+
+  return (
+    <div className="h-full w-full rounded-xl border border-slate-100 bg-[#f8fafc]">
+      <Canvas
+        dpr={dpr}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
+      >
+        <ResponsiveCamera />
+
+        <ambientLight intensity={0.8} />
+        <pointLight position={[10, 10, 30]} intensity={1} color="#6366f1" />
+
+        <GlobalTrafficMap />
+
+        <Environment preset="city" />
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          rotateSpeed={0.6}
+          maxPolarAngle={Math.PI / 2.2}
+          minPolarAngle={Math.PI / 3.2}
+        />
       </Canvas>
     </div>
   );

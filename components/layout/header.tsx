@@ -16,7 +16,7 @@ const navLoad: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: "easeOut" },
+    transition: { duration: 0.25, ease: "easeOut" },
   },
 };
 
@@ -105,7 +105,7 @@ export function Header() {
         initial="hidden"
         animate="visible"
         className={cn(
-          "fixed top-[35px] right-0 left-0 z-50 transition-all duration-300",
+          "fixed top-[35px] right-0 left-0 z-50 backdrop-blur-xs transition-all duration-300",
           hasBackground
             ? "bg-background/90 shadow backdrop-blur-md"
             : "bg-transparent",
