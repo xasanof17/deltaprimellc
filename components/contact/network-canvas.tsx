@@ -187,17 +187,28 @@ function ResponsiveCamera() {
   useEffect(() => {
     if (!(camera instanceof THREE.PerspectiveCamera)) return;
 
-    if (size.width < 640) {
-      camera.position.set(0, -12, 95);
-      camera.fov = 40;
-    } else if (size.width < 1024) {
-      camera.position.set(0, -14, 85);
-      camera.fov = 37;
-    } else {
-      camera.position.set(0, -15, 80);
-      camera.fov = 35;
-    }
+    // 1. Determine base settings
+    const isMobile = size.width < 640;
+    const isTablet = size.width < 1024 && size.width >= 640;
 
+    // 2. Adjust Z and Y positions per device class
+    // z/y are set per device class and aspect only affects FOV
+    const aspect = size.width / size.height;
+    const zPos = isMobile ? 120 : isTablet ? 110 : 100;
+    const yPos = isMobile ? -12 : isTablet ? -14 : -15;
+
+    camera.position.set(0, yPos, zPos);
+
+    // 3. Dynamic FOV Adjustment
+    // This is a trick to keep the vertical or horizontal scale consistent
+    const baseFov = 35;
+    const maxFov = 50;
+    let computedFov = baseFov;
+    if (aspect < 1) {
+      // For portrait mode, increase FOV so the scene doesn't feel "zoomed in"
+      computedFov = baseFov + (1 - aspect) * 20;
+    }
+    camera.fov = Math.min(Math.max(computedFov, baseFov), maxFov);
     camera.updateProjectionMatrix();
   }, [size, camera]);
 
@@ -339,27 +350,25 @@ export default function NetworkCanvas() {
   }, []);
 
   return (
-    <div className="h-full w-full rounded-xl border border-slate-100 bg-[#f8fafc]">
-      <Canvas
-        dpr={dpr}
-        gl={{ antialias: true, powerPreference: "high-performance" }}
-      >
-        <ResponsiveCamera />
+    <Canvas
+      dpr={dpr}
+      gl={{ antialias: true, powerPreference: "high-performance" }}
+    >
+      <ResponsiveCamera />
 
-        <ambientLight intensity={0.8} />
-        <pointLight position={[10, 10, 30]} intensity={1} color="#6366f1" />
+      <ambientLight intensity={0.8} />
+      <pointLight position={[10, 10, 30]} intensity={1} color="#6366f1" />
 
-        <GlobalTrafficMap />
+      <GlobalTrafficMap />
 
-        <Environment preset="city" />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          rotateSpeed={0.6}
-          maxPolarAngle={Math.PI / 2.2}
-          minPolarAngle={Math.PI / 3.2}
-        />
-      </Canvas>
-    </div>
+      <Environment preset="city" />
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        rotateSpeed={0.6}
+        maxPolarAngle={Math.PI / 2.2}
+        minPolarAngle={Math.PI / 3.2}
+      />
+    </Canvas>
   );
 }
