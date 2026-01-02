@@ -29,11 +29,10 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import {
-  Truck,
   CheckCircle,
   ExternalLink,
   CalendarIcon,
-  UserRoundPenIcon,
+  TruckIcon
 } from "lucide-react";
 import { CustomPhoneInput } from "@/components/custom/custom-phone-input";
 import {
@@ -356,10 +355,9 @@ export function DriverApplicationModal() {
       <DialogTrigger asChild>
         <Button
           size="sm"
-          variant="outline"
-          // className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+          variant="secondary"
         >
-          <UserRoundPenIcon className="mr-1" size={20} />
+          <TruckIcon className="mr-1 w-3 h-3" />
           Driver Application
         </Button>
       </DialogTrigger>
@@ -414,8 +412,8 @@ export function DriverApplicationModal() {
                       className={cn(
                         "text-sm capitalize sm:text-base",
                         (touched.firstName || attemptedSubmit) &&
-                          errors.firstName &&
-                          "border-red-500",
+                        errors.firstName &&
+                        "border-red-500",
                       )}
                       maxLength={50}
                       placeholder="John"
@@ -451,8 +449,8 @@ export function DriverApplicationModal() {
                       className={cn(
                         "text-sm capitalize sm:text-base",
                         (touched.lastName || attemptedSubmit) &&
-                          errors.lastName &&
-                          "border-red-500",
+                        errors.lastName &&
+                        "border-red-500",
                       )}
                       maxLength={50}
                       placeholder="Smith"
@@ -484,8 +482,8 @@ export function DriverApplicationModal() {
                       className={cn(
                         "text-sm sm:text-base",
                         (touched.email || attemptedSubmit) &&
-                          errors.email &&
-                          "border-red-500",
+                        errors.email &&
+                        "border-red-500",
                       )}
                       placeholder="example@email.com"
                       maxLength={100}
@@ -548,8 +546,8 @@ export function DriverApplicationModal() {
                       className={cn(
                         "text-sm sm:text-base",
                         (touched.cdl || attemptedSubmit) &&
-                          errors.cdl &&
-                          "border-red-500",
+                        errors.cdl &&
+                        "border-red-500",
                       )}
                       placeholder="A1234567"
                       maxLength={10}
@@ -580,8 +578,8 @@ export function DriverApplicationModal() {
                       className={cn(
                         "text-sm sm:text-base",
                         (touched.experience || attemptedSubmit) &&
-                          errors.experience &&
-                          "border-red-500",
+                        errors.experience &&
+                        "border-red-500",
                       )}
                       placeholder="5"
                       maxLength={2}
@@ -674,8 +672,8 @@ export function DriverApplicationModal() {
                             "w-full justify-start text-left text-xs font-normal sm:text-sm",
                             !formData.startDate && "text-muted-foreground",
                             (touched.startDate || attemptedSubmit) &&
-                              errors.startDate &&
-                              "border-red-500",
+                            errors.startDate &&
+                            "border-red-500",
                           )}
                         >
                           <CalendarIcon className="mr-2 h-3 w-3 shrink-0 sm:h-4 sm:w-4" />
@@ -746,8 +744,8 @@ export function DriverApplicationModal() {
                         className={cn(
                           "text-xs sm:text-sm",
                           (touched.hearAbout || attemptedSubmit) &&
-                            errors.hearAbout &&
-                            "border-red-500",
+                          errors.hearAbout &&
+                          "border-red-500",
                         )}
                       >
                         <SelectValue placeholder="Select an option" />
@@ -801,7 +799,7 @@ export function DriverApplicationModal() {
                 className={cn(
                   "bg-accent hover:bg-accent/90 text-accent-foreground w-full text-sm font-semibold sm:text-base",
                 )}
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 Submit Application
               </Button>

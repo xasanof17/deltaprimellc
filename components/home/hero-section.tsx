@@ -8,13 +8,13 @@ import { motion, type Variants } from "framer-motion";
 
 // Fade-up with custom delay
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: (custom: number = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
       delay: custom,
-      duration: 0.6,
+      duration: 0.3,
       ease: "easeOut",
     },
   }),
@@ -57,11 +57,8 @@ const HeroSection = () => {
       </motion.div>
 
       {/* Main Content */}
-      <motion.div
-        className="/* FIX: Extra breathing room for mobile */ /* FIX: Controls spacing tightly */ relative z-10 container mx-auto flex min-h-[75vh] flex-col justify-end px-4 pb-5 text-center sm:px-6 md:pb-20 lg:px-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+      <div
+        className="relative z-10 container mx-auto flex min-h-[75vh] flex-col justify-end px-4 pb-5 text-center sm:px-6 md:pb-20 lg:px-8"
       >
         {/* Title */}
         <motion.h1
@@ -140,7 +137,7 @@ const HeroSection = () => {
             </Button>
           </Link>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 };

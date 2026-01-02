@@ -60,12 +60,9 @@ export function Header() {
 
   /* ─────────────────────────────── FIX: instant scroll detection ─────────────────────────────── */
   useEffect(() => {
-    // prevents flicker or delayed logo switching
-    setIsScrolled(window.scrollY > 10);
-
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    handleScroll(); // Initial check
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -100,10 +97,7 @@ export function Header() {
       <InfiniteBanner />
 
       {/* Navbar */}
-      <motion.header
-        variants={navLoad}
-        initial="hidden"
-        animate="visible"
+      <header
         className={cn(
           "fixed top-[35px] right-0 left-0 z-50 backdrop-blur-xs transition-all duration-300",
           hasBackground
@@ -195,7 +189,7 @@ export function Header() {
             )}
           </AnimatePresence>
         </nav>
-      </motion.header>
+      </header>
     </>
   );
 }
